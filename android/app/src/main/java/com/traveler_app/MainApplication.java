@@ -3,6 +3,7 @@ package com.traveler_app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.amazonaws.RNAWSCognitoPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -37,6 +38,7 @@ public class MainApplication extends NavigationApplication {
         // Add additional packages you require here
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
+            new RNAWSCognitoPackage() // needed for cognito
             // eg. new VectorIconsPackage()
         );
     }

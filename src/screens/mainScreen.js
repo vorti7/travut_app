@@ -1,0 +1,48 @@
+import React from 'react';
+import {View, Text, TextInput, Button, Alert} from 'react-native';
+
+// import AuthClass from '../lib/auth'
+import {Navigator, ScreenConst} from '../navigation'
+
+export default class LoginScreen extends React.Component{
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+      };
+    }
+    
+    onClick1(){
+        console.log('onClick1 button clicked')
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_SEARCH)
+    }
+    onClick2(){
+        console.log('onClick2 button clicked')
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MAKETRIP_INTRO)
+    }
+    onClick3(){
+        console.log('onClick3 button clicked')
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST)   
+    }
+    
+    render(){
+        console.log('mainScreen called')
+        return(
+            <View>
+                <Button
+                    onPress={this.onClick1.bind(this)}
+                    title = "Location Search"
+                />
+                <Button
+                    onPress={this.onClick2.bind(this)}
+                    title = "Make Trip"
+                />
+                <Button
+                    onPress={this.onClick3.bind(this)}
+                    title = "My Trip List"
+                />
+            </View>
+        )
+    }
+}

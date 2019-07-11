@@ -1,0 +1,16 @@
+projects:
+  travutapp:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/lib/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+        graphQLApiId: bb4hgnsotbcure46zrbiugcgfm
+      endpoints:
+        prod: >-
+          https://kywadtz3dzfojg7dtg2shgajem.appsync-api.ap-northeast-1.amazonaws.com/graphql

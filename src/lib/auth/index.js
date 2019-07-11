@@ -55,16 +55,17 @@ const User = {
     loginTraveler(loginEmail, loginPassword){
         console.log(loginEmail,loginPassword)
         return new Promise(function (resolve, reject){
-            Navigator.showOverlay("spinnerOverlay", ScreenConst.SCREEN_COMMON_LOADING )
+            // Navigator.showOverlay("spinnerOverlay", ScreenConst.SCREEN_COMMON_LOADING )
+            
             Auth.signIn(loginEmail, loginPassword)
                 .then(success => {
                     console.log('\nlogin success\n'+JSON.stringify(success))
-                    Navigator.dismissOverlay("spinnerOverlay")
+                    // Navigator.dismissOverlay("spinnerOverlay")
                     resolve('success')
                 })
                 .catch(err => {
                     console.log('\nlogin failed\n'+JSON.stringify(err))
-                    Navigator.dismissOverlay("spinnerOverlay")
+                    // Navigator.dismissOverlay("spinnerOverlay")
                     reject(err.message)
                 });
         })

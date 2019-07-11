@@ -5,7 +5,7 @@ import { Navigator, ScreenConst } from '../navigation'
 export default class IntroScreen extends React.Component{
 
     render(){
-        console.log('IntroScreen called')
+        console.log('introScreen called')
 
         // Navigation.mergeOptions(this.props.componentId, {
         //     topBar: { // disable topbar
