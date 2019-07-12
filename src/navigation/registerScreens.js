@@ -16,4 +16,6 @@ export default function registerScreens(WithProvider) {
   Navigation.registerComponent(Const.SCREEN_MYTRIP_LIST, () => WithProvider(Screens.MytriplistScreen))
 
   Navigation.registerComponent(Const.SCREEN_COMMON_LOADING, () => WithProvider(Screens.loadingScreen));
+  
+  Navigation.registerComponent(Const.SCREEN_COMMON_OVERLAY, () => WithProvider(Screens.overlayScreen))
 }

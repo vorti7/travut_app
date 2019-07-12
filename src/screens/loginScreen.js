@@ -1,7 +1,9 @@
 import React from 'react';
-import {View, Text, TextInput, Button, Alert} from 'react-native';
+import {View, Alert} from 'react-native';
 import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
+
+import { Input, Button } from 'react-native-elements'
 
 export default class LoginScreen extends React.Component{
 
@@ -31,32 +33,36 @@ export default class LoginScreen extends React.Component{
     render(){
         console.log('loginScreen called')
         return(
-            <View>
-                <View>
-                    <TextInput
-                        placeholder="Email"
-                        keyboardType="email-address"
-                        underlineColorAndroid='transparent'
-                        onChangeText={(email) => this.setState({emailState: email})}/>
+            <View style={{flex: 1}}>
+                <View style={{flex: 1,
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                              alignItems: 'center'}}>
+                    <View style={{width:"80%"}}>
+                        <Input
+                            placeholder="Email"
+                            keyboardType="email-address"
+                            underlineColorAndroid='transparent'
+                            onChangeText={(email) => this.setState({emailState: email})}/>
+                        <Input
+                            placeholder="Password"
+                            secureTextEntry={true}
+                            underlineColorAndroid='transparent'
+                            onChangeText={(password) => this.setState({passwordState: password})}/>
+                    </View>
+                    <View style={{width:"50%", top:"3%"}}>
+                        <Button
+                            onPress={this.loginButtonClicked.bind(this)}
+                            title="Login"
+                            type="clear"
+                        />
+                        <Button
+                            onPress={this.signupClicked.bind(this)}
+                            title="Sign up"
+                            type="clear"
+                        />
+                    </View>
                 </View>
-        
-                <View>
-                    <TextInput
-                        placeholder="Password"
-                        secureTextEntry={true}
-                        underlineColorAndroid='transparent'
-                        onChangeText={(password) => this.setState({passwordState: password})}/>
-                </View>
-                <Button
-                    onPress={this.loginButtonClicked.bind(this)}
-                    title="Login"
-                    color="#999999"
-                />
-                <Button
-                    onPress={this.signupClicked.bind(this)}
-                    title="Sign up"
-                    color="#999999"
-                />
             </View>
         )
     }

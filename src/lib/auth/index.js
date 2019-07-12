@@ -71,11 +71,12 @@ const User = {
         })
     },
 
-    logoutTraveler(){
+    logoutTraveler(cmpId){
         return new Promise(function (resolve, reject){
             Auth.signOut()
                 .then(success => {
                     resolve(success)
+                    Navigator.setRootScreen(cmpId,ScreenConst.SCREEN_USER_LOGIN)
                 })
                 .catch(err => {
                     reject(err.message)

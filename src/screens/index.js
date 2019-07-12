@@ -11,3 +11,5 @@ export { default as MaketripScreen } from './maketripScreen'
 export { default as MytriplistScreen } from './mytriplistScreen'
 
 export { default as loadingScreen } from './common/loadingScreen'
+
+export { default as overlayScreen } from './common/baseOverlayScreen'

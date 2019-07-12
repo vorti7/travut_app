@@ -1,8 +1,10 @@
 import React from 'react';
-import {View, Text, TextInput, Button, Alert} from 'react-native';
+import {View, Text, TextInput, Alert} from 'react-native';
 
-// import AuthClass from '../lib/auth'
+import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
+
+import { Button } from 'react-native-elements'
 
 export default class LoginScreen extends React.Component{
 
@@ -25,7 +27,16 @@ export default class LoginScreen extends React.Component{
         console.log('onClick3 button clicked')
         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST)   
     }
+    onClick4(){
+        console.log('onClick4 button clicked')
+        Navigator.showOverlay("overlay",  ScreenConst.SCREEN_COMMON_OVERLAY)
+    }
     
+
+    logout(){
+        AuthClass.logoutTraveler(this.props.componentId)
+    }
+
     render(){
         console.log('mainScreen called')
         return(
@@ -41,6 +52,16 @@ export default class LoginScreen extends React.Component{
                 <Button
                     onPress={this.onClick3.bind(this)}
                     title = "My Trip List"
+                />
+                <Button
+                    onPress={this.onClick4.bind(this)}
+                    title = "Overlay"
+                />
+
+
+                <Button
+                    onPress={this.logout.bind(this)}
+                    title="Log out"
                 />
             </View>
         )
