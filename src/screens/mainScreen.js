@@ -4,9 +4,9 @@ import {View, Text, TextInput, Alert} from 'react-native';
 import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
-import { Button } from 'react-native-elements'
+import { Button, Header } from 'react-native-elements'
 
-export default class LoginScreen extends React.Component{
+export default class MainScreen extends React.Component{
 
     constructor(props) {
         super(props);
@@ -41,25 +41,31 @@ export default class LoginScreen extends React.Component{
         console.log('mainScreen called')
         return(
             <View>
+                <Header containerStyle={{backgroundColor:'white'}}></Header>
                 <Button
+                    type="clear"
                     onPress={this.onClick1.bind(this)}
                     title = "Location Search"
                 />
                 <Button
+                    type="clear"
                     onPress={this.onClick2.bind(this)}
                     title = "Make Trip"
                 />
                 <Button
+                    type="clear"
                     onPress={this.onClick3.bind(this)}
                     title = "My Trip List"
                 />
                 <Button
+                    type="clear"
                     onPress={this.onClick4.bind(this)}
                     title = "Overlay"
                 />
 
 
                 <Button
+                    type="clear"
                     onPress={this.logout.bind(this)}
                     title="Log out"
                 />

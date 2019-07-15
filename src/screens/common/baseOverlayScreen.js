@@ -9,13 +9,11 @@ export default class baseOverlayScreen extends React.Component{
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: 'black',
-                opacity: 0.5}}>
+                backgroundColor: 'rgb(0,0,0,0.6)'}}>
                 <View style={{
                     backgroundColor: 'white',
                     width:'80%',
-                    height:'80%',
-                    opacity: 1.0
+                    height:'80%'
                 }}>
 
                 </View>

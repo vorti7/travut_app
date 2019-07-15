@@ -1,7 +1,9 @@
-import * as animations from './animations';
+// import * as animations from './animations';
 
 export {
-  animations
+  // animations
 }
 
-export { default as loadingOverlayComponent } from './loadingOverlay'
+export { default as TvlrFormComponent } from './tvlrForm'
+export { default as LoginFormComponent } from './loginForm'
+export { default as SignupFormComponent } from './signupForm'

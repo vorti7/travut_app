@@ -1,9 +1,11 @@
 import React from 'react';
-import {View, Alert} from 'react-native';
+import {View, Alert, Text} from 'react-native';
 import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
-import { Input, Button } from 'react-native-elements'
+import { TvlrFormComponent } from '../components'
+
+import { Button, Overlay } from 'react-native-elements'
 
 export default class LoginScreen extends React.Component{
 
@@ -11,56 +13,69 @@ export default class LoginScreen extends React.Component{
         super(props);
 
         this.state = {
-          emailState : '',
-          passwordState : ''
-      };
+            isVisible : false,
+            // pageTrigger : true,
+
+            loginEmailState : '',
+            loginPasswordState : '',
+
+
+            emailState : '',
+            passwordState : '',
+            passwordCheckState: '',
+            nameState:'',
+  
+            firstName:'',
+            lastName:'',
+  
+            nickName: '',
+            gender: '',
+            birthday: '',
+            photoURL: '',
+            phone: '',
+            languages: '',
+        };
     }
     
-    loginButtonClicked(){
-        console.log('Login button clicked')
-        AuthClass.loginTraveler(this.state.emailState, this.state.passwordState)
-            .then(success => {
-                Alert.alert(success)
-                Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME)
-            })
-            .catch(err => Alert.alert(err))
-    }
-    signupClicked(){
-        console.log('Sign up button clicked')
-        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_USER_SIGNUP)
+    emailLoginClicked(){
+        Navigator.showOverlay("loginOverlay",  ScreenConst.SCREEN_USER_EMAILLOGIN)
     }
     
     render(){
         console.log('loginScreen called')
         return(
             <View style={{flex: 1}}>
+            
+                <Overlay
+                    isVisible={this.state.isVisible}
+                    onBackdropPress={() => this.setState({ isVisible: false })}
+                    windowBackgroundColor="rgba(0, 0, 0, 0.5)"
+                    overlayBackgroundColor="white"
+                    width="80%"
+                    height="80%"
+                >
+                    <TvlrFormComponent componentId={this.props.componentId}></TvlrFormComponent>
+                </Overlay>
+
                 <View style={{flex: 1,
                               flexDirection: 'column',
                               justifyContent: 'center',
                               alignItems: 'center'}}>
-                    <View style={{width:"80%"}}>
-                        <Input
-                            placeholder="Email"
-                            keyboardType="email-address"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(email) => this.setState({emailState: email})}/>
-                        <Input
-                            placeholder="Password"
-                            secureTextEntry={true}
-                            underlineColorAndroid='transparent'
-                            onChangeText={(password) => this.setState({passwordState: password})}/>
-                    </View>
-                    <View style={{width:"50%", top:"3%"}}>
-                        <Button
-                            onPress={this.loginButtonClicked.bind(this)}
-                            title="Login"
-                            type="clear"
-                        />
-                        <Button
-                            onPress={this.signupClicked.bind(this)}
-                            title="Sign up"
-                            type="clear"
-                        />
+                    <View>
+                        
+                        <View style={{width:"50%"}}>
+                            <Button
+                                // onPress={this.emailLoginClicked.bind(this)}
+                                onPress={() => this.setState({ isVisible: true })}
+                                title="Email Login"
+                            />
+                            <Button
+                                title="Google Login"
+                            />
+                            <Button
+                                title="Facebook Login"
+                            />
+                        </View>
                     </View>
                 </View>
             </View>

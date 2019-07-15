@@ -15,5 +15,22 @@
                 "cognito87622034": {}
             }
         }
+    },
+    "tvtvlrapp": {
+        "awscloudformation": {
+            "AuthRoleName": "travutapp-20190715130659-authRole",
+            "UnauthRoleArn": "arn:aws:iam::035764117684:role/travutapp-20190715130659-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::035764117684:role/travutapp-20190715130659-authRole",
+            "Region": "ap-northeast-2",
+            "DeploymentBucketName": "travutapp-20190715130659-deployment",
+            "UnauthRoleName": "travutapp-20190715130659-unauthRole",
+            "StackName": "travutapp-20190715130659",
+            "StackId": "arn:aws:cloudformation:ap-northeast-2:035764117684:stack/travutapp-20190715130659/fe59cc20-a6b5-11e9-b390-02be54028522"
+        },
+        "categories": {
+            "auth": {
+                "cognito87622034": {}
+            }
+        }
     }
 }

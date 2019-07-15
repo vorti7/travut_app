@@ -5,6 +5,8 @@ export const SCREEN_START_INTRO = 'travut.screen.start.intro';     // 인트로 
 export const SCREEN_USER_LOGIN  = 'travut.screen.user.login';      // 사용자 로그인
 export const SCREEN_USER_SIGNUP = 'travut.screen.user.signup';     // 사용자 등록
 
+export const SCREEN_USER_EMAILLOGIN = 'travut.screen.user.emaillogin';
+
 export const SCREEN_INDEX_HOME = 'travut.screen.index.home';     //  홈 스크린
 
 export const SCREEN_LOCATION_SEARCH = 'travut.screen.location.search'   //  여행지역 검색 스크린

@@ -4,7 +4,7 @@ import {View, Text, TextInput, Button, Alert} from 'react-native';
 // import AuthClass from '../lib/auth'
 // import {Navigator, ScreenConst} from '../navigation'
 
-export default class LoginScreen extends React.Component{
+export default class MytriplistScreen extends React.Component{
 
     constructor(props) {
         super(props);

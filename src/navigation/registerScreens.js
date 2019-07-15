@@ -9,6 +9,8 @@ export default function registerScreens(WithProvider) {
   Navigation.registerComponent(Const.SCREEN_USER_SIGNUP, () => WithProvider(Screens.SignupScreen));
   Navigation.registerComponent(Const.SCREEN_INDEX_HOME, () => WithProvider(Screens.MainScreen));
 
+  Navigation.registerComponent(Const.SCREEN_USER_EMAILLOGIN, () => WithProvider(Screens.LoginoverlayScreen))
+
   Navigation.registerComponent(Const.SCREEN_LOCATION_SEARCH, () => WithProvider(Screens.LocationsearchScreen))
 
   Navigation.registerComponent(Const.SCREEN_MAKETRIP_INTRO, () => WithProvider(Screens.MaketripScreen))

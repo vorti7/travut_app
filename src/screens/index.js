@@ -2,6 +2,8 @@ export { default as IntroScreen } from './introScreen'
 export { default as LoginScreen } from './loginScreen'
 export { default as SignupScreen } from './signupScreen'
 
+export { default as LoginoverlayScreen } from './common/loginoverlayScreen'
+
 export { default as MainScreen } from './mainScreen'
 
 export { default as LocationsearchScreen } from './locationSearchScreen'
