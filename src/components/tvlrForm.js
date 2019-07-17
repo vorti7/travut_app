@@ -8,24 +8,20 @@ import { Input, Button, Text } from 'react-native-elements'
 export default class TvlrFormComponent extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {
-            pageTrigger : true
-        }
     }
+
     loginButtonClicked(){
         console.log('Login button clicked')
         AuthClass.loginTraveler(this.state.emailState, this.state.passwordState)
             .then(success => {
                 Alert.alert(success)
-                // Navigator.dismissOverlay("loginOverlay")
-                Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME)
+                this.props.goMainScreen()
             })
             .catch(err => Alert.alert(err))
     }
     goSignupClicked(){
         console.log('Go sign up button clicked')
-        this.setState({pageTrigger : false})
-        // Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_USER_SIGNUP)
+        this.props.overlaySignup()
     }
 
     signupClicked(){
@@ -46,7 +42,34 @@ export default class TvlrFormComponent extends React.Component{
             .then(success => {
                 Alert.alert(success)
                 // AuthClass.loginTraveler
-                Navigator.popScreen(this.props.componentId)
+                // Navigator.popScreen(this.props.componentId)
+                this.props.overlayLogin()
+            })
+            .catch(err => Alert.alert(err))
+
+        }
+    }
+
+    signupClicked_us(){
+        console.log('Sign up button clicked')
+        if(this.state.passwordState != this.state.passwordCheckState){
+            Alert.alert("Password does not match.")
+        }else{
+            console.log("Attempt Signup")
+            const signupForm = {
+                username: this.state.emailState,
+                password: this.state.passwordState,
+                attributes: {
+                  name: this.state.nameState,
+                }
+            }
+            
+            AuthClass.signupTraveler_us(signupForm)
+            .then(success => {
+                Alert.alert(success)
+                // AuthClass.loginTraveler
+                // Navigator.popScreen(this.props.componentId)
+                this.props.overlayLogin()
             })
             .catch(err => Alert.alert(err))
 
@@ -54,7 +77,7 @@ export default class TvlrFormComponent extends React.Component{
     }
 
     render(){
-        if(this.state.pageTrigger){
+        if(this.props.overlayTrigger){
             return(
                 <View style={{flex: 1,
                     flexDirection: 'column',

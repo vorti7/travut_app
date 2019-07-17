@@ -7,9 +7,12 @@ export const SCREEN_USER_SIGNUP = 'travut.screen.user.signup';     // 사용자 
 
 export const SCREEN_USER_EMAILLOGIN = 'travut.screen.user.emaillogin';
 
-export const SCREEN_INDEX_HOME = 'travut.screen.index.home';     //  홈 스크린
+export const SCREEN_INDEX_HOME = 'travut.screen.index.home';     // 홈 스크린
 
-export const SCREEN_LOCATION_SEARCH = 'travut.screen.location.search'   //  여행지역 검색 스크린
+export const SCREEN_LOCATION_SEARCH = 'travut.screen.location.search'   // 여행지역 검색 스크린
+export const SCREEN_LOCATION_INFO = 'travut.screen.location.info' // 여행지역 상세정보 스크린
+export const SCREEN_LOCATION_PROVIDER_LIST = 'travut.screen.location.provider.list'
+export const SCREEN_LOCATION_PROVIDER_INFO = 'travut.screen.location.provider.info'
 
 export const SCREEN_MAKETRIP_INTRO = 'travut.screen.maketrip.intro'
 

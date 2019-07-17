@@ -14,7 +14,10 @@ export default class LoginScreen extends React.Component{
 
         this.state = {
             isVisible : false,
-            // pageTrigger : true,
+            overlayTrigger : true,
+
+            overlayHeight : "80%",
+            overlayWidth : "80%",
 
             loginEmailState : '',
             loginPasswordState : '',
@@ -36,11 +39,28 @@ export default class LoginScreen extends React.Component{
             languages: '',
         };
     }
-    
-    emailLoginClicked(){
-        Navigator.showOverlay("loginOverlay",  ScreenConst.SCREEN_USER_EMAILLOGIN)
+
+    goMainScreen() {
+        Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME)
+    }
+
+    overlayLogin() {
+        this.setState({overlayTrigger: true})
+        this.setState({overlayHeight: "50%"})
+        console.log(this.state.overlayHeight)
+    }
+
+    overlaySignup() {
+        this.setState({overlayTrigger: false})
+        this.setState({overlayHeight: "80%"})
+        console.log(this.state.overlayHeight)
     }
     
+    overlayShow() {
+        this.setState({ isVisible: true });
+        this.overlayLogin();
+    }
+
     render(){
         console.log('loginScreen called')
         return(
@@ -51,10 +71,15 @@ export default class LoginScreen extends React.Component{
                     onBackdropPress={() => this.setState({ isVisible: false })}
                     windowBackgroundColor="rgba(0, 0, 0, 0.5)"
                     overlayBackgroundColor="white"
-                    width="80%"
-                    height="80%"
+                    width={this.state.overlayWidth}
+                    height={this.state.overlayHeight}
                 >
-                    <TvlrFormComponent componentId={this.props.componentId}></TvlrFormComponent>
+                    <TvlrFormComponent
+                        overlayTrigger={this.state.overlayTrigger}
+                        overlayLogin={this.overlayLogin.bind(this)}
+                        overlaySignup={this.overlaySignup.bind(this)}
+                        goMainScreen={this.goMainScreen.bind(this)}>
+                    </TvlrFormComponent>
                 </Overlay>
 
                 <View style={{flex: 1,
@@ -65,8 +90,7 @@ export default class LoginScreen extends React.Component{
                         
                         <View style={{width:"50%"}}>
                             <Button
-                                // onPress={this.emailLoginClicked.bind(this)}
-                                onPress={() => this.setState({ isVisible: true })}
+                                onPress={this.overlayShow.bind(this)}
                                 title="Email Login"
                             />
                             <Button

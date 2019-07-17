@@ -7,6 +7,9 @@ export { default as LoginoverlayScreen } from './common/loginoverlayScreen'
 export { default as MainScreen } from './mainScreen'
 
 export { default as LocationsearchScreen } from './locationSearchScreen'
+export { default as LocationinfoScreen } from './locationInfoScreen'
+export { default as ProviderlistScreen } from './providerListScreen'
+export { default as ProviderinfoScreen } from './providerInfoScreen'
 
 export { default as MaketripScreen } from './maketripScreen'
 
