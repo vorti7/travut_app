@@ -107,32 +107,43 @@ export default class TvlrFormComponent extends React.Component{
             )
         }else{
             return(
-                <ScrollView>
-                    <Text h1>Signup Page</Text>
-                    <View style={{width:"80%", bottom:"3%"}}>
-                        <Input
-                            placeholder="Email"
-                            keyboardType="email-address"
-                            underlineColorAndroid='transparent'
-                            textContentType='emailAddress'
-                            onChangeText={(email) => this.setState({emailState: email})}/>
-                        <Input
-                            placeholder="Password"
-                            secureTextEntry={true}
-                            underlineColorAndroid='transparent'
-                            onChangeText={(password) => this.setState({passwordState: password})}/>
-                        <Input
-                            placeholder="Password again"
-                            secureTextEntry={true}
-                            underlineColorAndroid='transparent'
-                            onChangeText={(passwordchk) => this.setState({passwordCheckState:passwordchk})}/>
-                        <Input
-                            placeholder="Name"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(name) => this.setState({nameState: name})}/>
+                <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                    <View style={{width:"80%"}}>
+                        <View style={{width:"100%", marginTop:'5%', marginBottom:'5%', borderRadius: 10, backgroundColor:'#EBE8FA'}}>
+                            <Input
+                                shake={true}
+                                placeholder="Enter your full name"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(name) => this.setState({nameState: name})}/>
+                        </View>
+                        <View style={{width:"100%", marginTop:'5%', marginBottom:'5%', borderRadius: 10, backgroundColor:'#EBE8FA'}}>
+                            <Input
+                                shake={true}
+                                placeholder="Enter your e-mail"
+                                keyboardType="email-address"
+                                underlineColorAndroid='transparent'
+                                textContentType='emailAddress'
+                                onChangeText={(email) => this.setState({emailState: email})}/>
+                        </View>
+                        <View style={{width:"100%", marginTop:'5%', marginBottom:'5%', borderRadius: 10, backgroundColor:'#EBE8FA'}}>
+                            <Input
+                                shake={true}
+                                placeholder="Create your password"
+                                secureTextEntry={true}
+                                underlineColorAndroid='transparent'
+                                onChangeText={(password) => this.setState({passwordState: password})}/>
+                        </View>
+                        <View style={{width:"100%",marginTop:'5%', marginBottom:'5%', borderRadius: 10, backgroundColor:'#EBE8FA'}}>
+                            <Input
+                                shake={true}
+                                placeholder="Repeat your password"
+                                secureTextEntry={true}
+                                underlineColorAndroid='transparent'
+                                onChangeText={(passwordchk) => this.setState({passwordCheckState:passwordchk})}/>
+                        </View>
                     </View>
     
-                    <View style={{width:"80%", bottom:"3%"}}>
+                    {/* <View style={{width:"80%", bottom:"3%"}}>
                         <Input
                             placeholder="firstName"
                             underlineColorAndroid='transparent'
@@ -168,13 +179,17 @@ export default class TvlrFormComponent extends React.Component{
                             placeholder="languages"
                             underlineColorAndroid='transparent'
                             onChangeText={(language) => this.setState({nameState: language})}/>
+                    </View> */}
+                    <View style={{width:"90%",marginTop:'5%', marginBottom:'5%', alignItems:'center'}}>
+                        <Button
+                            containerStyle={{width:'50%'}}
+                            buttonStyle={{backgroundColor:'#4535AA'}}
+                            titleStyle={{fontSize:22}}
+                            onPress={this.signupClicked.bind(this)}
+                            title="Sign up"
+                        />
                     </View>
-    
-                    <Button
-                        onPress={this.signupClicked.bind(this)}
-                        title="Sign up"
-                    />
-                </ScrollView>
+                </View>
             )
         }
         

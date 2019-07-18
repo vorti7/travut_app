@@ -28,15 +28,15 @@ export default class LoginScreen extends React.Component{
             passwordCheckState: '',
             nameState:'',
   
-            firstName:'',
-            lastName:'',
+            // firstName:'',
+            // lastName:'',
   
-            nickName: '',
-            gender: '',
-            birthday: '',
-            photoURL: '',
-            phone: '',
-            languages: '',
+            // nickName: '',
+            // gender: '',
+            // birthday: '',
+            // photoURL: '',
+            // phone: '',
+            // languages: '',
         };
     }
 
@@ -67,6 +67,7 @@ export default class LoginScreen extends React.Component{
             <View style={{flex: 1}}>
             
                 <Overlay
+                    borderRadius={10}
                     isVisible={this.state.isVisible}
                     onBackdropPress={() => this.setState({ isVisible: false })}
                     windowBackgroundColor="rgba(0, 0, 0, 0.5)"

@@ -206,7 +206,7 @@ const AnswerType02 = (props) => {
     console.log('AnswerType02 showed')
     return(
         <View style={{width:'100%', height:100}}>
-            <Text>This is type 01</Text>
+            <Text>This is type 02</Text>
         </View>
     )
 }
@@ -214,7 +214,7 @@ const AnswerType03 = (props) => {
     console.log('AnswerType03 showed')
     return(
         <View style={{width:'100%', height:100}}>
-            <Text>This is type 01</Text>
+            <Text>This is type 03</Text>
         </View>
     )
 }
