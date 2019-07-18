@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Dimensions, Image } from 'react-native';
+import { View, ScrollView, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { Header, Card, Input, Text } from 'react-native-elements'
 import { Icon } from 'react-native-eva-icons';
 
@@ -17,6 +17,9 @@ export default class ProviderListScreen extends React.Component{
         };
     }
 
+    goProviderInfo(){
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_PROVIDER_INFO)
+    }
 
     render(){
 
@@ -40,15 +43,20 @@ export default class ProviderListScreen extends React.Component{
 }
 
 const ProviderCard = (props) => {
-    let cardHeight = props.screenHeight/3
+    let cardHeight = props.screenHeight/4
     return(
-        <View style={{margin:'1%', padding:'1%', alignItems: 'center', borderStyle:'solid', borderWidth:1}}>
+        // <View style={{margin:'1%', padding:'1%', alignItems: 'center', borderStyle:'solid', borderWidth:1}}>
+        <Card style={{alignItems: 'center'}}>
             <View style={{width:"100%", alignItems: 'center'}}>
-                <Image
-                    style={{width:"100%", height:cardHeight}}
-                    resizeMode="cover"
-                    source={require('../assets/images/test/profile_test01.jpeg')}
-                />
+                <TouchableOpacity
+                    onPress={this.goProviderInfo.bind(this)}
+                >
+                    <Image
+                        style={{width:"100%", height:cardHeight}}
+                        resizeMode="cover"
+                        source={require('../assets/images/test/profile_test01.jpeg')}
+                    />
+                </TouchableOpacity>
                 <View style={{position:'absolute', top:0, flexDirection:'row'}}>
                     <View style={{flex:1}}>
                         <Icon name='star-outline' fill='white' width={48} height={48}/>
@@ -76,6 +84,7 @@ const ProviderCard = (props) => {
                     <Text>Rating</Text>
                 </View>
             </View>
-        </View>
+        </Card>
+        // </View>
     )
 }
