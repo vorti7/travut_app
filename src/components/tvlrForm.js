@@ -3,16 +3,29 @@ import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
 import { View, Alert, ScrollView } from 'react-native';
-import { Input, Button, Text } from 'react-native-elements'
+import { Input, Button, Text, CheckBox } from 'react-native-elements'
+import { Icon } from 'react-native-eva-icons';
 
 export default class TvlrFormComponent extends React.Component{
     constructor(props) {
         super(props);
+        this.state = {
+            confirmCheck: false,
+
+            loginEmailState : '',
+            loginPasswordState : '',
+
+
+            emailState : '',
+            passwordState : '',
+            passwordCheckState: '',
+            nameState:'',
+        }
     }
 
     loginButtonClicked(){
         console.log('Login button clicked')
-        AuthClass.loginTraveler(this.state.emailState, this.state.passwordState)
+        AuthClass.loginTraveler(this.state.loginEmailState, this.state.loginPasswordState)
             .then(success => {
                 Alert.alert(success)
                 this.props.goMainScreen()
@@ -22,6 +35,10 @@ export default class TvlrFormComponent extends React.Component{
     goSignupClicked(){
         console.log('Go sign up button clicked')
         this.props.overlaySignup()
+    }
+    goLoginClicked(){
+        console.log('Go log in button clicked')
+        this.props.overlayLogin()
     }
 
     signupClicked(){
@@ -38,7 +55,7 @@ export default class TvlrFormComponent extends React.Component{
                 }
             }
             
-            AuthClass.signupTraveler(signupForm)
+            AuthClass.signupTraveler_us(signupForm)
             .then(success => {
                 Alert.alert(success)
                 // AuthClass.loginTraveler
@@ -84,63 +101,113 @@ export default class TvlrFormComponent extends React.Component{
                     justifyContent: 'center',
                     alignItems: 'center'}}>
                     <Input
+                        leftIcon={
+                            <Icon name='email' fill='#AEA9C9' width={30} height={30}/>
+                        }
                         placeholder="Email"
                         keyboardType="email-address"
-                        underlineColorAndroid='transparent'
-                        onChangeText={(email) => this.setState({emailState: email})}/>
+                        containerStyle={{width:'80%', borderRadius: 15, paddingTop:'1%', paddingBottom:'1%', marginTop:'2%', marginBottom:'2%', backgroundColor:'#EBE8FA'}}
+                        inputContainerStyle={{borderBottomWidth:0, backgroundColor:'transparent'}}
+                        onChangeText={(email) => this.setState({loginEmailState: email})}/>
                     <Input
+                        leftIcon={
+                            <Icon name='lock' fill='#AEA9C9' width={30} height={30}/>
+                        }
                         placeholder="Password"
                         secureTextEntry={true}
-                        underlineColorAndroid='transparent'
-                        onChangeText={(password) => this.setState({passwordState: password})}/>
+                        containerStyle={{width:'80%', borderRadius: 15, paddingTop:'1%', paddingBottom:'1%', marginTop:'2%', marginBottom:'2%', backgroundColor:'#EBE8FA'}}
+                        inputContainerStyle={{borderBottomWidth:0, backgroundColor:'transparent'}}
+                        onChangeText={(password) => this.setState({loginPasswordState: password})}/>
                     <Button
                         onPress={this.loginButtonClicked.bind(this)}
                         title="Login"
-                        type="clear"
+                        containerStyle={{width:'80%', marginTop:'2%', marginBottom:'2%'}}
+                        buttonStyle={{backgroundColor:'#4535AA', borderRadius:20}}
+                        titleStyle={{fontSize:22}}
                     />
                     <Button
                         onPress={this.goSignupClicked.bind(this)}
                         title="Sign up"
-                        type="clear"
+                        containerStyle={{width:'80%', marginTop:'2%', marginBottom:'2%'}}
+                        buttonStyle={{backgroundColor:'#4535AA', borderRadius:20}}
+                        titleStyle={{fontSize:22}}
                     />
+                    <View>
+                        <Text style={{color:'#707070', borderBottomWidth:1}}>FORGOT PASSWORD</Text>
+                    </View>
                 </View>
             )
         }else{
             return(
                 <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                     <View style={{width:"80%"}}>
-                        <View style={{width:"100%", marginTop:'5%', marginBottom:'5%', borderRadius: 10, backgroundColor:'#EBE8FA'}}>
+                        <View style={{width:"100%", marginTop:'2%', marginBottom:'2%'}}>
+                            <Text style={{color:'#4535AA'}}>FULL NAME</Text>
                             <Input
-                                shake={true}
                                 placeholder="Enter your full name"
-                                underlineColorAndroid='transparent'
+                                containerStyle={{borderRadius: 10, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
+                                inputContainerStyle={{borderBottomWidth:0, backgroundColor:'transparent'}}
                                 onChangeText={(name) => this.setState({nameState: name})}/>
                         </View>
-                        <View style={{width:"100%", marginTop:'5%', marginBottom:'5%', borderRadius: 10, backgroundColor:'#EBE8FA'}}>
+                        <View style={{width:"100%", marginTop:'2%', marginBottom:'2%'}}>
+                            <Text style={{color:'#4535AA'}}>E-MAIL</Text>
                             <Input
-                                shake={true}
                                 placeholder="Enter your e-mail"
                                 keyboardType="email-address"
-                                underlineColorAndroid='transparent'
+                                containerStyle={{borderRadius: 10, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
+                                inputContainerStyle={{borderBottomWidth:0, backgroundColor:'transparent'}}
                                 textContentType='emailAddress'
                                 onChangeText={(email) => this.setState({emailState: email})}/>
                         </View>
-                        <View style={{width:"100%", marginTop:'5%', marginBottom:'5%', borderRadius: 10, backgroundColor:'#EBE8FA'}}>
+                        <View style={{width:"100%", marginTop:'2%', marginBottom:'2%'}}>
+                            <Text style={{color:'#4535AA'}}>PASSWORD</Text>
                             <Input
-                                shake={true}
                                 placeholder="Create your password"
                                 secureTextEntry={true}
-                                underlineColorAndroid='transparent'
+                                containerStyle={{borderRadius: 10, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
+                                inputContainerStyle={{borderBottomWidth:0, backgroundColor:'transparent'}}
                                 onChangeText={(password) => this.setState({passwordState: password})}/>
                         </View>
-                        <View style={{width:"100%",marginTop:'5%', marginBottom:'5%', borderRadius: 10, backgroundColor:'#EBE8FA'}}>
+                        <View style={{width:"100%",marginTop:'2%', marginBottom:'2%'}}>
+                            <Text style={{color:'#4535AA'}}>CONFIRM PASSWORD</Text>
                             <Input
-                                shake={true}
                                 placeholder="Repeat your password"
                                 secureTextEntry={true}
-                                underlineColorAndroid='transparent'
+                                containerStyle={{borderRadius: 10, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
+                                inputContainerStyle={{borderBottomWidth:0, backgroundColor:'transparent'}}
                                 onChangeText={(passwordchk) => this.setState({passwordCheckState:passwordchk})}/>
                         </View>
+
+                        <View style={{alignItems:'center'}}>
+                            <View style={{flexDirection:'row', alignItems:'center'}}>
+                                <CheckBox checked={this.state.confirmCheck}
+                                        //   containerStyle={{margin:0, backgroundColor:'green'}}
+                                          title='Accept the Terms and Conditions.'
+                                          onPress={() => this.setState({confirmCheck: !this.state.confirmCheck})}
+                                          />
+                                {/* <Text>Accept the Terms and Conditions.</Text> */}
+                            </View>
+                            
+                            <Button
+                                containerStyle={{width:'50%', height:'auto'}}
+                                buttonStyle={{backgroundColor:'#4535AA', borderRadius:10}}
+                                titleStyle={{fontSize:22}}
+                                onPress={this.signupClicked.bind(this)}
+                                title="Sign up"
+                            />
+
+                            <View style={{flexDirection:'row', marginTop:'3%', alignItems:'center'}}>
+                                <Text style={{color:'#4535AA'}}>Already have an account?</Text>
+                                <Button
+                                    titleStyle={{fontSize:15, color:'#4535AA'}}
+                                    onPress={this.goLoginClicked.bind(this)}
+                                    buttonStyle={{borderColor:'#AEA9C9', borderRadius:10}}
+                                    type="outline"
+                                    title="LOGIN"
+                                />
+                            </View>
+                        </View>
+                        
                     </View>
     
                     {/* <View style={{width:"80%", bottom:"3%"}}>
@@ -180,15 +247,13 @@ export default class TvlrFormComponent extends React.Component{
                             underlineColorAndroid='transparent'
                             onChangeText={(language) => this.setState({nameState: language})}/>
                     </View> */}
-                    <View style={{width:"90%",marginTop:'5%', marginBottom:'5%', alignItems:'center'}}>
-                        <Button
-                            containerStyle={{width:'50%'}}
+                    {/* <Button
+                            containerStyle={{width:'50%', height:'auto', top:'5%'}}
                             buttonStyle={{backgroundColor:'#4535AA'}}
                             titleStyle={{fontSize:22}}
                             onPress={this.signupClicked.bind(this)}
                             title="Sign up"
-                        />
-                    </View>
+                    /> */}
                 </View>
             )
         }

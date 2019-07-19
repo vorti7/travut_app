@@ -34,6 +34,7 @@ export default class ProviderListScreen extends React.Component{
                 <ScrollView style={{width:"100%"}}>
                     <ProviderCard
                     screenHeight={screenHeight}
+                    goProviderInfo={this.goProviderInfo.bind(this)}
                     // screenWidth={screenWidth}
                     ></ProviderCard>
                 </ScrollView>
@@ -49,7 +50,8 @@ const ProviderCard = (props) => {
         <Card style={{alignItems: 'center'}}>
             <View style={{width:"100%", alignItems: 'center'}}>
                 <TouchableOpacity
-                    onPress={this.goProviderInfo.bind(this)}
+                    onPress={props.goProviderInfo}
+                    style={{width:'100%', height:cardHeight}}
                 >
                     <Image
                         style={{width:"100%", height:cardHeight}}

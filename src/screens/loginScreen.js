@@ -19,14 +19,14 @@ export default class LoginScreen extends React.Component{
             overlayHeight : "80%",
             overlayWidth : "80%",
 
-            loginEmailState : '',
-            loginPasswordState : '',
+            // loginEmailState : '',
+            // loginPasswordState : '',
 
 
-            emailState : '',
-            passwordState : '',
-            passwordCheckState: '',
-            nameState:'',
+            // emailState : '',
+            // passwordState : '',
+            // passwordCheckState: '',
+            // nameState:'',
   
             // firstName:'',
             // lastName:'',
