@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Alert, Text} from 'react-native';
+import {View, Alert, Text, KeyboardAvoidingView} from 'react-native';
 import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
@@ -40,6 +40,8 @@ export default class LoginScreen extends React.Component{
         };
     }
 
+    
+
     goMainScreen() {
         Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME)
     }
@@ -65,7 +67,6 @@ export default class LoginScreen extends React.Component{
         console.log('loginScreen called')
         return(
             <View style={{flex: 1}}>
-            
                 <Overlay
                     borderRadius={10}
                     isVisible={this.state.isVisible}

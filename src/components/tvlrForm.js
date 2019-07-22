@@ -1,8 +1,9 @@
 import React from 'react';
 import AuthClass from '../lib/auth'
+import { Api } from '../lib/api'
 import {Navigator, ScreenConst} from '../navigation'
 
-import { View, Alert, ScrollView } from 'react-native';
+import { View, Alert, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Input, Button, Text, CheckBox } from 'react-native-elements'
 import { Icon } from 'react-native-eva-icons';
 
@@ -209,51 +210,6 @@ export default class TvlrFormComponent extends React.Component{
                         </View>
                         
                     </View>
-    
-                    {/* <View style={{width:"80%", bottom:"3%"}}>
-                        <Input
-                            placeholder="firstName"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(firstName) => this.setState({nameState: firstName})}/>
-                        <Input
-                            placeholder="lastName"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(lastName) => this.setState({nameState: lastName})}/>
-                    </View>
-    
-                    <View style={{width:"80%", bottom:"3%"}}>
-                        <Input
-                            placeholder="nickName"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(nickName) => this.setState({nameState: nickName})}/>
-                        <Input
-                            placeholder="gender"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(gender) => this.setState({nameState: gender})}/>
-                        <Input
-                            placeholder="birthday"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(birthday) => this.setState({nameState: birthday})}/>
-                        <Input
-                            placeholder="photoURL"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(photoURL) => this.setState({nameState: photoURL})}/>
-                        <Input
-                            placeholder="phone"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(phone) => this.setState({nameState: phone})}/>
-                        <Input
-                            placeholder="languages"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(language) => this.setState({nameState: language})}/>
-                    </View> */}
-                    {/* <Button
-                            containerStyle={{width:'50%', height:'auto', top:'5%'}}
-                            buttonStyle={{backgroundColor:'#4535AA'}}
-                            titleStyle={{fontSize:22}}
-                            onPress={this.signupClicked.bind(this)}
-                            title="Sign up"
-                    /> */}
                 </View>
             )
         }
@@ -261,3 +217,7 @@ export default class TvlrFormComponent extends React.Component{
     }
 }
 
+// export default compose(
+//     Api.Traveler.queries.listTravelers(),
+//     Api.Traveler.mutations.createTraveler()
+// )(TvlrFormComponent)

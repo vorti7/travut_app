@@ -1,5 +1,434 @@
-type Todo @model {
-  id: ID!
-  name: String!
-  description: String
+interface User {
+	typename : String!
+
+	ID : String!
+	SORTKEY : String!
+	locationID : String
+	location: Location
+	email : AWSEmail
+	status : String
+	firstName : String
+	lastName : String
+	nickName : String
+	gender : String
+	birthday : AWSDate
+	phone : AWSPhone
+	languages : [String]
+	photoURL : AWSURL
+	regIP : AWSIPAddress
+	regDate : String
+	updateIP : AWSIPAddress
+	updateDate : String
+	deactivateIP : AWSIPAddress
+	deactivateDate : String
+}
+
+type Traveler implements User {
+	typename : String!
+
+	ID: String!
+	SORTKEY: String!
+	locationID: String
+	location: Location
+	email: AWSEmail
+	status: String
+	firstName: String
+	lastName: String
+	nickName: String
+	gender: String
+	birthday: AWSDate
+	phone: AWSPhone
+	languages: [String]
+	photoURL: AWSURL
+	regIP: AWSIPAddress
+	regDate: String
+	updateIP: AWSIPAddress
+	updateDate: String
+	deactivateIP: AWSIPAddress
+	deactivateDate: String
+}
+
+type Provider implements User {
+	typename : String!
+	ID : String!
+	SORTKEY : String!
+	locationID : String
+	location: Location
+	email : AWSEmail
+	status : String
+	firstName : String
+	lastName : String
+	nickName : String
+	gender : String
+	birthday : AWSDate
+	phone : AWSPhone
+	languages : [String]
+	photoURL : AWSURL
+	regIP : AWSIPAddress
+	regDate : String
+	updateIP : AWSIPAddress
+	updateDate : String
+	deactivateIP : AWSIPAddress
+	deactivateDate : String
+
+
+	type : String
+	companyID : String
+	companyStatus : String
+	campanyInfo :AWSJSON
+	certInfo :AWSJSON
+	welcomeMSG : String
+	serviceList : String
+}
+
+
+type TripRequest {
+	ID : String!
+	SORTKEY : String!
+	locationID : String
+	location: Location
+	tripReqInfo : AWSJSON
+	selectedProviders : Int
+	recipientsID : [String]
+	checkedID : [String]
+	participantsID : [String]
+	refusersID : [String]
+	# recipients : [Provider]
+	# checked : [Provider]
+	# participants : [Provider]
+	# refusers : [Provider]
+	expTime : String
+	regIP : AWSIPAddress
+	regDate : String
+	updateIP : AWSIPAddress
+	updateDate : String	
+}
+
+type Location {
+	ID : String!
+	SORTKEY : String!
+	region : String
+	locationName : String
+	# mapInfo : AWSJSON
+	# locationInfo : AWSJSON
+	order : String
+}
+
+type Chat {
+	ID : String!
+	SORTKEY : String!
+	name : String
+	
+	usersID : [String]
+	users : [User]
+	# providerID : String
+	# provider : [Provider]
+	# travelersID : [String]
+	# travelers : [Traveler]
+	
+	regIP : AWSIPAddress
+	regDate : String
+	updateIP : AWSIPAddress
+	updateDate : String
+}
+
+type Message {
+	ID : String!
+	SORTKEY : String!
+	userID : String
+	user : User
+	type : String
+	message: String
+	regIP : AWSIPAddress
+	regDate : String
+	updateIP : AWSIPAddress
+	updateDate : String
+}
+
+input CreateTravelerInput {
+	# __typename : String!
+	ID: String!
+	locationID: String
+	# location: CreateLocationInput
+	email: AWSEmail
+	status: String
+	firstName: String
+	lastName: String
+	nickName: String
+	gender: String
+	birthday: AWSDate
+	phone: AWSPhone
+	languages: [String]
+	photoURL: AWSURL
+	regIP: AWSIPAddress
+	# regDate: String
+	# updateIP: AWSIPAddress
+	# updateDate: String
+}
+
+input CreateTripRequestInput {
+	ID : String!
+	locationID : String
+	tripReqInfo : AWSJSON
+	selectedProviders : Int
+	recipientsID : [String]
+	checkedID : [String]
+	participantsID : [String]
+	refusersID : [String]
+	expTime : AWSDateTime
+	regIP : AWSIPAddress
+	# regDate : String
+	# updateIP : AWSIPAddress
+	# updateDate : String
+}
+
+input CreateLocationInput {
+	ID : String!
+	SORTKEY : String!
+	region : String
+	locationName : String
+	# mapInfo : AWSJSON
+	# locationInfo : AWSJSON
+	order : AWSJSON
+}
+
+input CreateChatInput {
+	ID : String!
+	SORTKEY : String!
+	name : String
+	usersID : [String]
+	# users : [User]
+	regIP : AWSIPAddress
+	# regDate : String
+	# updateIP : AWSIPAddress
+	# updateDate : String
+}
+
+input CreateMessageInput {
+	ID : String!
+	userID : String
+	# user : User
+	type : String
+	message: String
+	regIP : AWSIPAddress
+	# regDate : String
+	# updateIP : AWSIPAddress
+	# updateDate : String
+}
+
+
+input UpdateTravelerInput {
+	# __typename : String!
+	ID: String!
+	SORTKEY: String!
+	locationID: String
+	# location: UpdateLocationInput
+	email: AWSEmail
+	status: String
+	firstName: String
+	lastName: String
+	nickName: String
+	gender: String
+	birthday: AWSDate
+	phone: AWSPhone
+	languages: [String]
+	photoURL: AWSURL
+	regIP: AWSIPAddress
+	regDate: String
+	updateIP: AWSIPAddress
+	updateDate: String
+	deactivateIP: AWSIPAddress
+	deactivateDate: String
+}
+
+input UpdateTripRequestInput {
+	ID : String!
+	SORTKEY : String!
+	locationID : String
+	tripReqInfo : AWSJSON
+	selectedProviders : Int
+	recipientsID : [String]
+	checkedID : [String]
+	participantsID : [String]
+	refusersID : [String]
+	expTime : AWSDateTime
+	regIP : AWSIPAddress
+	regDate : String
+	updateIP : AWSIPAddress
+	updateDate : String
+}
+
+input UpdateLocationInput {
+	ID : String!
+	SORTKEY : String!
+	region : String
+	locationName : String
+	# mapInfo : AWSJSON
+	# locationInfo : AWSJSON
+	order : String
+}
+
+input UpdateChatInput {
+	ID : String!
+	SORTKEY : String!
+	name : String
+	# usersID : [String]
+	# users : [User]
+	regIP : AWSIPAddress
+	regDate : String
+	updateIP : AWSIPAddress
+	updateDate : String
+}
+
+input UpdateMessageInput {
+	ID : String!
+	SORTKEY : String!
+	userID : String
+	# user : User
+	type : String
+	message: String
+	regIP : AWSIPAddress
+	regDate : String
+	updateIP : AWSIPAddress
+	updateDate : String
+}
+
+input GetInput {
+	ID: String!
+	SORTKEY: String!
+}
+
+input DeleteTravelerInput {
+	ID: String!
+	SORTKEY: String!
+}
+
+input TableTravelerFilterInput {
+	ID: TableStringFilterInput
+	SORTKEY: TableStringFilterInput
+	locationID: TableStringFilterInput
+	email: TableStringFilterInput
+	status: TableStringFilterInput
+	firstName: TableStringFilterInput
+	lastName: TableStringFilterInput
+	nickName: TableStringFilterInput
+	gender: TableStringFilterInput
+	birthday: TableStringFilterInput
+	phone: TableStringFilterInput
+	languages: TableStringFilterInput
+	photoURL: TableStringFilterInput
+	regIP: TableStringFilterInput
+	regDate: TableStringFilterInput
+}
+
+type TravelerConnection {
+	items: [Traveler]
+	nextToken: String
+}
+
+type Mutation {
+	createTraveler(input: CreateTravelerInput!): Traveler
+	createTripRequest(input: CreateTripRequestInput!): TripRequest
+	createLocation(input: CreateLocationInput!): Location
+	createChat(input: CreateChatInput!): Chat
+	createMessage(input: CreateMessageInput!): Message
+	updateTraveler(input: UpdateTravelerInput!): Traveler
+	updateTripRequest(input: UpdateTripRequestInput!): TripRequest
+	updateLocation(input: UpdateLocationInput!): Location
+	updateChat(input: UpdateChatInput!): Chat
+	updateMessage(input: UpdateMessageInput!): Message
+	deleteTraveler(input: DeleteTravelerInput!): Traveler
+}
+
+type Query {
+	getUser(input: GetInput!): User
+	getTraveler(input: GetInput!): Traveler
+	getTripRequest(input: GetInput!): TripRequest
+	getLocation(input: GetInput!): Location
+	getChat(input: GetInput!): Chat
+	getMessage(input: GetInput!): Message
+
+	listTravelers(filter: TableTravelerFilterInput, limit: Int, nextToken: String): TravelerConnection
+}
+
+type Subscription {
+	onCreateTraveler(
+		ID: String,
+		SORTKEY: String,
+		locationID: String,
+		email: AWSEmail,
+		status: String
+	): Traveler
+		@aws_subscribe(mutations: ["createTraveler"])
+	onUpdateTraveler(
+		ID: String,
+		SORTKEY: String,
+		locationID: String,
+		email: AWSEmail,
+		status: String
+	): Traveler
+		@aws_subscribe(mutations: ["updateTraveler"])
+	onDeleteTraveler(
+		ID: String,
+		SORTKEY: String,
+		locationID: String,
+		email: AWSEmail,
+		status: String
+	): Traveler
+		@aws_subscribe(mutations: ["deleteTraveler"])
+}
+
+input TableBooleanFilterInput {
+	ne: Boolean
+	eq: Boolean
+}
+
+input TableFloatFilterInput {
+	ne: Float
+	eq: Float
+	le: Float
+	lt: Float
+	ge: Float
+	gt: Float
+	contains: Float
+	notContains: Float
+	between: [Float]
+}
+
+input TableIDFilterInput {
+	ne: ID
+	eq: ID
+	le: ID
+	lt: ID
+	ge: ID
+	gt: ID
+	contains: ID
+	notContains: ID
+	between: [ID]
+	beginsWith: ID
+}
+
+input TableIntFilterInput {
+	ne: Int
+	eq: Int
+	le: Int
+	lt: Int
+	ge: Int
+	gt: Int
+	contains: Int
+	notContains: Int
+	between: [Int]
+}
+
+input TableStringFilterInput {
+	ne: String
+	eq: String
+	le: String
+	lt: String
+	ge: String
+	gt: String
+	contains: String
+	notContains: String
+	between: [String]
+	beginsWith: String
 }

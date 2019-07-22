@@ -1,4 +1,10 @@
 {
     "AppSyncApiName": "travutapp",
-    "DynamoDBBillingMode": "PAY_PER_REQUEST"
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognito87622034",
+            "Outputs.UserPoolId"
+        ]
+    }
 }
