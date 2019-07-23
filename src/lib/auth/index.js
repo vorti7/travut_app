@@ -17,6 +17,7 @@ const User = {
             Navigator.showOverlay("spinnerOverlay",  ScreenConst.SCREEN_COMMON_LOADING)
             Auth.signUp(signupInfo)
             .then(success => {
+                console.log(success)
                 Navigator.dismissOverlay("spinnerOverlay")
                 resolve("success")
             })

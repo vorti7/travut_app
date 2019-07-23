@@ -9,6 +9,10 @@ import {Navigator, ScreenConst} from '../navigation'
 
 export default class LocationsearchScreen extends React.Component{
 
+    componentDidMount(){
+        
+    }
+
     constructor(props) {
         super(props);
 

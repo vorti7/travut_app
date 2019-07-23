@@ -4,6 +4,7 @@ import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
 import { TvlrFormComponent } from '../components'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 
 import { Button, Overlay } from 'react-native-elements'
 
@@ -76,14 +77,15 @@ export default class LoginScreen extends React.Component{
                     width={this.state.overlayWidth}
                     height={this.state.overlayHeight}
                 >
-                    <TvlrFormComponent
-                        overlayTrigger={this.state.overlayTrigger}
-                        overlayLogin={this.overlayLogin.bind(this)}
-                        overlaySignup={this.overlaySignup.bind(this)}
-                        goMainScreen={this.goMainScreen.bind(this)}>
-                    </TvlrFormComponent>
+                    <KeyboardAwareScrollView>
+                        <TvlrFormComponent
+                            overlayTrigger={this.state.overlayTrigger}
+                            overlayLogin={this.overlayLogin.bind(this)}
+                            overlaySignup={this.overlaySignup.bind(this)}
+                            goMainScreen={this.goMainScreen.bind(this)}>
+                        </TvlrFormComponent>
+                    </KeyboardAwareScrollView>
                 </Overlay>
-
                 <View style={{flex: 1,
                               flexDirection: 'column',
                               justifyContent: 'center',

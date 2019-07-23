@@ -1,9 +1,10 @@
 import React from 'react';
 import AuthClass from '../lib/auth'
 import { Api } from '../lib/api'
-import {Navigator, ScreenConst} from '../navigation'
+import { Navigator, ScreenConst } from '../navigation'
+import { compose } from 'react-apollo'
 
-import { View, Alert, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Input, Button, Text, CheckBox } from 'react-native-elements'
 import { Icon } from 'react-native-eva-icons';
 
@@ -56,7 +57,7 @@ export default class TvlrFormComponent extends React.Component{
                 }
             }
             
-            AuthClass.signupTraveler_us(signupForm)
+            AuthClass.signupTraveler(signupForm)
             .then(success => {
                 Alert.alert(success)
                 // AuthClass.loginTraveler
@@ -93,6 +94,13 @@ export default class TvlrFormComponent extends React.Component{
 
         }
     }
+
+    // addTraveler = () => {
+    //     createInput = {
+
+    //     }
+    //     this.props.createTraveler({input:createInput})
+    // }
 
     render(){
         if(this.props.overlayTrigger){
