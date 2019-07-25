@@ -45,12 +45,13 @@ export const createTripRequest = `mutation CreateTripRequest($input: CreateTripR
       locationName
       order
     }
+    status
+    travelerIDs
     tripReqInfo
-    selectedProviders
-    recipientsID
-    checkedID
-    participantsID
-    refusersID
+    recipientsCnt
+    checkedIDs
+    participantsIDs
+    refusersIDs
     expTime
     regIP
     regDate
@@ -216,12 +217,13 @@ export const updateTripRequest = `mutation UpdateTripRequest($input: UpdateTripR
       locationName
       order
     }
+    status
+    travelerIDs
     tripReqInfo
-    selectedProviders
-    recipientsID
-    checkedID
-    participantsID
-    refusersID
+    recipientsCnt
+    checkedIDs
+    participantsIDs
+    refusersIDs
     expTime
     regIP
     regDate

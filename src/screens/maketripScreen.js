@@ -2,15 +2,16 @@ import React from 'react';
 import { View, ScrollView, Picker, Alert } from 'react-native';
 import { Header, Text, Button, ButtonGroup, Input } from 'react-native-elements'
 import { Calendar, CalendarList, Agenda} from 'react-native-calendars'
-
+import { Api } from '../lib/api'
+import { compose } from 'react-apollo'
 
 import { Icon } from 'react-native-eva-icons';
 
-// import AuthClass from '../lib/auth'
+import AuthClass from '../lib/auth'
 // import {Navigator, ScreenConst} from '../navigation'
 
 
-export default class MaketripScreen extends React.Component{
+class MaketripScreen extends React.Component{
 
     constructor(props) {
         super(props);
@@ -23,7 +24,6 @@ export default class MaketripScreen extends React.Component{
             aList:[
 
             ],
-
 
             buttonGroupSelectedIndex:0,
             maleNum:'',
@@ -46,15 +46,12 @@ export default class MaketripScreen extends React.Component{
     today = new Date()
     componentDidMount(){
         this.addQuestion(0)
-        // var today = new Date()
-        // this.setState({
-        //     currentDate : today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate(),
-        //     minDate : today.getFullYear()+'-'+today.getMonth()+'-'+(today.getDate()+1),
-        //     maxDate : (today.getFullYear()+1)+'-'+today.getMonth()+'-'+today.getDate()
+        // AuthClass.getTravelerInfo()
+        // .then(success => {
+        //     // Alert.alert(success)
         // })
+        // .catch(err => Alert.alert(err))
     }
-
-
 
 
 
@@ -107,7 +104,7 @@ export default class MaketripScreen extends React.Component{
                 '미슐랭 맛집 탐험대',
                 '현지식 맛집 탐험대',
                 '신나는 액티비티'
-           ]
+            ]
         },
         {
             type: 0,
@@ -119,19 +116,55 @@ export default class MaketripScreen extends React.Component{
     ]
     
     completeTripRequest(){
-        Alert.alert(
-            'Trip Request successfully created!',
-            'Would you like to send Trip Request to your trip Provider?',
-            [
-              {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-              },
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            {cancelable: false},
-          );
+        AuthClass.getTravelerInfo()
+        .then(success => {
+            // input = {
+            //     "createtriprequestinput":  {
+            //         "ID" : success,
+            //         "locationID" : "LO00000000",
+            //         "status" : "status",
+            //         "travelerIDs" : [success],
+            //         "tripReqInfo" : JSON.parse(this.state.aList),
+            //         "recipientsCnt" : 0,
+            //         "checkedIDs" : [],
+            //         "participantsIDs" : [],
+            //         "refusersIDs" : [],
+            //         "regIP" : "127.0.0.1",
+            //         "updateIP" : "127.0.0.1"
+            //     }
+            // }
+            Alert.alert(
+                'Trip Request successfully created!',
+                'Would you like to send Trip Request to your trip Provider?',
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                  },
+                  {text: 'OK', onPress: () => {console.log('OK Pressed')
+                                               this.props.createTripRequest({createtriprequestinput:{
+                                                "ID" : success,
+                                                "locationID" : "LO00000000",
+                                                "status" : "status",
+                                                "travelerIDs" : [success],
+                                                // "tripReqInfo" : JSON.parse(this.state.aList),
+                                                "recipientsCnt" : 0,
+                                                "checkedIDs" : [],
+                                                "participantsIDs" : [],
+                                                "refusersIDs" : [],
+                                                "regIP" : "127.0.0.1",
+                                                "updateIP" : "127.0.0.1"
+                                                }})
+                                            }
+                  },
+                ],
+                {cancelable: false},
+            );
+        })
+        .catch(err => Alert.alert(err))
+        
+        
     }
 
 
@@ -227,7 +260,6 @@ export default class MaketripScreen extends React.Component{
                     </View>
                 )
             else if(this.questionList[count].type == 1)
-                // return <AnswerType01 answerList={this.questionList[count].answerList}></AnswerType01>
                 return (
                     <View style={{width:'100%', height:'auto'}}>
                         <ButtonGroup
@@ -242,7 +274,7 @@ export default class MaketripScreen extends React.Component{
                     <View style={{width:'100%', height:'auto', flexDirection:'column', alignItems:'center'}}>
                         <View style={{flexDirection:'row'}}>
                             <View style={{flexDirection:'column'}}>
-                                <Text>남성</Text>
+                                <Text>Male</Text>
                                 <Picker
                                     selectedValue={this.state.maleNum}
                                     style={{height: 50, width: 100}}
@@ -258,7 +290,7 @@ export default class MaketripScreen extends React.Component{
                                 </Picker>
                             </View>
                             <View style={{flexDirection:'column'}}>
-                                <Text>여성</Text>
+                                <Text>Female</Text>
                                 <Picker
                                     selectedValue={this.state.femaleNum}
                                     style={{height: 50, width: 100}}
@@ -353,7 +385,7 @@ export default class MaketripScreen extends React.Component{
         return(
             <View style={{flex:1, alignItems: 'center'}}>
                 <Header
-                    containerStyle={{backgroundColor: 'transparent', height:'5%', top : 0, marginBottom:'3%'}}
+                    containerStyle={{backgroundColor: 'transparent', height:'5%', top : '3%', marginBottom:'8%'}}
                     leftComponent={<Icon name='plus-square-outline' width={30} height={30}/>}
                     centerComponent={{ text: 'Swipe down to return', style: { color: '#000' } }}
                     rightComponent={<Icon name='close-square-outline' width={30} height={30}/>}
@@ -425,49 +457,7 @@ const RightBubble = (props) => {
     )
 }
 
-
-
-
-
-
-
-
-
-// const AnswerType00 = (props) => {
-//     console.log('AnswerType00 showed')
-//     return(
-//         <View style={{width:'100%', height:100}}>
-//             <Text>This is type 00</Text>
-//         </View>
-//     )
-// }
-// const AnswerType01 = (props) => {
-//     console.log('AnswerType01 showed')
-//     return(
-//         <View style={{width:'100%', height:'auto'}}>
-//             {/* {props.answerList.map((contact, i) => {
-//                 return (
-//                 <Button key={i} title={contact}/>)
-//             })} */}
-//             <ButtonGroup
-//                 buttons={props.answerList}
-//             />
-//         </View>
-//     )
-// }
-// const AnswerType02 = (props) => {
-//     console.log('AnswerType02 showed')
-//     return(
-//         <View style={{width:'100%', height:100}}>
-//             <Text>This is type 02</Text>
-//         </View>
-//     )
-// }
-// const AnswerType03 = (props) => {
-//     console.log('AnswerType03 showed')
-//     return(
-//         <View style={{width:'100%', height:100}}>
-//             <Text>This is type 03</Text>
-//         </View>
-//     )
-// }
+export default compose(
+    Api.TripRequest.queries.listTripRequests(),
+    Api.TripRequest.mutations.createTripRequest()
+)(MaketripScreen)

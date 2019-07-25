@@ -87,12 +87,13 @@ type TripRequest {
 	SORTKEY : String!
 	locationID : String
 	location: Location
+	status: String
+	travelerIDs: [String]
 	tripReqInfo : AWSJSON
-	selectedProviders : Int
-	recipientsID : [String]
-	checkedID : [String]
-	participantsID : [String]
-	refusersID : [String]
+	recipientsCnt : Int
+	checkedIDs : [String]
+	participantsIDs : [String]
+	refusersIDs : [String]
 	# recipients : [Provider]
 	# checked : [Provider]
 	# participants : [Provider]
@@ -169,12 +170,13 @@ input CreateTravelerInput {
 input CreateTripRequestInput {
 	ID : String!
 	locationID : String
+	status: String
+	travelerIDs: [String]
 	tripReqInfo : AWSJSON
-	selectedProviders : Int
-	recipientsID : [String]
-	checkedID : [String]
-	participantsID : [String]
-	refusersID : [String]
+	recipientsCnt : Int
+	checkedIDs : [String]
+	participantsIDs : [String]
+	refusersIDs : [String]
 	expTime : AWSDateTime
 	regIP : AWSIPAddress
 	# regDate : String
@@ -245,12 +247,13 @@ input UpdateTripRequestInput {
 	ID : String!
 	SORTKEY : String!
 	locationID : String
+	status: String
+	travelerIDs: [String]
 	tripReqInfo : AWSJSON
-	selectedProviders : Int
-	recipientsID : [String]
-	checkedID : [String]
-	participantsID : [String]
-	refusersID : [String]
+	recipientsCnt : Int
+	checkedIDs : [String]
+	participantsIDs : [String]
+	refusersIDs : [String]
 	expTime : AWSDateTime
 	regIP : AWSIPAddress
 	regDate : String
@@ -321,8 +324,30 @@ input TableTravelerFilterInput {
 	regDate: TableStringFilterInput
 }
 
+input TableTripRequestFilterInput {
+	ID: TableStringFilterInput
+	SORTKEY: TableStringFilterInput
+	locationID : TableStringFilterInput
+	status: TableStringFilterInput
+	travelerIDs: TableStringFilterInput
+	recipientsCnt : TableIntFilterInput
+	checkedIDs : TableStringFilterInput
+	participantsIDs : TableStringFilterInput
+	refusersIDs : TableStringFilterInput
+	expTime : TableStringFilterInput
+	regIP : TableStringFilterInput
+	regDate : TableStringFilterInput
+	updateIP : TableStringFilterInput
+	updateDate : TableStringFilterInput	
+}
+
 type TravelerConnection {
 	items: [Traveler]
+	nextToken: String
+}
+
+type TripRequestConnection {
+	items: [TripRequest]
 	nextToken: String
 }
 
@@ -349,6 +374,7 @@ type Query {
 	getMessage(input: GetInput!): Message
 
 	listTravelers(filter: TableTravelerFilterInput, limit: Int, nextToken: String): TravelerConnection
+	listTripRequests(filter: TableTripRequestFilterInput, limit: Int, nextToken: String): TripRequestConnection
 }
 
 type Subscription {

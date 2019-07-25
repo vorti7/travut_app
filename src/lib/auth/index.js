@@ -207,27 +207,34 @@ const User = {
         .catch(err => console.log(err));
     },
 
+    getTravelerInfo(){
+        return new Promise(function (resolve, reject){
+            Auth.currentAuthenticatedUser()
+                .then(data => console.log('currentAuthenticatedUser data : ',resolve(data.username)))
+                .catch(err => {console.log('error : ',err,'\n\n')})
+        })
+    },
 
 
 
     getInfoTraveler(){
         Auth.currentAuthenticatedUser()
-                .then(data => console.log('currentAuthenticatedUser data : ',getLog(data)))
+                .then(data => console.log('currentAuthenticatedUser data : ',this.getLog(data)))
                 .catch(err => {console.log('error : ',err,'\n\n')})
         Auth.currentCredentials()
-                .then(data => console.log('currentCredentials data : ',getLog(data)))
+                .then(data => console.log('currentCredentials data : ',this.getLog(data)))
                 .catch(err => {console.log('error : ',err,'\n\n')})
         Auth.currentSession()
-                .then(data => console.log('currentSession data : ',getLog(data)))
+                .then(data => console.log('currentSession data : ',this.getLog(data)))
                 .catch(err => {console.log('error : ',err,'\n\n')})
         Auth.currentUserCredentials()
-                .then(data => console.log('currentUserCredentials data : ',getLog(data)))
+                .then(data => console.log('currentUserCredentials data : ',this.getLog(data)))
                 .catch(err => {console.log('error : ',err,'\n\n')})
         Auth.currentUserInfo()
-                .then(data => console.log('currentUserInfo data : ',getLog(data)))
+                .then(data => console.log('currentUserInfo data : ',this.getLog(data)))
                 .catch(err => {console.log('error : ',err,'\n\n')})
         Auth.currentUserPoolUser()
-                .then(data => console.log('currentUserPoolUser data : ',getLog(data)))
+                .then(data => console.log('currentUserPoolUser data : ',this.getLog(data)))
                 .catch(err => {console.log('error : ',err,'\n\n')})
         
 

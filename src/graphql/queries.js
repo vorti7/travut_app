@@ -86,12 +86,13 @@ export const getTripRequest = `query GetTripRequest($input: GetInput!) {
       locationName
       order
     }
+    status
+    travelerIDs
     tripReqInfo
-    selectedProviders
-    recipientsID
-    checkedID
-    participantsID
-    refusersID
+    recipientsCnt
+    checkedIDs
+    participantsIDs
+    refusersIDs
     expTime
     regIP
     regDate
@@ -247,6 +248,40 @@ export const listTravelers = `query ListTravelers(
       updateDate
       deactivateIP
       deactivateDate
+    }
+    nextToken
+  }
+}
+`;
+export const listTripRequests = `query ListTripRequests(
+  $filter: TableTripRequestFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTripRequests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      ID
+      SORTKEY
+      locationID
+      location {
+        ID
+        SORTKEY
+        region
+        locationName
+        order
+      }
+      status
+      travelerIDs
+      tripReqInfo
+      recipientsCnt
+      checkedIDs
+      participantsIDs
+      refusersIDs
+      expTime
+      regIP
+      regDate
+      updateIP
+      updateDate
     }
     nextToken
   }
