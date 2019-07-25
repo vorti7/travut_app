@@ -3,7 +3,7 @@ import { View, ScrollView, Picker, Alert } from 'react-native';
 import { Header, Text, Button, ButtonGroup, Input } from 'react-native-elements'
 import { Calendar, CalendarList, Agenda} from 'react-native-calendars'
 import { Api } from '../lib/api'
-import { compose } from 'react-apollo'
+import { compose, withApollo } from 'react-apollo'
 
 import { Icon } from 'react-native-eva-icons';
 
@@ -133,6 +133,7 @@ class MaketripScreen extends React.Component{
             //         "updateIP" : "127.0.0.1"
             //     }
             // }
+
             Alert.alert(
                 'Trip Request successfully created!',
                 'Would you like to send Trip Request to your trip Provider?',
@@ -143,19 +144,20 @@ class MaketripScreen extends React.Component{
                     style: 'cancel',
                   },
                   {text: 'OK', onPress: () => {console.log('OK Pressed')
-                                               this.props.createTripRequest({createtriprequestinput:{
-                                                "ID" : success,
-                                                "locationID" : "LO00000000",
-                                                "status" : "status",
-                                                "travelerIDs" : [success],
-                                                // "tripReqInfo" : JSON.parse(this.state.aList),
-                                                "recipientsCnt" : 0,
-                                                "checkedIDs" : [],
-                                                "participantsIDs" : [],
-                                                "refusersIDs" : [],
-                                                "regIP" : "127.0.0.1",
-                                                "updateIP" : "127.0.0.1"
-                                                }})
+                                                let data = {
+                                                    "ID" : success,
+                                                    "locationID" : "LO00000000",
+                                                    "status" : "status",
+                                                    "travelerIDs" : [success],
+                                                    "recipientsCnt" : 0,
+                                                    "checkedIDs" : [],
+                                                    "participantsIDs" : [],
+                                                    "refusersIDs" : [],
+                                                    "regIP" : "127.0.0.1"
+                                                    };
+                                                // console.log(data);
+                                                // console.log(this.props);
+                                               this.props.createTripRequest({CreateTripRequestInput:data})
                                             }
                   },
                 ],
@@ -458,6 +460,8 @@ const RightBubble = (props) => {
 }
 
 export default compose(
-    Api.TripRequest.queries.listTripRequests(),
+    // Api.TripRequest.queries.listTripRequests(),
+    // Api.TripRequest.mutations.createTripRequest()
+    withApollo,
     Api.TripRequest.mutations.createTripRequest()
 )(MaketripScreen)

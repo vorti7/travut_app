@@ -94,10 +94,6 @@ type TripRequest {
 	checkedIDs : [String]
 	participantsIDs : [String]
 	refusersIDs : [String]
-	# recipients : [Provider]
-	# checked : [Provider]
-	# participants : [Provider]
-	# refusers : [Provider]
 	expTime : String
 	regIP : AWSIPAddress
 	regDate : String
@@ -147,10 +143,8 @@ type Message {
 }
 
 input CreateTravelerInput {
-	# __typename : String!
 	ID: String!
 	locationID: String
-	# location: CreateLocationInput
 	email: AWSEmail
 	status: String
 	firstName: String
@@ -177,11 +171,8 @@ input CreateTripRequestInput {
 	checkedIDs : [String]
 	participantsIDs : [String]
 	refusersIDs : [String]
-	expTime : AWSDateTime
+	expTime : String
 	regIP : AWSIPAddress
-	# regDate : String
-	# updateIP : AWSIPAddress
-	# updateDate : String
 }
 
 input CreateLocationInput {
@@ -199,32 +190,22 @@ input CreateChatInput {
 	SORTKEY : String!
 	name : String
 	usersID : [String]
-	# users : [User]
 	regIP : AWSIPAddress
-	# regDate : String
-	# updateIP : AWSIPAddress
-	# updateDate : String
 }
 
 input CreateMessageInput {
 	ID : String!
 	userID : String
-	# user : User
 	type : String
 	message: String
 	regIP : AWSIPAddress
-	# regDate : String
-	# updateIP : AWSIPAddress
-	# updateDate : String
 }
 
 
 input UpdateTravelerInput {
-	# __typename : String!
 	ID: String!
 	SORTKEY: String!
 	locationID: String
-	# location: UpdateLocationInput
 	email: AWSEmail
 	status: String
 	firstName: String
@@ -254,7 +235,7 @@ input UpdateTripRequestInput {
 	checkedIDs : [String]
 	participantsIDs : [String]
 	refusersIDs : [String]
-	expTime : AWSDateTime
+	expTime : String
 	regIP : AWSIPAddress
 	regDate : String
 	updateIP : AWSIPAddress
@@ -275,8 +256,7 @@ input UpdateChatInput {
 	ID : String!
 	SORTKEY : String!
 	name : String
-	# usersID : [String]
-	# users : [User]
+	usersID : [String]
 	regIP : AWSIPAddress
 	regDate : String
 	updateIP : AWSIPAddress
@@ -287,7 +267,6 @@ input UpdateMessageInput {
 	ID : String!
 	SORTKEY : String!
 	userID : String
-	# user : User
 	type : String
 	message: String
 	regIP : AWSIPAddress
