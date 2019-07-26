@@ -18,27 +18,22 @@ export const getTripRequest = `query getTripRequest($gettriprequestinput: GetInp
     }
   }`
 export const listTripRequests = `query getTripRequests {
-    listTripRequests (filter: {
-      SORTKEY: {
-        contains: "trip_req_"
-      }
-    })  {
-      items {
-        ID
-        SORTKEY
-        locationID
-        status
-        travelerIDs
-        tripReqInfo
-        recipientsCnt
-        checkedIDs
-        participantsIDs
-        refusersIDs
-        expTime
-        regIP
-        regDate
-        updateIP
-        updateDate
-      }
+  listTripRequests {
+    items {
+      ID
+      SORTKEY
+      locationID
+      status
+      travelerIDs
+      recipientsCnt
+      checkedIDs
+      participantsIDs
+      refusersIDs
+      expTime
+      regIP
+      regDate
+      updateIP
+      updateDate
     }
-  }`
+  }
+}`

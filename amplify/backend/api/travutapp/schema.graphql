@@ -50,6 +50,7 @@ type Traveler implements User {
 
 type Provider implements User {
 	typename : String!
+	
 	ID : String!
 	SORTKEY : String!
 	locationID : String

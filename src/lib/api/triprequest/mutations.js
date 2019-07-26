@@ -1,5 +1,5 @@
-export const createTripRequest = `mutation createTripRequest($createtriprequestinput: CreateTripRequestInput!) {
-  createTripRequest(input: $createtriprequestinput) {
+export const createTripRequest = `mutation createTripRequest($input: CreateTripRequestInput!) {
+  createTripRequest(input: $input) {
     ID
     SORTKEY
     locationID

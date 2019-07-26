@@ -149,15 +149,19 @@ class MaketripScreen extends React.Component{
                                                     "locationID" : "LO00000000",
                                                     "status" : "status",
                                                     "travelerIDs" : [success],
+                                                    "tripReqInfo" : JSON.stringify(this.state.aList),
                                                     "recipientsCnt" : 0,
                                                     "checkedIDs" : [],
                                                     "participantsIDs" : [],
                                                     "refusersIDs" : [],
                                                     "regIP" : "127.0.0.1"
-                                                    };
-                                                // console.log(data);
-                                                // console.log(this.props);
-                                               this.props.createTripRequest({CreateTripRequestInput:data})
+                                                };
+                                                console.log(data)
+                                                // console.log(JSON.stringify(this.state.aList))
+                                                // console.log("{\"a\":1, \"b\":3, \"string\": 234}")
+                                               this.props.createTripRequest({input:data}).then((e) => {
+                                                   console.log(e);
+                                               })
                                             }
                   },
                 ],
@@ -459,9 +463,4 @@ const RightBubble = (props) => {
     )
 }
 
-export default compose(
-    // Api.TripRequest.queries.listTripRequests(),
-    // Api.TripRequest.mutations.createTripRequest()
-    withApollo,
-    Api.TripRequest.mutations.createTripRequest()
-)(MaketripScreen)
+export default Api.TripRequest.mutations.createTripRequest() (MaketripScreen)
