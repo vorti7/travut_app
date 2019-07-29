@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
 import { Header, Image, Input, Text, SearchBar } from 'react-native-elements'
+import { Api } from '../lib/api'
+import { compose, withApollo } from 'react-apollo'
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -22,7 +24,23 @@ export default class LocationsearchScreen extends React.Component{
     }
 
     goLocationInfo(){
-        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_INFO)
+        passProps = {
+            backgroundImage:'https://images.unsplash.com/photo-1533637322518-7aadda74ddc0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=919&q=80',
+            locationName: 'Seoul/South Korea',
+            timezone: -8,
+            weather: 'rainy',
+            temperature: 31,
+            description: 'This is Seoul',
+            popularity: 977.6,
+            lowestTemp: 25,
+            highestTemp: 32,
+            humidity: 71,
+            concent: '220V',
+            phoneCode: '82-2',
+            currency: 'won',
+            language:['Korean']
+        }
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_INFO, passProps)
     }
     
     render(){
@@ -67,33 +85,8 @@ export default class LocationsearchScreen extends React.Component{
                 </View>
                 <View style={{height:"40%", justifyContent: 'center'}}>
                     <ScrollView horizontal={true}>
-                        <Image
-                            source={require('../assets/images/logo/test_logo.png')}
-                        />
-                        <Image
-                            source={require('../assets/images/logo/test_logo.png')}
-                        />
-                        <Image
-                            source={require('../assets/images/logo/test_logo.png')}
-                        />
-                        <Image
-                            source={require('../assets/images/logo/test_logo.png')}
-                        />
-                        <Image
-                            source={require('../assets/images/logo/test_logo.png')}
-                        />
-                        <Image
-                            source={require('../assets/images/logo/test_logo.png')}
-                        />
-                        <Image
-                            source={require('../assets/images/logo/test_logo.png')}
-                        />
-                        <Image
-                            source={require('../assets/images/logo/test_logo.png')}
-                        />
-                        <Image
-                            source={require('../assets/images/logo/test_logo.png')}
-                        />
+                        <LocationItem locationName={'Seoul'} locationImage={'https://lh5.googleusercontent.com/p/AF1QipOcxqktNzkz-BMlCXE_KskkE3AXTL0zqtFEuRU=w462-h240-k-no'}/>
+                        <LocationItem locationName={'Busan'} locationImage={'https://lh5.googleusercontent.com/p/AF1QipN33SroDbOFnVUpDw3KWI2KaQt5WxVlF_Owh7o9=w408-h270-k-no'}/>
                     </ScrollView>
                 </View>
                 <View style={{height:"20%",
@@ -135,3 +128,24 @@ export default class LocationsearchScreen extends React.Component{
         )
     }
 }
+
+const LocationItem = (props) => {
+    return (
+        <View style={{width:220, height:220, justifyContent:'center', alignItems:'center', marginLeft:10, marginRight:10}}>
+            <Image
+                style={{
+                    width: 220,
+                    height: 220,
+                    borderRadius: 110
+                    // backgroundColor: '#4535AA'
+                }}
+                source={{uri:props.locationImage}}
+            />
+            <Text h1 h1Style={{color:'#FFF'}} style={{position:'absolute'}}>{props.locationName}</Text>
+        </View>
+    )
+}
+
+// export default compose(
+//         Api.TripRequest.queries.listTripRequests
+//     )(LocationsearchScreen)

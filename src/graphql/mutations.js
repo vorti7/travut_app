@@ -3,7 +3,6 @@
 
 export const createTraveler = `mutation CreateTraveler($input: CreateTravelerInput!) {
   createTraveler(input: $input) {
-    typename
     ID
     SORTKEY
     locationID
@@ -12,6 +11,8 @@ export const createTraveler = `mutation CreateTraveler($input: CreateTravelerInp
       SORTKEY
       region
       locationName
+      mapInfo
+      locationInfo
       order
     }
     email
@@ -43,6 +44,8 @@ export const createTripRequest = `mutation CreateTripRequest($input: CreateTripR
       SORTKEY
       region
       locationName
+      mapInfo
+      locationInfo
       order
     }
     status
@@ -66,6 +69,8 @@ export const createLocation = `mutation CreateLocation($input: CreateLocationInp
     SORTKEY
     region
     locationName
+    mapInfo
+    locationInfo
     order
   }
 }
@@ -77,7 +82,6 @@ export const createChat = `mutation CreateChat($input: CreateChatInput!) {
     name
     usersID
     users {
-      typename
       ID
       SORTKEY
       locationID
@@ -86,6 +90,8 @@ export const createChat = `mutation CreateChat($input: CreateChatInput!) {
         SORTKEY
         region
         locationName
+        mapInfo
+        locationInfo
         order
       }
       email
@@ -127,7 +133,6 @@ export const createMessage = `mutation CreateMessage($input: CreateMessageInput!
     SORTKEY
     userID
     user {
-      typename
       ID
       SORTKEY
       locationID
@@ -136,6 +141,8 @@ export const createMessage = `mutation CreateMessage($input: CreateMessageInput!
         SORTKEY
         region
         locationName
+        mapInfo
+        locationInfo
         order
       }
       email
@@ -175,7 +182,6 @@ export const createMessage = `mutation CreateMessage($input: CreateMessageInput!
 `;
 export const updateTraveler = `mutation UpdateTraveler($input: UpdateTravelerInput!) {
   updateTraveler(input: $input) {
-    typename
     ID
     SORTKEY
     locationID
@@ -184,6 +190,8 @@ export const updateTraveler = `mutation UpdateTraveler($input: UpdateTravelerInp
       SORTKEY
       region
       locationName
+      mapInfo
+      locationInfo
       order
     }
     email
@@ -215,6 +223,8 @@ export const updateTripRequest = `mutation UpdateTripRequest($input: UpdateTripR
       SORTKEY
       region
       locationName
+      mapInfo
+      locationInfo
       order
     }
     status
@@ -238,6 +248,8 @@ export const updateLocation = `mutation UpdateLocation($input: UpdateLocationInp
     SORTKEY
     region
     locationName
+    mapInfo
+    locationInfo
     order
   }
 }
@@ -249,7 +261,6 @@ export const updateChat = `mutation UpdateChat($input: UpdateChatInput!) {
     name
     usersID
     users {
-      typename
       ID
       SORTKEY
       locationID
@@ -258,6 +269,8 @@ export const updateChat = `mutation UpdateChat($input: UpdateChatInput!) {
         SORTKEY
         region
         locationName
+        mapInfo
+        locationInfo
         order
       }
       email
@@ -299,7 +312,6 @@ export const updateMessage = `mutation UpdateMessage($input: UpdateMessageInput!
     SORTKEY
     userID
     user {
-      typename
       ID
       SORTKEY
       locationID
@@ -308,6 +320,8 @@ export const updateMessage = `mutation UpdateMessage($input: UpdateMessageInput!
         SORTKEY
         region
         locationName
+        mapInfo
+        locationInfo
         order
       }
       email
@@ -347,7 +361,6 @@ export const updateMessage = `mutation UpdateMessage($input: UpdateMessageInput!
 `;
 export const deleteTraveler = `mutation DeleteTraveler($input: DeleteTravelerInput!) {
   deleteTraveler(input: $input) {
-    typename
     ID
     SORTKEY
     locationID
@@ -356,6 +369,8 @@ export const deleteTraveler = `mutation DeleteTraveler($input: DeleteTravelerInp
       SORTKEY
       region
       locationName
+      mapInfo
+      locationInfo
       order
     }
     email

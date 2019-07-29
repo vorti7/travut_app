@@ -15,7 +15,6 @@ export const onCreateTraveler = `subscription OnCreateTraveler(
     email: $email
     status: $status
   ) {
-    typename
     ID
     SORTKEY
     locationID
@@ -24,6 +23,8 @@ export const onCreateTraveler = `subscription OnCreateTraveler(
       SORTKEY
       region
       locationName
+      mapInfo
+      locationInfo
       order
     }
     email
@@ -59,7 +60,6 @@ export const onUpdateTraveler = `subscription OnUpdateTraveler(
     email: $email
     status: $status
   ) {
-    typename
     ID
     SORTKEY
     locationID
@@ -68,6 +68,8 @@ export const onUpdateTraveler = `subscription OnUpdateTraveler(
       SORTKEY
       region
       locationName
+      mapInfo
+      locationInfo
       order
     }
     email
@@ -103,7 +105,6 @@ export const onDeleteTraveler = `subscription OnDeleteTraveler(
     email: $email
     status: $status
   ) {
-    typename
     ID
     SORTKEY
     locationID
@@ -112,6 +113,8 @@ export const onDeleteTraveler = `subscription OnDeleteTraveler(
       SORTKEY
       region
       locationName
+      mapInfo
+      locationInfo
       order
     }
     email

@@ -1,5 +1,5 @@
 interface User {
-	typename : String!
+	# typename : String!
 
 	ID : String!
 	SORTKEY : String!
@@ -24,7 +24,7 @@ interface User {
 }
 
 type Traveler implements User {
-	typename : String!
+	# typename : String!
 
 	ID: String!
 	SORTKEY: String!
@@ -49,7 +49,7 @@ type Traveler implements User {
 }
 
 type Provider implements User {
-	typename : String!
+	# typename : String!
 	
 	ID : String!
 	SORTKEY : String!
@@ -107,9 +107,9 @@ type Location {
 	SORTKEY : String!
 	region : String
 	locationName : String
-	# mapInfo : AWSJSON
-	# locationInfo : AWSJSON
-	order : String
+	mapInfo : AWSJSON
+	locationInfo : AWSJSON
+	order : AWSJSON
 }
 
 type Chat {
@@ -181,8 +181,8 @@ input CreateLocationInput {
 	SORTKEY : String!
 	region : String
 	locationName : String
-	# mapInfo : AWSJSON
-	# locationInfo : AWSJSON
+	mapInfo : AWSJSON
+	locationInfo : AWSJSON
 	order : AWSJSON
 }
 
@@ -248,9 +248,9 @@ input UpdateLocationInput {
 	SORTKEY : String!
 	region : String
 	locationName : String
-	# mapInfo : AWSJSON
-	# locationInfo : AWSJSON
-	order : String
+	mapInfo : AWSJSON
+	locationInfo : AWSJSON
+	order : AWSJSON
 }
 
 input UpdateChatInput {
@@ -321,6 +321,41 @@ input TableTripRequestFilterInput {
 	updateDate : TableStringFilterInput	
 }
 
+input TableProviderFilterInput {
+	ID : TableStringFilterInput	
+    SORTKEY : TableStringFilterInput	
+    locationID : TableStringFilterInput	
+    email : TableStringFilterInput	
+    status : TableStringFilterInput	
+    firstName : TableStringFilterInput	
+    lastName : TableStringFilterInput	
+    nickName : TableStringFilterInput	
+    gender : TableStringFilterInput	
+    birthday : TableStringFilterInput	
+    phone : TableStringFilterInput	
+    languages : TableStringFilterInput	
+    photoURL : TableStringFilterInput	
+    regIP : TableStringFilterInput	
+    regDate : TableStringFilterInput	
+    updateIP : TableStringFilterInput	
+    updateDate : TableStringFilterInput	
+    deactivateIP : TableStringFilterInput	
+    deactivateDate : TableStringFilterInput	
+    
+    type : TableStringFilterInput	
+    companyID : TableStringFilterInput	
+    companyStatus : TableStringFilterInput	
+    welcomeMSG : TableStringFilterInput	
+    serviceList : TableStringFilterInput	
+}
+
+input TableLocationFilterInput {
+	ID: TableStringFilterInput
+	SORTKEY: TableStringFilterInput
+	region : TableStringFilterInput
+	locationName : TableStringFilterInput
+}
+
 type TravelerConnection {
 	items: [Traveler]
 	nextToken: String
@@ -328,6 +363,16 @@ type TravelerConnection {
 
 type TripRequestConnection {
 	items: [TripRequest]
+	nextToken: String
+}
+
+type LocationConnection {
+	items: [Location]
+	nextToken: String
+}
+
+type ProviderConnection {
+	items: [Provider]
 	nextToken: String
 }
 
@@ -355,6 +400,8 @@ type Query {
 
 	listTravelers(filter: TableTravelerFilterInput, limit: Int, nextToken: String): TravelerConnection
 	listTripRequests(filter: TableTripRequestFilterInput, limit: Int, nextToken: String): TripRequestConnection
+	listLocatoins(filter: TableLocationFilterInput, limit: Int, nextToken: String): LocationConnection
+	listProviders(filter: TableProviderFilterInput, limit: Int, nextToken:String): ProviderConnection
 }
 
 type Subscription {

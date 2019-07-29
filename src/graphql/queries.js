@@ -3,7 +3,6 @@
 
 export const getUser = `query GetUser($input: GetInput!) {
   getUser(input: $input) {
-    typename
     ID
     SORTKEY
     locationID
@@ -12,6 +11,8 @@ export const getUser = `query GetUser($input: GetInput!) {
       SORTKEY
       region
       locationName
+      mapInfo
+      locationInfo
       order
     }
     email
@@ -44,7 +45,6 @@ export const getUser = `query GetUser($input: GetInput!) {
 `;
 export const getTraveler = `query GetTraveler($input: GetInput!) {
   getTraveler(input: $input) {
-    typename
     ID
     SORTKEY
     locationID
@@ -53,6 +53,8 @@ export const getTraveler = `query GetTraveler($input: GetInput!) {
       SORTKEY
       region
       locationName
+      mapInfo
+      locationInfo
       order
     }
     email
@@ -84,6 +86,8 @@ export const getTripRequest = `query GetTripRequest($input: GetInput!) {
       SORTKEY
       region
       locationName
+      mapInfo
+      locationInfo
       order
     }
     status
@@ -107,6 +111,8 @@ export const getLocation = `query GetLocation($input: GetInput!) {
     SORTKEY
     region
     locationName
+    mapInfo
+    locationInfo
     order
   }
 }
@@ -118,7 +124,6 @@ export const getChat = `query GetChat($input: GetInput!) {
     name
     usersID
     users {
-      typename
       ID
       SORTKEY
       locationID
@@ -127,6 +132,8 @@ export const getChat = `query GetChat($input: GetInput!) {
         SORTKEY
         region
         locationName
+        mapInfo
+        locationInfo
         order
       }
       email
@@ -168,7 +175,6 @@ export const getMessage = `query GetMessage($input: GetInput!) {
     SORTKEY
     userID
     user {
-      typename
       ID
       SORTKEY
       locationID
@@ -177,6 +183,8 @@ export const getMessage = `query GetMessage($input: GetInput!) {
         SORTKEY
         region
         locationName
+        mapInfo
+        locationInfo
         order
       }
       email
@@ -221,7 +229,6 @@ export const listTravelers = `query ListTravelers(
 ) {
   listTravelers(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
-      typename
       ID
       SORTKEY
       locationID
@@ -230,6 +237,8 @@ export const listTravelers = `query ListTravelers(
         SORTKEY
         region
         locationName
+        mapInfo
+        locationInfo
         order
       }
       email
@@ -268,6 +277,8 @@ export const listTripRequests = `query ListTripRequests(
         SORTKEY
         region
         locationName
+        mapInfo
+        locationInfo
         order
       }
       status
@@ -282,6 +293,72 @@ export const listTripRequests = `query ListTripRequests(
       regDate
       updateIP
       updateDate
+    }
+    nextToken
+  }
+}
+`;
+export const listLocatoins = `query ListLocatoins(
+  $filter: TableLocationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLocatoins(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      ID
+      SORTKEY
+      region
+      locationName
+      mapInfo
+      locationInfo
+      order
+    }
+    nextToken
+  }
+}
+`;
+export const listProviders = `query ListProviders(
+  $filter: TableProviderFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProviders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      ID
+      SORTKEY
+      locationID
+      location {
+        ID
+        SORTKEY
+        region
+        locationName
+        mapInfo
+        locationInfo
+        order
+      }
+      email
+      status
+      firstName
+      lastName
+      nickName
+      gender
+      birthday
+      phone
+      languages
+      photoURL
+      regIP
+      regDate
+      updateIP
+      updateDate
+      deactivateIP
+      deactivateDate
+      type
+      companyID
+      companyStatus
+      campanyInfo
+      certInfo
+      welcomeMSG
+      serviceList
     }
     nextToken
   }

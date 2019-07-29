@@ -30,11 +30,7 @@ export const getTraveler = `query getTraveler($gettravelerinput: GetInput!) {
   `;
 
   export const listTravelers = `query getTravelers {
-    listTravelers (filter: {
-      SORTKEY: {
-        contains: "traveler_"
-      }
-    })  {
+    listTravelers {
       items {
         ID
         SORTKEY

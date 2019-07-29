@@ -80,10 +80,11 @@ export default {
       })
   },
 
-  pushScreen(cmpId, targetScreen){
+  pushScreen(cmpId, targetScreen, passProps){
       Navigation.push(cmpId, {
           component: {
-            name: targetScreen
+            name: targetScreen,
+            passProps: passProps
           },
       });
   },
