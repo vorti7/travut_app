@@ -25,10 +25,38 @@ export default class MainScreen extends React.Component{
     }
     onClick3(){
         console.log('onClick3 button clicked')
-        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST)   
+
+        passProps = {
+            passProps:[
+                {
+                    locationName : 'Seoul/Korea',
+                    recipientsCnt : 35,
+                    checkedCnt : 2,
+                    tripOffer : [],
+                    expirationDate : '2020-07-31'
+                }
+            ]
+        }
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST, passProps)   
     }
+
     onClick4(){
         console.log('onClick4 button clicked')
+        passProps = {
+            providerImage: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+            providerName: 'George Clooney',
+            languages: [ 'Korean', 'English', 'Japanese' ],
+            locationName: 'Seoul',
+            greeting: 'Hi. This is Clooney!',
+            dateData: 'this is dateData',
+            companion: 'Friends',
+            price: 1092
+        }
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_TRIPOFFER_INFO, passProps)
+    }
+
+    onClick5(){
+        console.log('onClick5 button clicked')
         Navigator.showOverlay("overlay",  ScreenConst.SCREEN_COMMON_OVERLAY)
     }
     
@@ -60,10 +88,14 @@ export default class MainScreen extends React.Component{
                 <Button
                     type="clear"
                     onPress={this.onClick4.bind(this)}
-                    title = "Overlay"
+                    title = "Trip Offer"
                 />
 
-
+                <Button
+                    type="clear"
+                    onPress={this.onClick5.bind(this)}
+                    title = "Overlay"
+                />
                 <Button
                     type="clear"
                     onPress={this.logout.bind(this)}

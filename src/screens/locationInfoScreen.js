@@ -44,31 +44,31 @@ export default class LocationinfoScreen extends React.Component{
         if(weather=='sunny'){
             return (
                 <View>
-                    <Icon name='sun' width={50} height={50} fill='#FFF'/>
+                    <Icon name='sun' width={40} height={40} fill='#FFF'/>
                 </View>
             )
         }else if(weather=='cloudy'){
             return (
                 <View>
-                    <Icon name='close' width={50} height={50} fill='#FFF'/>
+                    <Icon name='close' width={40} height={40} fill='#FFF'/>
                 </View>
             )
         }else if(weather=='rainy'){
             return (
                 <View>
-                    <Icon name='umbrella' width={50} height={50} fill='#FFF'/>
+                    <Icon name='umbrella' width={40} height={40} fill='#FFF'/>
                 </View>
             )
         }else if(weather=='snowy'){
             return (
                 <View>
-                    <Icon name='close' width={50} height={50} fill='#FFF'/>
+                    <Icon name='close' width={40} height={40} fill='#FFF'/>
                 </View>
             )
         }else if(weather=='night'){
             return (
                 <View>
-                    <Icon name='moon' width={50} height={50} fill='#FFF'/>
+                    <Icon name='moon' width={40} height={40} fill='#FFF'/>
                 </View>
             )
         }
@@ -118,9 +118,9 @@ export default class LocationinfoScreen extends React.Component{
                         </View>
                     }
                 />
-                <View style={{height:"17%", width:"100%", flexDirection: 'row'}}>
+                <View style={{height:"12%", width:"100%", flexDirection: 'row'}}>
                     <View style={{flex:1, paddingLeft:"5%", justifyContent: 'center'}}>
-                        <Text h3 h3Style={{color:'#FFF'}}>{this.state.time.getMonth()+1}/{this.state.time.getDate()} ({this.getDay(this.state.time)})</Text>
+                        <Text h4 h4Style={{color:'#FFF'}}>{this.state.time.getMonth()+1}/{this.state.time.getDate()} ({this.getDay(this.state.time)})</Text>
                         <Text h2 h2Style={{color:'#FFF'}}>{this.state.time.getHours()}:{this.state.time.getMinutes()}</Text>
                     </View>
                     <View style={{flex:1, flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
@@ -134,16 +134,16 @@ export default class LocationinfoScreen extends React.Component{
                         </View>
                     </View>
                 </View>
-                <View style={{height:"13%",
+                <View style={{height:"10%",
                     width:"90%",
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <Text style={{fontSize:20, color:'#FFF'}}>{this.props.description}</Text>
+                    <Text style={{fontSize:15, color:'#FFF'}}>{this.props.description}</Text>
                 </View>
-                <View style={{height:"23%", width:"100%", alignItems: 'center'}}>
-                    <Text h4 h4Style={{color:'#FFF'}}>{this.getMonth(this.state.time)}</Text>
-                    <View style={{width:"100%", flexDirection:'row', alignItems: 'center'}}>
+                <View style={{height:"17%", width:"100%", alignItems: 'center'}}>
+                    <Text style={{fontSize:20, color:'#FFF'}}>{this.getMonth(this.state.time)}</Text>
+                    <View style={{width:"100%", margin:'3%', flexDirection:'row', alignItems: 'center'}}>
                         <View style={{flex:1, alignItems: 'center'}}><Icon name='arrow-ios-back' width={30} height={50} fill='#FFF'/></View>
                         <View style={{flex:1, alignItems: 'center'}}>
                             <Text style={{color:'#FFF', fontSize:15}}>Popularity</Text>
@@ -161,7 +161,16 @@ export default class LocationinfoScreen extends React.Component{
                     </View>
                 </View>
 
-                <View style={{height:"17%", width:"80%", backgroundColor:'rgba(0, 0, 0, 0.5)', justifyContent: 'center', flexDirection:'row'}}>
+                <View style={{height:"10%", width:"100%", justifyContent:'center', alignItems:'center'}}>
+                    <Icon
+                        name='plus-circle-outline'
+                        width={20}
+                        height={20}
+                        fill='#FFF'
+                    />
+                </View>
+
+                <View style={{height:"14%", width:"80%", backgroundColor:'rgba(0, 0, 0, 0.5)', justifyContent: 'center', flexDirection:'row'}}>
                     <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
                         <Icon name='flash' width={25} height={25} fill='#FFF'/>
                         <Text style={{color:'#FFF', fontSize:15}}>{this.props.concent}</Text>
@@ -183,7 +192,7 @@ export default class LocationinfoScreen extends React.Component{
                         <Text style={{color:'#FFF', fontSize:15}}>{this.props.language}</Text>
                     </View>
                 </View>
-                <View style={{height:"20%",
+                <View style={{height:"27%",
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}>

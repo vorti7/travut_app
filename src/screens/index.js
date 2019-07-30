@@ -14,6 +14,7 @@ export { default as ProviderinfoScreen } from './providerInfoScreen'
 export { default as MaketripScreen } from './maketripScreen'
 
 export { default as MytriplistScreen } from './mytriplistScreen'
+export { default as TripofferInfoScreen } from './tripofferInfo'
 
 export { default as loadingScreen } from './common/loadingScreen'
 

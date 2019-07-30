@@ -18,6 +18,8 @@ export const SCREEN_MAKETRIP_INTRO = 'travut.screen.maketrip.intro'
 
 export const SCREEN_MYTRIP_LIST = 'travut.screen.mytrip.list'   //  내여행리스트 스크린
 
+export const SCREEN_TRIPOFFER_INFO = 'travut.screen.tripoffer.info'
+
 export const SCREEN_COMMON_LOADING = 'travut.screen.common.loading' // 공통 로딩중 스크린
 
 

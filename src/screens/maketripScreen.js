@@ -67,6 +67,7 @@ class MaketripScreen extends React.Component{
                 'Good morning Abigail! :)',
                 'Who are you going with in Seoul?'
             ],
+            answerType:'companion',
             answerList: [
                'With lover',
                'With friends',
@@ -80,6 +81,7 @@ class MaketripScreen extends React.Component{
                  'Wow, very nice!',
                  'Please let me know about travel members.'
              ],
+             answerType:'companionInfo',
              answerList: [
                 ['male', 'people'],
                 ['female', 'people'],
@@ -90,13 +92,15 @@ class MaketripScreen extends React.Component{
             type: 3,
             question: [
                 'When are you going to travel?',
-            ]
+            ],
+            answerType:'timeInfo'
         },
          {
             type: 1,
             question: [
                 'What kind of travel do you want?'
             ],
+            answerType:'travelType',
             answerList: [
                 '다채로운 관광',
                 '조용한 휴식',
@@ -111,7 +115,8 @@ class MaketripScreen extends React.Component{
             question: [
                 'Thank you for letting us know.',
                 'Do you have any additional requests?'
-            ]
+            ],
+            answerType:'extra'
         }
     ]
     
@@ -144,12 +149,21 @@ class MaketripScreen extends React.Component{
                     style: 'cancel',
                   },
                   {text: 'OK', onPress: () => {console.log('OK Pressed')
+
+                                                let jsonData = {}
+                                                this.state.aList.map((contact, i) => {
+                                                    // jsonData[contact.answerType] = contact.answer
+                                                    console.log(contact.type)
+                                                    console.log(contact.answer)
+                                                    jsonData[contact.type] = contact.answer
+                                                });
+                                                // console.log(jsonData)
                                                 let data = {
                                                     "ID" : success,
                                                     "locationID" : "LO00000000",
                                                     "status" : "status",
                                                     "travelerIDs" : [success],
-                                                    "tripReqInfo" : JSON.stringify(this.state.aList),
+                                                    "tripReqInfo" : JSON.stringify(jsonData),
                                                     "recipientsCnt" : 0,
                                                     "checkedIDs" : [],
                                                     "participantsIDs" : [],
@@ -188,20 +202,20 @@ class MaketripScreen extends React.Component{
         // console.log(this.state.qList, this.state.aList)
     }
 
-    addAnswer(){
-        let { aList, count } = this.state
-        // if(this.questionList[count].type == 1){
-        //     console.log(this.questionList[count].answerList)
-        // }
+    // addAnswer(){
+    //     let { aList, count } = this.state
+    //     // if(this.questionList[count].type == 1){
+    //     //     console.log(this.questionList[count].answerList)
+    //     // }
         
-        this.setState({
-            aList: aList.concat({answer:['this is answer']})
-        })
-        this.setState({
-            count: count+1
-        })
-        // console.log(this.state.qList, this.state.aList)
-    }
+    //     this.setState({
+    //         aList: aList.concat({answer:['this is answer']})
+    //     })
+    //     this.setState({
+    //         count: count+1
+    //     })
+    //     // console.log(this.state.qList, this.state.aList)
+    // }
 
     updateIndex (buttonGroupselectedIndex) {
         let { aList, count } = this.state
@@ -209,7 +223,7 @@ class MaketripScreen extends React.Component{
         // console.log('Answer Index : ',this.state.buttonGroupselectedIndex)
         // console.log(this.questionList[count].answerList[buttonGroupselectedIndex])
         this.setState({
-            aList: aList.concat({answer:[this.questionList[count].answerList[buttonGroupselectedIndex]]})
+            aList: aList.concat({type:this.questionList[count].answerType, answer:[this.questionList[count].answerList[buttonGroupselectedIndex]]})
         })
         this.setState({
             count: count+1
@@ -232,7 +246,7 @@ class MaketripScreen extends React.Component{
     addCalendarData(){
         let { aList, count, calendarDate } = this.state
         this.setState({
-            aList: aList.concat({answer:Object.keys(calendarDate)})
+            aList: aList.concat({type:this.questionList[count].answerType, answer:Object.keys(calendarDate)})
         })
         this.setState({
             count: count+1
@@ -243,7 +257,7 @@ class MaketripScreen extends React.Component{
     addTextData(){
         let { aList, count } = this.state
         this.setState({
-            aList: aList.concat({answer:[this.state.textInput]})
+            aList: aList.concat({type:this.questionList[count].answerType, answer:[this.state.textInput]})
         })
         this.setState({
             count: count+1
@@ -331,7 +345,7 @@ class MaketripScreen extends React.Component{
                         <View style={{flexDirection:'row'}}>
                             <Button onPress={()=>{
                                 this.setState({
-                                    aList: aList.concat({answer:["I don't know..."]})
+                                    aList: aList.concat({type:this.questionList[count].answerType, answer:["I don't know..."]})
                                 })
                                 this.setState({
                                     count: count+1
@@ -340,7 +354,7 @@ class MaketripScreen extends React.Component{
                             }} title="I don't know"/>
                             <Button onPress={()=>{
                                 this.setState({
-                                    aList: aList.concat({answer:['Male : '+this.state.maleNum, 'Female : '+this.state.femaleNum, 'Age Group : '+this.state.ageGroup]})
+                                    aList: aList.concat({type:this.questionList[count].answerType, answer:['Male : '+this.state.maleNum, 'Female : '+this.state.femaleNum, 'Age Group : '+this.state.ageGroup]})
                                 })
                                 this.setState({
                                     count: count+1
