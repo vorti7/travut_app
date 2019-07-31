@@ -400,7 +400,7 @@ type Query {
 
 	listTravelers(filter: TableTravelerFilterInput, limit: Int, nextToken: String): TravelerConnection
 	listTripRequests(filter: TableTripRequestFilterInput, limit: Int, nextToken: String): TripRequestConnection
-	listLocatoins(filter: TableLocationFilterInput, limit: Int, nextToken: String): LocationConnection
+	listLocations(filter: TableLocationFilterInput, limit: Int, nextToken: String): LocationConnection
 	listProviders(filter: TableProviderFilterInput, limit: Int, nextToken:String): ProviderConnection
 }
 

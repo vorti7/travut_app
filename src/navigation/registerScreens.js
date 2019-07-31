@@ -22,6 +22,8 @@ export default function registerScreens(WithProvider) {
 
   Navigation.registerComponent(Const.SCREEN_TRIPOFFER_INFO, () => WithProvider(Screens.TripofferInfoScreen))
 
+  Navigation.registerComponent(Const.SCREEN_CHAT, () => WithProvider(Screens.ChatScreen))
+
   Navigation.registerComponent(Const.SCREEN_COMMON_LOADING, () => WithProvider(Screens.loadingScreen));
   
   Navigation.registerComponent(Const.SCREEN_COMMON_OVERLAY, () => WithProvider(Screens.overlayScreen))

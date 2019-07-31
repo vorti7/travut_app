@@ -57,6 +57,39 @@ export default class MainScreen extends React.Component{
 
     onClick5(){
         console.log('onClick5 button clicked')
+        passProps = {
+            chatData : [
+                {
+                    type: 'text',
+                    auther: 'A',
+                    autherImage: '',
+                    content:'Hello!'
+                },
+                {
+                    type: 'text',
+                    auther: '',
+                    autherImage: '',
+                    content:'Hello!'
+                },
+                {
+                    type: 'text',
+                    auther: '',
+                    autherImage: '',
+                    content:'This is test message\n this is test message\n this is test message'
+                },
+                {
+                    type: 'text',
+                    auther: 'A',
+                    autherImage: '',
+                    content:'This is test message\n this is test message\n this is test message'
+                }
+            ]
+        }
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_CHAT, passProps)
+    }
+
+    overlay(){
+        console.log('onClick5 button clicked')
         Navigator.showOverlay("overlay",  ScreenConst.SCREEN_COMMON_OVERLAY)
     }
     
@@ -90,10 +123,15 @@ export default class MainScreen extends React.Component{
                     onPress={this.onClick4.bind(this)}
                     title = "Trip Offer"
                 />
-
                 <Button
                     type="clear"
                     onPress={this.onClick5.bind(this)}
+                    title = "Show Chat"
+                />
+
+                <Button
+                    type="clear"
+                    onPress={this.overlay.bind(this)}
                     title = "Overlay"
                 />
                 <Button

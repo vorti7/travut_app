@@ -9,10 +9,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 // import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
-export default class LocationsearchScreen extends React.Component{
+class LocationsearchScreen extends React.Component{
 
     componentDidMount(){
-        
     }
 
     constructor(props) {
@@ -23,7 +22,8 @@ export default class LocationsearchScreen extends React.Component{
         };
     }
 
-    goLocationInfo(){
+    goLocationInfo(locationInfo){
+        console.log(locationInfo)
         passProps = {
             backgroundImage:'https://images.unsplash.com/photo-1533637322518-7aadda74ddc0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=919&q=80',
             locationName: 'Seoul/South Korea',
@@ -43,8 +43,13 @@ export default class LocationsearchScreen extends React.Component{
         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_INFO, passProps)
     }
     
+    goTripRequest(){
+
+    }
+
     render(){
         console.log('locationsearchScreen called')
+        // console.log(this.props)
         return(
             <View style={{flex:1, alignItems: 'center'}}>
                 <Header containerStyle={{height:'5%', top : '3%', marginBottom:'8%', backgroundColor:"transparent"}}
@@ -85,8 +90,16 @@ export default class LocationsearchScreen extends React.Component{
                 </View>
                 <View style={{height:"40%", justifyContent: 'center'}}>
                     <ScrollView horizontal={true}>
-                        <LocationItem locationName={'Seoul'} locationImage={'https://lh5.googleusercontent.com/p/AF1QipOcxqktNzkz-BMlCXE_KskkE3AXTL0zqtFEuRU=w462-h240-k-no'}/>
-                        <LocationItem locationName={'Busan'} locationImage={'https://lh5.googleusercontent.com/p/AF1QipN33SroDbOFnVUpDw3KWI2KaQt5WxVlF_Owh7o9=w408-h270-k-no'}/>
+                        {this.props.locations.map((contact, i) => {
+                            const locationArr = contact.locationName.split('/')
+                            return (
+                                <TouchableOpacity onPress={this.goLocationInfo.bind(this, contact.locationInfo)} key={i}>
+                                    <LocationItem locationName={locationArr[locationArr.length-1]} locationImage={JSON.parse(contact.locationInfo).badgeUrl}/>
+                                </TouchableOpacity>
+                            )
+                        })}
+                        {/* <LocationItem locationName={'Seoul'} locationImage={'https://lh5.googleusercontent.com/p/AF1QipOcxqktNzkz-BMlCXE_KskkE3AXTL0zqtFEuRU=w462-h240-k-no'}/>
+                        <LocationItem locationName={'Busan'} locationImage={'https://lh5.googleusercontent.com/p/AF1QipN33SroDbOFnVUpDw3KWI2KaQt5WxVlF_Owh7o9=w408-h270-k-no'}/> */}
                     </ScrollView>
                 </View>
                 <View style={{height:"20%",
@@ -95,7 +108,7 @@ export default class LocationsearchScreen extends React.Component{
                 }}>
                     <TouchableOpacity
                             style={{justifyContent:'center', alignItems:'center'}}
-                            onPress={this.goLocationInfo.bind(this)}>
+                            onPress={this.goTripRequest.bind(this)}>
                             <View
                                 style={{
                                     width: 90,
@@ -146,6 +159,6 @@ const LocationItem = (props) => {
     )
 }
 
-// export default compose(
-//         Api.TripRequest.queries.listTripRequests
-//     )(LocationsearchScreen)
+export default compose(
+    Api.Location.queries.listLocations()
+)(LocationsearchScreen)

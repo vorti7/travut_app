@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Dimensions, TouchableHighlight } from 'react-native';
+import { View, ScrollView, Dimensions, TouchableHighlight, Switch } from 'react-native';
 
 import { Header, Card, Badge, Text, Avatar, Image } from 'react-native-elements';
 
@@ -149,17 +149,118 @@ export default class TripofferScreen extends React.Component{
                             </View>
                         </View>
                     </View>
-                    <View style={{width:'100%', height:screenHeight}}>
-                        <View style={{flexDirection:'column'}}>
-                            <View style={{height:20, backgroundColor:'green'}}>
+                    <ServiceComponent></ServiceComponent>
+                    {/* <View style={{height:screenHeight, alignItems:'center'}}>
+                        <View style={{width:'90%', flexDirection:'column'}}>
+                            <View style={{paddingTop:20, paddingBottom:5, flexDirection:'row'}}>
+                                <Text style={{fontSize:20, fontWeight:'bold', color:'#4535AA'}}>Service Name</Text>
+                                <View style={{flex:1}}></View>
+                                <Switch
+
+                                />
+                            </View>
+                            <View style={{minHeight:30, backgroundColor:'#EBE8FA', borderRadius:10}}>
+                                <View>
+                                    <View style={{minHeight:30, padding:10}}>
+
+                                    </View>
+                                    <View style={{height:30, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                        <Icon
+                                            name='message-square-outline'
+                                            width={18}
+                                            height={18}
+                                            fill='#4535AA'
+                                        />
+                                        <Text style={{color:'#4535AA', fontSize:13, borderBottomWidth:0.5}}>추가요청이 있으시면 여기를 눌러 코멘트를 남겨주세요.</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    </View> */}
+                    <View style={{height:screenHeight/5}}></View>
+                </ScrollView>
+                <View
+                    style={{width:'100%', height:'14%', bottom : 0, paddingLeft:'5%', paddingRight:'5%', position:'absolute', flexDirection:'row', backgroundColor:"#FFF"}}
+                >
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                        <Icon
+                            name='close-circle-outline'
+                            width={40}
+                            height={40}
+                            fill='#4535AA'
+                        />
+                    </View>
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                        <Icon
+                            name='home'
+                            width={40}
+                            height={40}
+                            fill='#4535AA'
+                        />
+                    </View>
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                        <Icon
+                            name='message-square-outline'
+                            width={40}
+                            height={40}
+                            fill='#4535AA'
+                        />
+                    </View>
+                    <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
+                        <View style={{width:'90%', height:'60%', borderRadius:20, backgroundColor:'#4535AA', flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                            <Icon
+                                name='checkmark-square-outline'
+                                width={30}
+                                height={30}
+                                fill='#FFF'
+                            />
+                            <Text style={{color:'#FFF', fontSize:20, fontWeight:'bold'}}> ORDER</Text>
+                        </View>
+                    </View>
+
+                    
+                </View>
+            </View>
+        )
+    }
+}
+
+class ServiceComponent extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.state = {
+        };
+    }
+
+    render(){
+        return(
+            <View style={{height:'auto', alignItems:'center'}}>
+                <View style={{width:'90%', flexDirection:'column'}}>
+                    <View style={{paddingTop:20, paddingBottom:5, flexDirection:'row'}}>
+                        <Text style={{fontSize:20, fontWeight:'bold', color:'#4535AA'}}>Service Name</Text>
+                        <View style={{flex:1}}></View>
+                        <Switch
+
+                        />
+                    </View>
+                    <View style={{minHeight:30, backgroundColor:'#EBE8FA', borderRadius:10}}>
+                        <View>
+                            <View style={{minHeight:30, padding:10}}>
 
                             </View>
-                            <View style={{height:50, backgroundColor:'red'}}>
-
+                            <View style={{height:30, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                <Icon
+                                    name='message-square-outline'
+                                    width={18}
+                                    height={18}
+                                    fill='#4535AA'
+                                />
+                                <Text style={{color:'#4535AA', fontSize:13, borderBottomWidth:0.5}}>추가요청이 있으시면 여기를 눌러 코멘트를 남겨주세요.</Text>
                             </View>
                         </View>
                     </View>
-                </ScrollView>
+                </View>
             </View>
         )
     }

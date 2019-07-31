@@ -298,12 +298,12 @@ export const listTripRequests = `query ListTripRequests(
   }
 }
 `;
-export const listLocatoins = `query ListLocatoins(
+export const listLocations = `query ListLocations(
   $filter: TableLocationFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listLocatoins(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listLocations(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       ID
       SORTKEY
