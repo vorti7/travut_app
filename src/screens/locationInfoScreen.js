@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
-import { Header, Image, Input, Text } from 'react-native-elements'
+import { Header, Overlay, Text } from 'react-native-elements'
 
 import { Icon } from 'react-native-eva-icons';
 // import Icon from 'react-native-vector-icons/FontAwesome';
@@ -14,7 +14,8 @@ export default class LocationinfoScreen extends React.Component{
         super(props);
 
         this.state = {
-            time: new Date()
+            time: new Date(),
+            descriptionOverlay: false
         };
     }
 
@@ -77,11 +78,48 @@ export default class LocationinfoScreen extends React.Component{
     goProviderList(){
         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_PROVIDER_LIST)
     }
+
+    showDescription(){
+        this.setState({ descriptionOverlay: true })
+    }
     
     render(){
         console.log('locationinfoScreen called')
+        locationArr = this.props.locationName.split('/')
+        cityName = locationArr[locationArr.length-1]
         return(
             <ImageBackground style={{flex:1, alignItems: 'center'}} source={{uri:this.props.backgroundImage}}>
+                <Overlay
+                    borderRadius={10}
+                    isVisible={this.state.descriptionOverlay}
+                    onBackdropPress={() => this.setState({ descriptionOverlay: false })}
+                    windowBackgroundColor="rgba(0, 0, 0, 0.5)"
+                    overlayBackgroundColor="white"
+                    width='90%'
+                    height='90%'
+                >
+                    <View style={{flex:1}}>
+                        <View style={{width:'100%', height:'15%', flexDirection:'row'}}>
+                            <View style={{width:'65%', height:'100%', flexDirection:'column', alignItems:'flex-start'}}>
+                                <View style={{height:'50%', flexDirection:'row', justifyContent:'center', padding:'5%'}}>
+                                    <Text style={{fontSize:25, fontWeight:'bold'}}>{cityName} </Text>
+                                    <Icon name='pin' width={25} height={25} fill='#000'/>
+                                </View>
+                                <View style={{height:'50%', justifyContent:'center', padding:'5%'}}>
+                                    <Text style={{fontSize:18}}>This is short description</Text>
+                                </View>
+                            </View>
+                            <View style={{width:'35%', height:'100%', backgroundColor:'yellow'}}>
+
+                            </View>
+                        </View>
+                        <View style={{width:'100%', height:'85%', padding:'5%'}}>
+                            <Text style={{fontSize:15}}>
+                                {'this is description. this is description. this is description. this is description.\n\nthis is description. this is description. this is description. this is description.this is description. this is description. this is description. this is description.this is description. this is description. this is description. this is description.'}
+                            </Text>
+                        </View>
+                    </View>
+                </Overlay>
                 <Header
                     containerStyle={{height:"10%", marginBottom:"5%", backgroundColor:"transparent", borderBottomColor:'transparent'}}
                     leftComponent={
@@ -93,7 +131,7 @@ export default class LocationinfoScreen extends React.Component{
                         />
                     }
                     centerComponent={
-                        <Text style={{fontSize:20, color:'#FFF'}}>{this.props.locationName}</Text>
+                        <Text style={{fontSize:20, color:'#FFF'}}>{cityName}</Text>
                     }
                     rightComponent={
                         <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
@@ -139,7 +177,9 @@ export default class LocationinfoScreen extends React.Component{
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <Text style={{fontSize:15, color:'#FFF'}}>{this.props.description}</Text>
+                    <TouchableOpacity onPress={this.showDescription.bind(this)}>
+                        <Text style={{fontSize:15, color:'#FFF'}}>{this.props.description}</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={{height:"17%", width:"100%", alignItems: 'center'}}>
                     <Text style={{fontSize:20, color:'#FFF'}}>{this.getMonth(this.state.time)}</Text>

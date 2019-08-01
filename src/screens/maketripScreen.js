@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Picker, Alert } from 'react-native';
+import { View, ScrollView, Picker, Alert, TouchableOpacity } from 'react-native';
 import { Header, Text, Button, ButtonGroup, Input } from 'react-native-elements'
 import { Calendar, CalendarList, Agenda} from 'react-native-calendars'
 import { Api } from '../lib/api'
@@ -38,7 +38,7 @@ class MaketripScreen extends React.Component{
 
             textInput:''
         };
-        this.updateIndex = this.updateIndex.bind(this)
+        // this.updateIndex = this.updateIndex.bind(this)
         this.setCalendar = this.setCalendar.bind(this)
         this.addCalendarData = this.addCalendarData.bind(this)
     }
@@ -72,7 +72,8 @@ class MaketripScreen extends React.Component{
                'With lover',
                'With friends',
                'With family',
-               'alone'
+               'alone',
+               'I dont know...'
            ]
         },
         {
@@ -217,19 +218,19 @@ class MaketripScreen extends React.Component{
     //     // console.log(this.state.qList, this.state.aList)
     // }
 
-    updateIndex (buttonGroupselectedIndex) {
-        let { aList, count } = this.state
-        this.setState({buttonGroupselectedIndex})
-        // console.log('Answer Index : ',this.state.buttonGroupselectedIndex)
-        // console.log(this.questionList[count].answerList[buttonGroupselectedIndex])
-        this.setState({
-            aList: aList.concat({type:this.questionList[count].answerType, answer:[this.questionList[count].answerList[buttonGroupselectedIndex]]})
-        })
-        this.setState({
-            count: count+1
-        })
-        this.addQuestion(count+1)
-    }
+    // updateIndex (buttonGroupselectedIndex) {
+    //     let { aList, count } = this.state
+    //     this.setState({buttonGroupselectedIndex})
+    //     // console.log('Answer Index : ',this.state.buttonGroupselectedIndex)
+    //     // console.log(this.questionList[count].answerList[buttonGroupselectedIndex])
+    //     this.setState({
+    //         aList: aList.concat({type:this.questionList[count].answerType, answer:[this.questionList[count].answerList[buttonGroupselectedIndex]]})
+    //     })
+    //     this.setState({
+    //         count: count+1
+    //     })
+    //     this.addQuestion(count+1)
+    // }
 
     setCalendar(checkedDate){
         let { calendarDate } =this.state
@@ -254,16 +255,27 @@ class MaketripScreen extends React.Component{
         this.addQuestion(count+1)
     }
 
-    addTextData(){
+    addTextData(textInput){
         let { aList, count } = this.state
         this.setState({
-            aList: aList.concat({type:this.questionList[count].answerType, answer:[this.state.textInput]})
+            aList: aList.concat({type:this.questionList[count].answerType, answer:[textInput]})
         })
         this.setState({
             count: count+1
         })
         this.addQuestion(count+1)
     }
+
+    // addTextData(){
+    //     let { aList, count } = this.state
+    //     this.setState({
+    //         aList: aList.concat({type:this.questionList[count].answerType, answer:[this.state.textInput]})
+    //     })
+    //     this.setState({
+    //         count: count+1
+    //     })
+    //     this.addQuestion(count+1)
+    // }
 
     showAnswerSelect(){
         let {qList, aList, count, buttonGroupselectedIndex } = this.state
@@ -276,17 +288,28 @@ class MaketripScreen extends React.Component{
                 return (
                     <View style={{backgroundColor:'#FFF', flexDirection:'row'}}>
                         <Input containerStyle={{flex:1}} placeholder='' onChangeText={(textInput) => this.setState({textInput: textInput})}></Input>
-                        <Button title='submit' onPress={this.addTextData.bind(this)}></Button>
+                        <View style={{height:'100%', justifyContent:'center'}}>
+                            <Button title='submit' buttonStyle={{backgroundColor:'#4535AA'}} onPress={this.addTextData.bind(this, this.state.textInput)}></Button>
+                        </View>
                     </View>
                 )
             else if(this.questionList[count].type == 1)
                 return (
-                    <View style={{width:'100%', height:'auto'}}>
-                        <ButtonGroup
+                    <View style={{backgroundColor:'#FFF', width:'100%', height:'auto', flexDirection:'row', flexWrap: 'wrap'}}>
+                        {this.questionList[count].answerList.map((contact, i) => {
+                            return (
+                                <TouchableOpacity onPress={this.addTextData.bind(this, contact)} key={i}>
+                                    <View style={{width: 'auto', height:'auto', borderWidth:1.5, borderRadius:20, borderColor:'#4535AA', padding:10, margin:5}}>
+                                        <Text style={{fontSize:20, fontWeight:'bold', color:'#4535AA'}}>{contact}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )
+                        })}
+                        {/* <ButtonGroup
                             onPress={this.updateIndex}
                             selectedIndex={buttonGroupselectedIndex}
                             buttons={this.questionList[count].answerList}
-                        />
+                        /> */}
                     </View>
                 )
             else if(this.questionList[count].type == 2)
@@ -342,25 +365,37 @@ class MaketripScreen extends React.Component{
                                 </Picker>
                             </View>
                         </View>
-                        <View style={{flexDirection:'row'}}>
-                            <Button onPress={()=>{
-                                this.setState({
-                                    aList: aList.concat({type:this.questionList[count].answerType, answer:["I don't know..."]})
-                                })
-                                this.setState({
-                                    count: count+1
-                                })
-                                this.addQuestion(count+1)
-                            }} title="I don't know"/>
-                            <Button onPress={()=>{
-                                this.setState({
-                                    aList: aList.concat({type:this.questionList[count].answerType, answer:['Male : '+this.state.maleNum, 'Female : '+this.state.femaleNum, 'Age Group : '+this.state.ageGroup]})
-                                })
-                                this.setState({
-                                    count: count+1
-                                })
-                                this.addQuestion(count+1)
-                            }} title='Submit'/>
+                        <View style={{width:'100%', flexDirection:'row'}}>
+                            <View style={{width:'50%', padding:10}}>
+                                <TouchableOpacity onPress={()=>{
+                                    this.setState({
+                                        aList: aList.concat({type:this.questionList[count].answerType, answer:["I don't know..."]})
+                                    })
+                                    this.setState({
+                                        count: count+1
+                                    })
+                                    this.addQuestion(count+1)
+                                }}>
+                                    <View style={{width: '100%', height:'auto', borderWidth:1.5, borderRadius:20, alignItems:'center', borderColor:'#4535AA'}}>
+                                        <Text h4 h4Style={{color:'#4535AA'}}>I don't know</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{width:'50%', padding:10}}>
+                                <TouchableOpacity onPress={()=>{
+                                    this.setState({
+                                        aList: aList.concat({type:this.questionList[count].answerType, answer:['Male : '+this.state.maleNum, 'Female : '+this.state.femaleNum, 'Age Group : '+this.state.ageGroup]})
+                                    })
+                                    this.setState({
+                                        count: count+1
+                                    })
+                                    this.addQuestion(count+1)
+                                }}>
+                                    <View style={{width: '100%', height:'auto', borderWidth:1.5, borderRadius:20, alignItems:'center', borderColor:'#4535AA'}}>
+                                        <Text h4 h4Style={{color:'#4535AA'}}>V</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 )
@@ -376,8 +411,10 @@ class MaketripScreen extends React.Component{
                         />
                         <View>
                             <Button
+                                type="clear"
                                 onPress={this.addCalendarData.bind(this)}
                                 title='submit'
+                                titleStyle={{color:'#4535AA'}}
                             />
                         </View>
                     </View>

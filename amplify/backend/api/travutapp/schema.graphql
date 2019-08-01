@@ -11,7 +11,7 @@ interface User {
 	lastName : String
 	nickName : String
 	gender : String
-	birthday : AWSDate
+	birthday : String
 	phone : AWSPhone
 	languages : [String]
 	photoURL : AWSURL
@@ -36,7 +36,7 @@ type Traveler implements User {
 	lastName: String
 	nickName: String
 	gender: String
-	birthday: AWSDate
+	birthday: String
 	phone: AWSPhone
 	languages: [String]
 	photoURL: AWSURL
@@ -61,7 +61,7 @@ type Provider implements User {
 	lastName : String
 	nickName : String
 	gender : String
-	birthday : AWSDate
+	birthday : String
 	phone : AWSPhone
 	languages : [String]
 	photoURL : AWSURL
@@ -152,7 +152,7 @@ input CreateTravelerInput {
 	lastName: String
 	nickName: String
 	gender: String
-	birthday: AWSDate
+	birthday: String
 	phone: AWSPhone
 	languages: [String]
 	photoURL: AWSURL
@@ -213,7 +213,7 @@ input UpdateTravelerInput {
 	lastName: String
 	nickName: String
 	gender: String
-	birthday: AWSDate
+	birthday: String
 	phone: AWSPhone
 	languages: [String]
 	photoURL: AWSURL

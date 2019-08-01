@@ -22,23 +22,23 @@ class LocationsearchScreen extends React.Component{
         };
     }
 
-    goLocationInfo(locationInfo){
-        console.log(locationInfo)
+    goLocationInfo(data){
+        jsonData = JSON.parse(data.locationInfo)
         passProps = {
-            backgroundImage:'https://images.unsplash.com/photo-1533637322518-7aadda74ddc0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=919&q=80',
-            locationName: 'Seoul/South Korea',
-            timezone: -8,
-            weather: 'rainy',
-            temperature: 31,
-            description: 'This is Seoul',
-            popularity: 977.6,
-            lowestTemp: 25,
-            highestTemp: 32,
-            humidity: 71,
+            backgroundImage: jsonData.backgroundUrl,
+            locationName: data.locationName,
+            timezone: jsonData.timezone,
+            weather: jsonData.weather,
+            temperature: jsonData.temperature,
+            description: jsonData.description,
+            popularity: jsonData.popularity,
+            lowestTemp: jsonData.lowestTemp,
+            highestTemp: jsonData.highestTemp,
+            humidity: jsonData.humidity,
             concent: '220V',
-            phoneCode: '82-2',
-            currency: 'won',
-            language:['Korean']
+            phoneCode: jsonData.phonecode,
+            currency: jsonData.currency,
+            language: jsonData.language
         }
         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_INFO, passProps)
     }
@@ -93,7 +93,7 @@ class LocationsearchScreen extends React.Component{
                         {this.props.locations.map((contact, i) => {
                             const locationArr = contact.locationName.split('/')
                             return (
-                                <TouchableOpacity onPress={this.goLocationInfo.bind(this, contact.locationInfo)} key={i}>
+                                <TouchableOpacity onPress={this.goLocationInfo.bind(this, contact)} key={i}>
                                     <LocationItem locationName={locationArr[locationArr.length-1]} locationImage={JSON.parse(contact.locationInfo).badgeUrl}/>
                                 </TouchableOpacity>
                             )

@@ -2,13 +2,16 @@ import React from 'react';
 import { View, ScrollView, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { Header, Card, Input, Text, Rating } from 'react-native-elements'
 import { Icon } from 'react-native-eva-icons';
+import { compose, withApollo } from 'react-apollo'
 
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
 // import AuthClass from '../lib/auth'
+import { Api } from '../lib/api'
+
 import {Navigator, ScreenConst} from '../navigation'
 
-export default class ProviderListScreen extends React.Component{
+class ProviderListScreen extends React.Component{
 
     constructor(props) {
         super(props);
@@ -40,6 +43,8 @@ export default class ProviderListScreen extends React.Component{
         let screenWidth = Dimensions.get('window').width
         
         console.log('providerInfoScreen called')
+        
+        console.log(this.props)
 
         return(
             <View style={{flex:1, alignItems: 'center'}}>
@@ -140,4 +145,6 @@ const ProviderCard = (props) => {
     )
 }
 
-// export default compose ()(ProviderListScreen)
+export default compose(
+    Api.Provider.queries.listProviders()
+)(ProviderListScreen)

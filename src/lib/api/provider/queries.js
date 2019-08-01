@@ -36,7 +36,6 @@ export const listProviders = `query getProviders {
       ID
       SORTKEY
       locationID
-      location
       email
       status
       firstName
