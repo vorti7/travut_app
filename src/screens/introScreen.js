@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 import { Navigator, ScreenConst } from '../navigation'
+import LinearGradient from 'react-native-linear-gradient'
+import { Text } from 'react-native-elements'
 
 export default class IntroScreen extends React.Component{
 
@@ -28,14 +30,42 @@ export default class IntroScreen extends React.Component{
         //     },
         // });
         return(
-            <View style={{flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'white',
-                opacity: 1}}>
-                <Image source={require('../assets/images/logo/test_logo.png')} />
-            </View>
+            <LinearGradient
+                colors={['#B6D1F5', '#4535AA']}
+                style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    // backgroundColor: 'white',
+                    opacity: 1
+                }}
+            >
+                {/* <Image source={require('../assets/images/logo/test_logo.png')} /> */}
+                <View
+                    style={{
+                        justifyContent:'center',
+                        alignItems:'center',
+                        width: 160,
+                        height: 160,
+                        borderRadius: 160/2,
+                        backgroundColor: 'rgba(255,255,255,0.5)'
+                    }}
+                >
+                    <Text h2 h2Style={{fontWeight:'bold', color:'#FFF'}}>TRV</Text>
+                </View>
+                <View style={{marginTop:30}}>
+                    <Text h3 h3Style={{color:'#FFF'}}>  Loading...</Text>
+                </View>
+            </LinearGradient>
+            // <View style={{flex: 1,
+            //     flexDirection: 'column',
+            //     justifyContent: 'center',
+            //     alignItems: 'center',
+            //     backgroundColor: 'white',
+            //     opacity: 1}}>
+            //     <Image source={require('../assets/images/logo/test_logo.png')} />
+            // </View>
         )
     }
 }

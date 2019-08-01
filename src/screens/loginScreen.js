@@ -1,7 +1,9 @@
 import React from 'react';
-import {View, Alert, Text, KeyboardAvoidingView} from 'react-native';
+import {View, Alert, KeyboardAvoidingView} from 'react-native';
+import { Text } from 'react-native-elements'
 import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
+import LinearGradient from 'react-native-linear-gradient'
 
 import { TvlrFormComponent } from '../components'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
@@ -45,6 +47,7 @@ export default class LoginScreen extends React.Component{
 
     goMainScreen() {
         Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME)
+        // this.setState({ isVisible: false })
     }
 
     overlayLogin() {
@@ -67,7 +70,18 @@ export default class LoginScreen extends React.Component{
     render(){
         console.log('loginScreen called')
         return(
-            <View style={{flex: 1}}>
+            // <View style={{flex: 1}}>
+            <LinearGradient
+                colors={['#B6D1F5', '#4535AA']}
+                style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    // backgroundColor: 'white',
+                    opacity: 1
+                }}
+            >
                 <Overlay
                     borderRadius={10}
                     isVisible={this.state.isVisible}
@@ -75,7 +89,8 @@ export default class LoginScreen extends React.Component{
                     windowBackgroundColor="rgba(0, 0, 0, 0.5)"
                     overlayBackgroundColor="white"
                     width={this.state.overlayWidth}
-                    height={this.state.overlayHeight}
+                    // height={this.state.overlayHeight}
+                    height='auto'
                 >
                     <KeyboardAwareScrollView>
                         <TvlrFormComponent
@@ -86,27 +101,49 @@ export default class LoginScreen extends React.Component{
                         </TvlrFormComponent>
                     </KeyboardAwareScrollView>
                 </Overlay>
-                <View style={{flex: 1,
-                              flexDirection: 'column',
-                              justifyContent: 'center',
-                              alignItems: 'center'}}>
-                    <View>
-                        
-                        <View style={{width:"50%"}}>
-                            <Button
-                                onPress={this.overlayShow.bind(this)}
-                                title="Email Login"
-                            />
-                            <Button
-                                title="Google Login"
-                            />
-                            <Button
-                                title="Facebook Login"
-                            />
-                        </View>
-                    </View>
+                <View
+                    style={{
+                        justifyContent:'center',
+                        alignItems:'center',
+                        width: 140,
+                        height: 140,
+                        borderRadius: 140/2,
+                        borderWidth: 1,
+                        borderColor: '#FFF'
+                    }}
+                >
+                    <Text h3 h3Style={{fontWeight:'bold', color:'#FFF'}}>TRV</Text>
                 </View>
-            </View>
+                <View style={{height:'10%'}}></View>
+                <View style={{width:"70%"}}>
+                    <Button
+                        type='solid'
+                        buttonStyle={{backgroundColor:'#FFF', borderRadius:10}}
+                        containerStyle={{margin:'3%'}}
+                        title="Google"
+                        titleStyle={{color:'#4535AA', fontSize:25}}
+                    />
+                    <Button
+                        type='solid'
+                        buttonStyle={{backgroundColor:'#FFF', borderRadius:10}}
+                        containerStyle={{margin:'3%'}}
+                        title="Facebook"
+                        titleStyle={{color:'#4535AA', fontSize:25}}
+                    />
+                    <View style={{height:'2%'}}></View>
+                    <View style={{borderColor:'#FFF', borderWidth:1}}></View>
+                    <View style={{height:'2%'}}></View>
+                    <Button
+                        type='solid'
+                        buttonStyle={{backgroundColor:'#FFF', borderRadius:10}}
+                        containerStyle={{margin:'3%'}}
+                        onPress={this.overlayShow.bind(this)}
+                        title="Email"
+                        titleStyle={{color:'#4535AA', fontSize:25}}
+                    />
+                </View>
+            </LinearGradient>
+            // </View>
         )
     }
 }

@@ -65,7 +65,6 @@ export default class TvlrFormComponent extends React.Component{
                 this.props.overlayLogin()
             })
             .catch(err => Alert.alert(err))
-
         }
     }
 
@@ -154,7 +153,7 @@ export default class TvlrFormComponent extends React.Component{
                             <Text style={{color:'#4535AA'}}>FULL NAME</Text>
                             <Input
                                 placeholder="Enter your full name"
-                                containerStyle={{borderRadius: 10, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
+                                containerStyle={{borderRadius: 15, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
                                 inputContainerStyle={{borderBottomWidth:0, backgroundColor:'transparent'}}
                                 onChangeText={(name) => this.setState({nameState: name})}/>
                         </View>
@@ -163,7 +162,7 @@ export default class TvlrFormComponent extends React.Component{
                             <Input
                                 placeholder="Enter your e-mail"
                                 keyboardType="email-address"
-                                containerStyle={{borderRadius: 10, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
+                                containerStyle={{borderRadius: 15, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
                                 inputContainerStyle={{borderBottomWidth:0, backgroundColor:'transparent'}}
                                 textContentType='emailAddress'
                                 onChangeText={(email) => this.setState({emailState: email})}/>
@@ -173,7 +172,7 @@ export default class TvlrFormComponent extends React.Component{
                             <Input
                                 placeholder="Create your password"
                                 secureTextEntry={true}
-                                containerStyle={{borderRadius: 10, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
+                                containerStyle={{borderRadius: 15, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
                                 inputContainerStyle={{borderBottomWidth:0, backgroundColor:'transparent'}}
                                 onChangeText={(password) => this.setState({passwordState: password})}/>
                         </View>
@@ -182,7 +181,7 @@ export default class TvlrFormComponent extends React.Component{
                             <Input
                                 placeholder="Repeat your password"
                                 secureTextEntry={true}
-                                containerStyle={{borderRadius: 10, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
+                                containerStyle={{borderRadius: 15, paddingTop:'1%', paddingBottom:'1%', backgroundColor:'#EBE8FA'}}
                                 inputContainerStyle={{borderBottomWidth:0, backgroundColor:'transparent'}}
                                 onChangeText={(passwordchk) => this.setState({passwordCheckState:passwordchk})}/>
                         </View>
@@ -198,19 +197,19 @@ export default class TvlrFormComponent extends React.Component{
                             </View>
                             
                             <Button
-                                containerStyle={{width:'50%', height:'auto'}}
-                                buttonStyle={{backgroundColor:'#4535AA', borderRadius:10}}
+                                containerStyle={{width:'100%', height:'auto'}}
+                                buttonStyle={{backgroundColor:'#4535AA', borderRadius:15}}
                                 titleStyle={{fontSize:22}}
                                 onPress={this.signupClicked.bind(this)}
                                 title="Sign up"
                             />
 
                             <View style={{flexDirection:'row', marginTop:'3%', alignItems:'center'}}>
-                                <Text style={{color:'#4535AA'}}>Already have an account?</Text>
+                                <Text style={{color:'#4535AA'}}>Already have an account?  </Text>
                                 <Button
-                                    titleStyle={{fontSize:15, color:'#4535AA'}}
+                                    titleStyle={{fontSize:12, fontWeight:'bold', color:'#4535AA'}}
                                     onPress={this.goLoginClicked.bind(this)}
-                                    buttonStyle={{borderColor:'#AEA9C9', borderRadius:10}}
+                                    buttonStyle={{borderColor:'#AEA9C9', borderWidth:2, borderRadius:15}}
                                     type="outline"
                                     title="LOGIN"
                                 />
