@@ -146,5 +146,5 @@ const ProviderCard = (props) => {
 }
 
 export default compose(
-    Api.Provider.queries.listProviders()
+    Api.Provider.queries.listProvidersByLocationID()
 )(ProviderListScreen)

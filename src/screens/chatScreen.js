@@ -153,3 +153,8 @@ class ChatItem extends React.Component {
         return content
     }
   }
+
+
+//   export default compose(
+      
+// )(ChatScreen)

@@ -35,7 +35,7 @@ class LocationsearchScreen extends React.Component{
             lowestTemp: jsonData.lowestTemp,
             highestTemp: jsonData.highestTemp,
             humidity: jsonData.humidity,
-            concent: '220V',
+            concent: jsonData.concent,
             phoneCode: jsonData.phonecode,
             currency: jsonData.currency,
             language: jsonData.language

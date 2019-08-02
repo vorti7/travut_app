@@ -102,6 +102,26 @@ type TripRequest {
 	updateDate : String	
 }
 
+type TripOffer {
+	ID: String!
+	SORTKEY: String!
+	locationID: String!
+	locationInfo: Location
+	status: String
+	title: String
+	chatID: String
+	contractInfo: AWSJSON
+	paymentInfo: AWSJSON
+	tripReqID: String!
+	tripReqINFO: TripRequest
+	tripReqInfo: AWSJSON
+	expTime: AWSDateTime
+	regIP: AWSIPAddress!
+	regDate: AWSDateTime!
+	updateIP: AWSIPAddress
+	updateDate: AWSDateTime
+}
+
 type Location {
 	ID : String!
 	SORTKEY : String!
@@ -176,6 +196,24 @@ input CreateTripRequestInput {
 	regIP : AWSIPAddress
 }
 
+input CreateTripOfferInput {
+	ID: String!
+	SORTKEY: String!
+	locationID: String!
+	status: String
+	title: String
+	chatID: String
+	contractInfo: AWSJSON
+	paymentInfo: AWSJSON
+	tripReqID: String!
+	tripReqInfo: AWSJSON
+	expTime: AWSDateTime
+	regIP: AWSIPAddress!
+	regDate: AWSDateTime!
+	updateIP: AWSIPAddress
+	updateDate: AWSDateTime	
+}
+
 input CreateLocationInput {
 	ID : String!
 	SORTKEY : String!
@@ -217,8 +255,6 @@ input UpdateTravelerInput {
 	phone: AWSPhone
 	languages: [String]
 	photoURL: AWSURL
-	regIP: AWSIPAddress
-	regDate: String
 	updateIP: AWSIPAddress
 	updateDate: String
 	deactivateIP: AWSIPAddress
@@ -237,10 +273,24 @@ input UpdateTripRequestInput {
 	participantsIDs : [String]
 	refusersIDs : [String]
 	expTime : String
-	regIP : AWSIPAddress
-	regDate : String
 	updateIP : AWSIPAddress
 	updateDate : String
+}
+
+input UpdateTripOfferInput {
+	ID: String!
+	SORTKEY: String!
+	locationID: String!
+	status: String
+	title: String
+	chatID: String
+	contractInfo: AWSJSON
+	paymentInfo: AWSJSON
+	tripReqID: String!
+	tripReqInfo: AWSJSON
+	expTime: AWSDateTime
+	updateIP: AWSIPAddress
+	updateDate: AWSDateTime
 }
 
 input UpdateLocationInput {
@@ -258,8 +308,6 @@ input UpdateChatInput {
 	SORTKEY : String!
 	name : String
 	usersID : [String]
-	regIP : AWSIPAddress
-	regDate : String
 	updateIP : AWSIPAddress
 	updateDate : String
 }
@@ -321,6 +369,21 @@ input TableTripRequestFilterInput {
 	updateDate : TableStringFilterInput	
 }
 
+input TableTripOfferFilterInput {
+	ID: TableStringFilterInput
+	SORTKEY: TableStringFilterInput
+	locationID: TableStringFilterInput
+	status: TableStringFilterInput
+	title: TableStringFilterInput
+	chatID: TableStringFilterInput
+	tripReqID: TableStringFilterInput
+	expTime: TableStringFilterInput
+	regIP: TableStringFilterInput
+	regDate: TableStringFilterInput
+	updateIP: TableStringFilterInput
+	updateDate: TableStringFilterInput
+}
+
 input TableProviderFilterInput {
 	ID : TableStringFilterInput	
     SORTKEY : TableStringFilterInput	
@@ -356,6 +419,29 @@ input TableLocationFilterInput {
 	locationName : TableStringFilterInput
 }
 
+input TableChatFilterInput {
+	ID : TableStringFilterInput
+	SORTKEY : TableStringFilterInput
+	name : TableStringFilterInput
+	usersID : TableStringFilterInput
+	regIP : TableStringFilterInput
+	regDate : TableStringFilterInput
+	updateIP : TableStringFilterInput
+	updateDate : TableStringFilterInput
+}
+
+input TableMessageFilterInput {
+	ID : TableStringFilterInput
+	SORTKEY : TableStringFilterInput
+	userID : TableStringFilterInput
+	type : TableStringFilterInput
+	message: TableStringFilterInput
+	regIP : TableStringFilterInput
+	regDate : TableStringFilterInput
+	updateIP : TableStringFilterInput
+	updateDate : TableStringFilterInput
+}
+
 type TravelerConnection {
 	items: [Traveler]
 	nextToken: String
@@ -363,6 +449,11 @@ type TravelerConnection {
 
 type TripRequestConnection {
 	items: [TripRequest]
+	nextToken: String
+}
+
+type TripOfferConnection {
+	items: [TripOffer]
 	nextToken: String
 }
 
@@ -376,14 +467,26 @@ type ProviderConnection {
 	nextToken: String
 }
 
+type ChatConnection {
+	items: [Chat]
+	nextToken: String
+}
+
+type MessageConnection {
+	items: [Message]
+	nextToken: String
+}
+
 type Mutation {
 	createTraveler(input: CreateTravelerInput!): Traveler
 	createTripRequest(input: CreateTripRequestInput!): TripRequest
+	createTripOffer(input: CreateTripOfferInput!): TripOffer
 	createLocation(input: CreateLocationInput!): Location
 	createChat(input: CreateChatInput!): Chat
 	createMessage(input: CreateMessageInput!): Message
 	updateTraveler(input: UpdateTravelerInput!): Traveler
 	updateTripRequest(input: UpdateTripRequestInput!): TripRequest
+	updateTripOffer(input: UpdateTripOfferInput!): TripOffer
 	updateLocation(input: UpdateLocationInput!): Location
 	updateChat(input: UpdateChatInput!): Chat
 	updateMessage(input: UpdateMessageInput!): Message
@@ -393,15 +496,22 @@ type Mutation {
 type Query {
 	getUser(input: GetInput!): User
 	getTraveler(input: GetInput!): Traveler
+	getProvider(input: GetInput!): Provider
 	getTripRequest(input: GetInput!): TripRequest
+	getTripOffer(input: GetInput!): TripOffer
 	getLocation(input: GetInput!): Location
 	getChat(input: GetInput!): Chat
 	getMessage(input: GetInput!): Message
 
 	listTravelers(filter: TableTravelerFilterInput, limit: Int, nextToken: String): TravelerConnection
 	listTripRequests(filter: TableTripRequestFilterInput, limit: Int, nextToken: String): TripRequestConnection
+	listTripRequests(filter: TableTripRequestFilterInput, limit: Int, nextToken: String): TripRequestConnection
+	listTripOffers(filter: TableTripOfferFilterInput, limit: Int, nextToken: String): TripOfferConnection
 	listLocations(filter: TableLocationFilterInput, limit: Int, nextToken: String): LocationConnection
-	listProviders(filter: TableProviderFilterInput, limit: Int, nextToken:String): ProviderConnection
+	listProviders(filter: TableProviderFilterInput, limit: Int, nextToken: String): ProviderConnection
+	listProvidersByLocationID(filter: TableProviderFilterInput, limit: Int, nextToken: String): ProviderConnection
+	listChats(filter: TableChatFilterInput, limit: Int, nextToken: String): ChatConnection
+	listMessages(filter: TableMessageFilterInput, limit: Int, nextToken: String): MessageConnection
 }
 
 type Subscription {

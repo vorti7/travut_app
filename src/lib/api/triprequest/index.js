@@ -26,6 +26,17 @@ export const queries = {
             })
         })
         return result;
+    },
+    listTripRequestsByID: () => {
+        let result = graphql(listTripRequestsByID, {
+            options: {
+                fetchPolicy: 'cache-and-network'
+            },
+            props: props => ({
+                tripRequests: props.data.listTripRequestsByID ? props.data.listTripRequestsByID.items : []
+            })
+        })
+        return result;
     }
 }
 

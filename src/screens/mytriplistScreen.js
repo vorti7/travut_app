@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, Dimensions, TouchableHighlight } from 'react-native';
 
 import { Header, Card, Badge, Text } from 'react-native-elements';
 import VectorIcon from 'react-native-vector-icons/MaterialIcons'
+
+import { Api } from '../lib/api'
+import { compose, withApollo } from 'react-apollo'
 // import { Icon } from 'react-native-eva-icons';
 // import AuthClass from '../lib/auth'
 // import {Navigator, ScreenConst} from '../navigation'
 
-export default class MytriplistScreen extends React.Component{
+class MytriplistScreen extends React.Component{
 
     constructor(props) {
         super(props);
@@ -22,6 +25,7 @@ export default class MytriplistScreen extends React.Component{
         let screenHeight = Dimensions.get('window').height
         let screenWidth = Dimensions.get('window').width
         console.log('mytriplistScreen called')
+        console.log(this.props)
         return(
             <View style={{flex:1, alignItems: 'center'}}>
                 <Header
@@ -58,7 +62,8 @@ export default class MytriplistScreen extends React.Component{
                             color='rgba(255,255,255,0.8)'
                         />
                     </View>
-                    
+                    <View style={{height:screenHeight/8}}>
+                    </View>
                 </ScrollView>
             </View>
         )
@@ -68,6 +73,7 @@ export default class MytriplistScreen extends React.Component{
 const MytripCard = (props) => {
     let cardHeight = props.cardHeight
     let locationName = props.locationName.split('/', 2)
+    const [ extraView, setExtraView ] = useState(false)
     return(
         <View 
             style={{borderRadius:15, backgroundColor: '#FFF', paddingLeft:'5%', paddingRight:'5%', paddingTop:0, paddingBottom:'5%', margin:'2%'}}
@@ -87,7 +93,7 @@ const MytripCard = (props) => {
             <View style={{flex:1, height:cardHeight/4}}>
                 <Text>현지 여행호스트 {props.recipientsCnt}명에게 요청, {props.checkedCnt}명 확인</Text>
             </View>
-            <TouchableHighlight>
+            <TouchableHighlight onPress={() => setExtraView(!extraView)}>
                 <View style={{flex:1, height:cardHeight/4}}>
                     <Text>아직 도착한 여행제안이 없습니다.</Text>
                 </View>
@@ -99,7 +105,7 @@ const MytripCard = (props) => {
                     </View>
                     <VectorIcon name="delete-forever" size={25}/>
             </View>
-            {extraCard(cardHeight)}
+            {extraView ? extraCard(cardHeight) : <View/>}
         </View>
     )
 }
@@ -125,3 +131,7 @@ const statusBadge = (status) => {
 
     }
 }
+
+export default compose(
+    Api.TripRequest.queries.listTripRequests()
+)(MytriplistScreen)

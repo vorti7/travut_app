@@ -63,3 +63,37 @@ export const listProviders = `query getProviders {
     }
   }
 }`
+
+export const listProvidersByLocationID = `query getProvidersByLocationID {
+  listProvidersByLocationID {
+    items {
+      ID
+      SORTKEY
+      locationID
+      email
+      status
+      firstName
+      lastName
+      nickName
+      gender
+      birthday
+      phone
+      languages
+      photoURL
+      regIP
+      regDate
+      updateIP
+      updateDate
+      deactivateIP
+      deactivateDate
+
+      type
+      companyID
+      companyStatus
+      campanyInfo
+      certInfo
+      welcomeMSG
+      serviceList
+    }
+  }
+}`

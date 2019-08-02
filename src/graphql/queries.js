@@ -76,6 +76,46 @@ export const getTraveler = `query GetTraveler($input: GetInput!) {
   }
 }
 `;
+export const getProvider = `query GetProvider($input: GetInput!) {
+  getProvider(input: $input) {
+    ID
+    SORTKEY
+    locationID
+    location {
+      ID
+      SORTKEY
+      region
+      locationName
+      mapInfo
+      locationInfo
+      order
+    }
+    email
+    status
+    firstName
+    lastName
+    nickName
+    gender
+    birthday
+    phone
+    languages
+    photoURL
+    regIP
+    regDate
+    updateIP
+    updateDate
+    deactivateIP
+    deactivateDate
+    type
+    companyID
+    companyStatus
+    campanyInfo
+    certInfo
+    welcomeMSG
+    serviceList
+  }
+}
+`;
 export const getTripRequest = `query GetTripRequest($input: GetInput!) {
   getTripRequest(input: $input) {
     ID
@@ -97,6 +137,61 @@ export const getTripRequest = `query GetTripRequest($input: GetInput!) {
     checkedIDs
     participantsIDs
     refusersIDs
+    expTime
+    regIP
+    regDate
+    updateIP
+    updateDate
+  }
+}
+`;
+export const getTripOffer = `query GetTripOffer($input: GetInput!) {
+  getTripOffer(input: $input) {
+    ID
+    SORTKEY
+    locationID
+    locationInfo {
+      ID
+      SORTKEY
+      region
+      locationName
+      mapInfo
+      locationInfo
+      order
+    }
+    status
+    title
+    chatID
+    contractInfo
+    paymentInfo
+    tripReqID
+    tripReqINFO {
+      ID
+      SORTKEY
+      locationID
+      location {
+        ID
+        SORTKEY
+        region
+        locationName
+        mapInfo
+        locationInfo
+        order
+      }
+      status
+      travelerIDs
+      tripReqInfo
+      recipientsCnt
+      checkedIDs
+      participantsIDs
+      refusersIDs
+      expTime
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+    tripReqInfo
     expTime
     regIP
     regDate
@@ -298,6 +393,59 @@ export const listTripRequests = `query ListTripRequests(
   }
 }
 `;
+export const listTripOffers = `query ListTripOffers(
+  $filter: TableTripOfferFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTripOffers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      ID
+      SORTKEY
+      locationID
+      locationInfo {
+        ID
+        SORTKEY
+        region
+        locationName
+        mapInfo
+        locationInfo
+        order
+      }
+      status
+      title
+      chatID
+      contractInfo
+      paymentInfo
+      tripReqID
+      tripReqINFO {
+        ID
+        SORTKEY
+        locationID
+        status
+        travelerIDs
+        tripReqInfo
+        recipientsCnt
+        checkedIDs
+        participantsIDs
+        refusersIDs
+        expTime
+        regIP
+        regDate
+        updateIP
+        updateDate
+      }
+      tripReqInfo
+      expTime
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+    nextToken
+  }
+}
+`;
 export const listLocations = `query ListLocations(
   $filter: TableLocationFilterInput
   $limit: Int
@@ -359,6 +507,158 @@ export const listProviders = `query ListProviders(
       certInfo
       welcomeMSG
       serviceList
+    }
+    nextToken
+  }
+}
+`;
+export const listProvidersByLocationId = `query ListProvidersByLocationId(
+  $filter: TableProviderFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProvidersByLocationID(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      ID
+      SORTKEY
+      locationID
+      location {
+        ID
+        SORTKEY
+        region
+        locationName
+        mapInfo
+        locationInfo
+        order
+      }
+      email
+      status
+      firstName
+      lastName
+      nickName
+      gender
+      birthday
+      phone
+      languages
+      photoURL
+      regIP
+      regDate
+      updateIP
+      updateDate
+      deactivateIP
+      deactivateDate
+      type
+      companyID
+      companyStatus
+      campanyInfo
+      certInfo
+      welcomeMSG
+      serviceList
+    }
+    nextToken
+  }
+}
+`;
+export const listChats = `query ListChats(
+  $filter: TableChatFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listChats(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      ID
+      SORTKEY
+      name
+      usersID
+      users {
+        ID
+        SORTKEY
+        locationID
+        email
+        status
+        firstName
+        lastName
+        nickName
+        gender
+        birthday
+        phone
+        languages
+        photoURL
+        regIP
+        regDate
+        updateIP
+        updateDate
+        deactivateIP
+        deactivateDate
+        ... on Provider {
+          type
+          companyID
+          companyStatus
+          campanyInfo
+          certInfo
+          welcomeMSG
+          serviceList
+        }
+      }
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+    nextToken
+  }
+}
+`;
+export const listMessages = `query ListMessages(
+  $filter: TableMessageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      ID
+      SORTKEY
+      userID
+      user {
+        ID
+        SORTKEY
+        locationID
+        email
+        status
+        firstName
+        lastName
+        nickName
+        gender
+        birthday
+        phone
+        languages
+        photoURL
+        regIP
+        regDate
+        updateIP
+        updateDate
+        deactivateIP
+        deactivateDate
+        ... on Provider {
+          type
+          companyID
+          companyStatus
+          campanyInfo
+          certInfo
+          welcomeMSG
+          serviceList
+        }
+      }
+      type
+      message
+      regIP
+      regDate
+      updateIP
+      updateDate
     }
     nextToken
   }

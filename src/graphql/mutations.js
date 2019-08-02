@@ -63,6 +63,61 @@ export const createTripRequest = `mutation CreateTripRequest($input: CreateTripR
   }
 }
 `;
+export const createTripOffer = `mutation CreateTripOffer($input: CreateTripOfferInput!) {
+  createTripOffer(input: $input) {
+    ID
+    SORTKEY
+    locationID
+    locationInfo {
+      ID
+      SORTKEY
+      region
+      locationName
+      mapInfo
+      locationInfo
+      order
+    }
+    status
+    title
+    chatID
+    contractInfo
+    paymentInfo
+    tripReqID
+    tripReqINFO {
+      ID
+      SORTKEY
+      locationID
+      location {
+        ID
+        SORTKEY
+        region
+        locationName
+        mapInfo
+        locationInfo
+        order
+      }
+      status
+      travelerIDs
+      tripReqInfo
+      recipientsCnt
+      checkedIDs
+      participantsIDs
+      refusersIDs
+      expTime
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+    tripReqInfo
+    expTime
+    regIP
+    regDate
+    updateIP
+    updateDate
+  }
+}
+`;
 export const createLocation = `mutation CreateLocation($input: CreateLocationInput!) {
   createLocation(input: $input) {
     ID
@@ -234,6 +289,61 @@ export const updateTripRequest = `mutation UpdateTripRequest($input: UpdateTripR
     checkedIDs
     participantsIDs
     refusersIDs
+    expTime
+    regIP
+    regDate
+    updateIP
+    updateDate
+  }
+}
+`;
+export const updateTripOffer = `mutation UpdateTripOffer($input: UpdateTripOfferInput!) {
+  updateTripOffer(input: $input) {
+    ID
+    SORTKEY
+    locationID
+    locationInfo {
+      ID
+      SORTKEY
+      region
+      locationName
+      mapInfo
+      locationInfo
+      order
+    }
+    status
+    title
+    chatID
+    contractInfo
+    paymentInfo
+    tripReqID
+    tripReqINFO {
+      ID
+      SORTKEY
+      locationID
+      location {
+        ID
+        SORTKEY
+        region
+        locationName
+        mapInfo
+        locationInfo
+        order
+      }
+      status
+      travelerIDs
+      tripReqInfo
+      recipientsCnt
+      checkedIDs
+      participantsIDs
+      refusersIDs
+      expTime
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+    tripReqInfo
     expTime
     regIP
     regDate

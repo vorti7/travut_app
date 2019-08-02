@@ -157,18 +157,18 @@ export default class LocationinfoScreen extends React.Component{
                     }
                 />
                 <View style={{height:"12%", width:"100%", flexDirection: 'row'}}>
-                    <View style={{flex:1, paddingLeft:"5%", justifyContent: 'center'}}>
+                    <View style={{width:'50%', paddingLeft:"5%", justifyContent: 'center'}}>
                         <Text h4 h4Style={{color:'#FFF'}}>{this.state.time.getMonth()+1}/{this.state.time.getDate()} ({this.getDay(this.state.time)})</Text>
                         <Text h2 h2Style={{color:'#FFF'}}>{this.state.time.getHours()}:{this.state.time.getMinutes()}</Text>
                     </View>
-                    <View style={{flex:1, flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
-                        <View style={{flex:1, borderStyle:'solid', borderRightWidth:1.5,justifyContent:'center', alignItems:'center'}}>
+                    <View style={{width:'50%', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
+                        <View style={{flex:1, borderColor:'#FFF', borderStyle:'dotted', borderRightWidth:1.5,justifyContent:'center', alignItems:'center'}}>
                             {this.getWeather()}
-                            <Text h3 h3Style={{color:'#FFF'}}>{this.props.weather}</Text>
+                            <Text h4 h4Style={{color:'#FFF'}}>{this.props.weather}</Text>
                         </View>
                         <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-                            <Text h3 h3Style={{color:'#FFF'}}>{this.props.temperature}</Text>
-                            <Text style={{color:'#FFF'}}>{this.props.highestTemp}/{this.props.lowestTemp}</Text>
+                            <Text h4 h4Style={{color:'#FFF'}}><Text h2>{this.props.temperature}</Text>°C</Text>
+                            <Text style={{color:'#FFF', fontSize:20}}>{this.props.highestTemp}°C/{this.props.lowestTemp}°C</Text>
                         </View>
                     </View>
                 </View>
