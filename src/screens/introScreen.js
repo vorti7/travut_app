@@ -7,7 +7,10 @@ import { Text } from 'react-native-elements'
 export default class IntroScreen extends React.Component{
 
     render(){
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log('introScreen called')
+        console.log('------------------------------------------------------------------------------------------------------------')
 
         // Navigation.mergeOptions(this.props.componentId, {
         //     topBar: { // disable topbar
@@ -19,6 +22,7 @@ export default class IntroScreen extends React.Component{
         
         // Next Screen after 3sec
         setTimeout(() => {Navigator.checkLoginChangePage(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME, ScreenConst.SCREEN_USER_LOGIN)}, 3000)
+        // setTimeout(() => {Navigator.checkLoginChangePage(this.props.componentId, ScreenConst.SCREEN_LOCATION_SEARCH, ScreenConst.SCREEN_USER_LOGIN)}, 3000)
 
 
         // Navigation.mergeOptions(this.props.componentId, {

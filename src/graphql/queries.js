@@ -32,6 +32,7 @@ export const getUser = `query GetUser($input: GetInput!) {
     deactivateIP
     deactivateDate
     ... on Provider {
+      locationIDs
       type
       companyID
       companyStatus
@@ -106,6 +107,7 @@ export const getProvider = `query GetProvider($input: GetInput!) {
     updateDate
     deactivateIP
     deactivateDate
+    locationIDs
     type
     companyID
     companyStatus
@@ -248,6 +250,7 @@ export const getChat = `query GetChat($input: GetInput!) {
       deactivateIP
       deactivateDate
       ... on Provider {
+        locationIDs
         type
         companyID
         companyStatus
@@ -299,6 +302,7 @@ export const getMessage = `query GetMessage($input: GetInput!) {
       deactivateIP
       deactivateDate
       ... on Provider {
+        locationIDs
         type
         companyID
         companyStatus
@@ -363,6 +367,48 @@ export const listTripRequests = `query ListTripRequests(
   $nextToken: String
 ) {
   listTripRequests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      ID
+      SORTKEY
+      locationID
+      location {
+        ID
+        SORTKEY
+        region
+        locationName
+        mapInfo
+        locationInfo
+        order
+      }
+      status
+      travelerIDs
+      tripReqInfo
+      recipientsCnt
+      checkedIDs
+      participantsIDs
+      refusersIDs
+      expTime
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+    nextToken
+  }
+}
+`;
+export const listTripRequestsByTravelerId = `query ListTripRequestsByTravelerId(
+  $filter: TableTripRequestFilterInput
+  $limit: Int
+  $nextToken: String
+  $travelerID: String!
+) {
+  listTripRequestsByTravelerID(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    travelerID: $travelerID
+  ) {
     items {
       ID
       SORTKEY
@@ -500,6 +546,7 @@ export const listProviders = `query ListProviders(
       updateDate
       deactivateIP
       deactivateDate
+      locationIDs
       type
       companyID
       companyStatus
@@ -516,11 +563,13 @@ export const listProvidersByLocationId = `query ListProvidersByLocationId(
   $filter: TableProviderFilterInput
   $limit: Int
   $nextToken: String
+  $locationID: String!
 ) {
   listProvidersByLocationID(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
+    locationID: $locationID
   ) {
     items {
       ID
@@ -551,6 +600,7 @@ export const listProvidersByLocationId = `query ListProvidersByLocationId(
       updateDate
       deactivateIP
       deactivateDate
+      locationIDs
       type
       companyID
       companyStatus
@@ -595,6 +645,7 @@ export const listChats = `query ListChats(
         deactivateIP
         deactivateDate
         ... on Provider {
+          locationIDs
           type
           companyID
           companyStatus
@@ -644,6 +695,7 @@ export const listMessages = `query ListMessages(
         deactivateIP
         deactivateDate
         ... on Provider {
+          locationIDs
           type
           companyID
           companyStatus

@@ -166,6 +166,7 @@ export const createChat = `mutation CreateChat($input: CreateChatInput!) {
       deactivateIP
       deactivateDate
       ... on Provider {
+        locationIDs
         type
         companyID
         companyStatus
@@ -217,6 +218,7 @@ export const createMessage = `mutation CreateMessage($input: CreateMessageInput!
       deactivateIP
       deactivateDate
       ... on Provider {
+        locationIDs
         type
         companyID
         companyStatus
@@ -400,6 +402,7 @@ export const updateChat = `mutation UpdateChat($input: UpdateChatInput!) {
       deactivateIP
       deactivateDate
       ... on Provider {
+        locationIDs
         type
         companyID
         companyStatus
@@ -451,6 +454,7 @@ export const updateMessage = `mutation UpdateMessage($input: UpdateMessageInput!
       deactivateIP
       deactivateDate
       ... on Provider {
+        locationIDs
         type
         companyID
         companyStatus

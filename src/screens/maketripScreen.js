@@ -161,7 +161,7 @@ class MaketripScreen extends React.Component{
                                                 // console.log(jsonData)
                                                 let data = {
                                                     "ID" : success,
-                                                    "locationID" : "LO00000000",
+                                                    "locationID" : this.props.locationID,
                                                     "status" : "status",
                                                     "travelerIDs" : [success],
                                                     "tripReqInfo" : JSON.stringify(jsonData),
@@ -171,7 +171,7 @@ class MaketripScreen extends React.Component{
                                                     "refusersIDs" : [],
                                                     "regIP" : "127.0.0.1"
                                                 };
-                                                console.log(data)
+                                                // console.log(data)
                                                 // console.log(JSON.stringify(this.state.aList))
                                                 // console.log("{\"a\":1, \"b\":3, \"string\": 234}")
                                                this.props.createTripRequest({input:data}).then((e) => {
@@ -438,7 +438,11 @@ class MaketripScreen extends React.Component{
     }
 
     render(){
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log('maketripScreen called')
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log(this.props)
         return(
             <View style={{flex:1, alignItems: 'center'}}>
                 <Header

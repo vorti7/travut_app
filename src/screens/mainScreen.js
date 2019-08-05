@@ -26,18 +26,26 @@ export default class MainScreen extends React.Component{
     onClick3(){
         console.log('onClick3 button clicked')
 
-        passProps = {
-            passProps:[
-                {
-                    locationName : 'Seoul/Korea',
-                    recipientsCnt : 35,
-                    checkedCnt : 2,
-                    tripOffer : [],
-                    expirationDate : '2020-07-31'
-                }
-            ]
-        }
-        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST, passProps)   
+        // passProps = {
+        //     passProps:[
+        //         {
+        //             locationName : 'Seoul/Korea',
+        //             recipientsCnt : 35,
+        //             checkedCnt : 2,
+        //             tripOffer : [],
+        //             expirationDate : '2020-07-31'
+        //         }
+        //     ]
+        // }
+
+        AuthClass.getTravelerInfo()
+        .then(success => {
+            passProps = {
+                travelerID:success
+            }
+            Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST, passProps)
+        })
+        // Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST, passProps)   
     }
 
     onClick4(){
@@ -99,7 +107,10 @@ export default class MainScreen extends React.Component{
     }
 
     render(){
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log('mainScreen called')
+        console.log('------------------------------------------------------------------------------------------------------------')
         return(
             <View>
                 <Header containerStyle={{backgroundColor:'white'}}></Header>

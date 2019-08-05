@@ -8,6 +8,7 @@ import * as Queries from './queries'
 import * as Mutations from './mutations'
 
 const ListTripRequests = gql(Queries.listTripRequests);
+const ListTripRequestsByTravelerID = gql(Queries.listTripRequestsByTravelerID)
 const CreateTripRequest = gql(Mutations.createTripRequest);
 // const DeleteTripRequest = gql(Mutations.deleteTripRequest);
 // const UpdateTripRequest = gql(Mutations.updateTripRequest);
@@ -27,13 +28,14 @@ export const queries = {
         })
         return result;
     },
-    listTripRequestsByID: () => {
-        let result = graphql(listTripRequestsByID, {
-            options: {
+    listTripRequestsByTravelerID: () => {
+        let result = graphql(ListTripRequestsByTravelerID, {
+            options: (props) => ({
+                variables: { travelerid: props.travelerID },
                 fetchPolicy: 'cache-and-network'
-            },
+            }),
             props: props => ({
-                tripRequests: props.data.listTripRequestsByID ? props.data.listTripRequestsByID.items : []
+                tripRequests: props.data.listTripRequestsByTravelerID ? props.data.listTripRequestsByTravelerID.items : []
             })
         })
         return result;

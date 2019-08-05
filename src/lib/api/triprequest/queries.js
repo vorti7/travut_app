@@ -37,3 +37,28 @@ export const listTripRequests = `query getTripRequests {
     }
   }
 }`
+export const listTripRequestsByTravelerID = `query getTripRequestsByTravelerID($travelerid: String!) {
+  listTripRequestsByTravelerID(travelerID: $travelerid) {
+    items {
+      ID
+      SORTKEY
+      locationID
+      location {
+        ID
+        SORTKEY
+        locationName
+      }
+      status
+      travelerIDs
+      recipientsCnt
+      checkedIDs
+      participantsIDs
+      refusersIDs
+      expTime
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+  }
+}`

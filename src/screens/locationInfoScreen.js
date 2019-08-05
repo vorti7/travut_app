@@ -76,7 +76,19 @@ export default class LocationinfoScreen extends React.Component{
     }
 
     goProviderList(){
-        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_PROVIDER_LIST)
+        passProps = {
+            locationID: this.props.locationID
+            // locationID: 'LO00701010'
+        }
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_PROVIDER_LIST, passProps)
+    }
+
+    goTripRequest(){
+        passProps={
+            locationID:this.props.locationID,
+            // providerID:this.props.providerID
+        }
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MAKETRIP_INTRO, passProps)
     }
 
     showDescription(){
@@ -84,7 +96,10 @@ export default class LocationinfoScreen extends React.Component{
     }
     
     render(){
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log('locationinfoScreen called')
+        console.log('------------------------------------------------------------------------------------------------------------')
         locationArr = this.props.locationName.split('/')
         cityName = locationArr[locationArr.length-1]
         return(
@@ -239,7 +254,7 @@ export default class LocationinfoScreen extends React.Component{
 
                     <TouchableOpacity
                             style={{justifyContent:'center', alignItems:'center'}}
-                            onPress={this.goProviderList.bind(this)}>
+                            onPress={this.goTripRequest.bind(this)}>
                             <View
                                 style={{
                                     width: 90,
@@ -270,6 +285,20 @@ export default class LocationinfoScreen extends React.Component{
                             source={require('../assets/images/button/test_button.png')}
                         />
                     </TouchableOpacity> */}
+                </View>
+                <View style={{position:'absolute', left:'10%' , bottom:0, opacity:0.8}}>
+                    <TouchableOpacity onPress={this.goProviderList.bind(this)}>
+                        <View style={{
+                            justifyContent:'center',
+                            alignItems:'center',
+                            width: 50,
+                            height: 50,
+                            borderRadius: 50/2,
+                            backgroundColor:'#4535AA'
+                        }}>
+                            <Text style={{color:'#FFF'}}>10</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </ImageBackground>
         )

@@ -19,7 +19,10 @@ export default class TripofferScreen extends React.Component{
     
     
     render(){
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log('tripofferScreen called')
+        console.log('------------------------------------------------------------------------------------------------------------')
         let screenHeight = Dimensions.get('window').height
         return(
             <View style={{flex:1, alignItems: 'center'}}>

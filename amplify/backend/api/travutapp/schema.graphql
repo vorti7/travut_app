@@ -72,7 +72,7 @@ type Provider implements User {
 	deactivateIP : AWSIPAddress
 	deactivateDate : String
 
-
+	locationIDs : String
 	type : String
 	companyID : String
 	companyStatus : String
@@ -505,11 +505,11 @@ type Query {
 
 	listTravelers(filter: TableTravelerFilterInput, limit: Int, nextToken: String): TravelerConnection
 	listTripRequests(filter: TableTripRequestFilterInput, limit: Int, nextToken: String): TripRequestConnection
-	listTripRequests(filter: TableTripRequestFilterInput, limit: Int, nextToken: String): TripRequestConnection
+	listTripRequestsByTravelerID(filter: TableTripRequestFilterInput, limit: Int, nextToken: String, , travelerID: String!): TripRequestConnection
 	listTripOffers(filter: TableTripOfferFilterInput, limit: Int, nextToken: String): TripOfferConnection
 	listLocations(filter: TableLocationFilterInput, limit: Int, nextToken: String): LocationConnection
 	listProviders(filter: TableProviderFilterInput, limit: Int, nextToken: String): ProviderConnection
-	listProvidersByLocationID(filter: TableProviderFilterInput, limit: Int, nextToken: String): ProviderConnection
+	listProvidersByLocationID(filter: TableProviderFilterInput, limit: Int, nextToken: String, locationID: String!): ProviderConnection
 	listChats(filter: TableChatFilterInput, limit: Int, nextToken: String): ChatConnection
 	listMessages(filter: TableMessageFilterInput, limit: Int, nextToken: String): MessageConnection
 }

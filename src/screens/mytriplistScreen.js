@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, Dimensions, TouchableHighlight } from 'react-native';
+import { View, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 
 import { Header, Card, Badge, Text } from 'react-native-elements';
 import VectorIcon from 'react-native-vector-icons/MaterialIcons'
@@ -8,7 +8,7 @@ import { Api } from '../lib/api'
 import { compose, withApollo } from 'react-apollo'
 // import { Icon } from 'react-native-eva-icons';
 // import AuthClass from '../lib/auth'
-// import {Navigator, ScreenConst} from '../navigation'
+import {Navigator, ScreenConst} from '../navigation'
 
 class MytriplistScreen extends React.Component{
 
@@ -19,12 +19,17 @@ class MytriplistScreen extends React.Component{
       };
     }
 
-    
+    goMakeTrip(){
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MAKETRIP_INTRO)
+    }
     
     render(){
         let screenHeight = Dimensions.get('window').height
         let screenWidth = Dimensions.get('window').width
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log('mytriplistScreen called')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log(this.props)
         return(
             <View style={{flex:1, alignItems: 'center'}}>
@@ -37,7 +42,7 @@ class MytriplistScreen extends React.Component{
                 />
                     
                 <ScrollView style={{backgroundColor:'#4535AA', width:'100%', padding:'3%'}}>
-                    {
+                    {/* {
                         this.props.passProps.map((contact, i) => {
                             // console.log(contact)
                             return (
@@ -52,16 +57,38 @@ class MytriplistScreen extends React.Component{
                                 />
                             )
                         })
+                    } */}
+
+                    {
+                        this.props.tripRequests.map((contact, i) => {
+                            // console.log(contact)
+                            return (
+                                <MytripCard
+                                    key={i}
+                                    data={contact}
+                                    cardHeight={screenHeight/4}
+                                    // locationName={contact.location.locationName}
+                                    // recipientsCnt={contact.recipientsCnt}
+                                    // checkedCnt={contact.checkedIDs.length}
+                                    // // tripOffers={contact.tripOffers}
+                                    // tripOffers={[]}
+                                    // expirationDate={contact.expirationDate}
+                                />
+                            )
+                        })
                     }
-                    <View 
-                        style={{borderRadius:15, height:screenHeight/4, backgroundColor: 'rgba(255,255,255,0.3)', paddingLeft:'5%', paddingRight:'5%', paddingTop:0, paddingBottom:0, margin:'2%', alignItems:'center', justifyContent:'center'}}
-                    >
-                        <VectorIcon
-                            name="add"
-                            size={35}
-                            color='rgba(255,255,255,0.8)'
-                        />
-                    </View>
+
+                    <TouchableOpacity onPress={this.goMakeTrip.bind(this)}>
+                        <View 
+                            style={{borderRadius:15, height:screenHeight/4, backgroundColor: 'rgba(255,255,255,0.3)', paddingLeft:'5%', paddingRight:'5%', paddingTop:0, paddingBottom:0, margin:'2%', alignItems:'center', justifyContent:'center'}}
+                        >
+                            <VectorIcon
+                                name="add"
+                                size={35}
+                                color='rgba(255,255,255,0.8)'
+                            />
+                        </View>
+                    </TouchableOpacity>
                     <View style={{height:screenHeight/8}}>
                     </View>
                 </ScrollView>
@@ -71,9 +98,30 @@ class MytriplistScreen extends React.Component{
 }
 
 const MytripCard = (props) => {
+    console.log(props)
     let cardHeight = props.cardHeight
-    let locationName = props.locationName.split('/', 2)
     const [ extraView, setExtraView ] = useState(false)
+    
+    let locationNameShow
+    if(props.data.location){
+        let locationName = props.data.location.locationName.split('/')
+        if(locationName.length>1){
+            locationNameShow = (
+                <Text><Text style={{color:'#4535AA'}}>{locationName[locationName.length-2]}</Text>/<Text style={{color:'#AEA9C9'}}>{locationName[locationName.length-1]}</Text></Text>
+            )
+        }else{
+            locationNameShow = (
+                <Text><Text style={{color:'#4535AA'}}>{locationName[0]}</Text></Text>
+            )
+        }
+    }else{
+        locationNameShow = (
+            <Text><Text style={{color:'#4535AA'}}>No Location Info</Text></Text>
+        )
+    }
+    
+    
+
     return(
         <View 
             style={{borderRadius:15, backgroundColor: '#FFF', paddingLeft:'5%', paddingRight:'5%', paddingTop:0, paddingBottom:'5%', margin:'2%'}}
@@ -82,7 +130,8 @@ const MytripCard = (props) => {
                 <View
                     style={{flex:1, justifyContent: 'center', alignItems:'flex-start'}}
                 >
-                    <Text><Text style={{color:'#4535AA'}}>{locationName[0]}</Text>/<Text style={{color:'#AEA9C9'}}>{locationName[1]}</Text></Text>
+                    {/* <Text><Text style={{color:'#4535AA'}}>{locationName.length-2}</Text>/<Text style={{color:'#AEA9C9'}}>{locationName[locationName.length-1]}</Text></Text> */}
+                    {locationNameShow}
                 </View>
                 <View
                     style={{flex:1, justifyContent: 'center', alignItems:'flex-end'}}
@@ -91,17 +140,17 @@ const MytripCard = (props) => {
                 </View>
             </View>
             <View style={{flex:1, height:cardHeight/4}}>
-                <Text>현지 여행호스트 {props.recipientsCnt}명에게 요청, {props.checkedCnt}명 확인</Text>
+                <Text>현지 여행호스트 {props.data.recipientsCnt}명에게 요청, {props.data.checkedCnt}명 확인</Text>
             </View>
-            <TouchableHighlight onPress={() => setExtraView(!extraView)}>
+            <TouchableOpacity onPress={() => setExtraView(!extraView)}>
                 <View style={{flex:1, height:cardHeight/4}}>
                     <Text>아직 도착한 여행제안이 없습니다.</Text>
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
             <View style={{flex:1, height:cardHeight/4, flexDirection:'row'}}>
                     <VectorIcon name="schedule" size={25} color='#4535AA'/>
                     <View style={{flex:1, left:5}}>
-                        <Text style={{color:'#4535AA'}}>{Math.floor(((new Date(props.expirationDate)).getTime() - (new Date()).getTime()) / (1000*60*60))} 시간 남음</Text>
+                        <Text style={{color:'#4535AA'}}>{Math.floor(((new Date(props.data.expTime*1)).getTime() - (new Date()).getTime()) / (1000*60*60))} 시간 남음</Text>
                     </View>
                     <VectorIcon name="delete-forever" size={25}/>
             </View>
@@ -133,5 +182,6 @@ const statusBadge = (status) => {
 }
 
 export default compose(
-    Api.TripRequest.queries.listTripRequests()
+    // Api.TripRequest.queries.listTripRequests()
+    Api.TripRequest.queries.listTripRequestsByTravelerID()
 )(MytriplistScreen)

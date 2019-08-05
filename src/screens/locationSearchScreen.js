@@ -23,8 +23,10 @@ class LocationsearchScreen extends React.Component{
     }
 
     goLocationInfo(data){
+        console.log(data)
         jsonData = JSON.parse(data.locationInfo)
         passProps = {
+            locationID: data.ID,
             backgroundImage: jsonData.backgroundUrl,
             locationName: data.locationName,
             timezone: jsonData.timezone,
@@ -44,12 +46,17 @@ class LocationsearchScreen extends React.Component{
     }
     
     goTripRequest(){
-
+        passProps={
+            
+        }
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MAKETRIP_INTRO, passProps)
     }
 
     render(){
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log('locationsearchScreen called')
-        // console.log(this.props)
+        console.log('------------------------------------------------------------------------------------------------------------')
         return(
             <View style={{flex:1, alignItems: 'center'}}>
                 <Header containerStyle={{height:'5%', top : '3%', marginBottom:'8%', backgroundColor:"transparent"}}

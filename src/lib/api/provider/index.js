@@ -7,6 +7,7 @@ import * as Queries from './queries'
 // import * as Subscriptions from './subscriptions'
 // import * as Mutations from './mutations'
 
+const GetProvider = gql(Queries.getProvider)
 const ListProviders = gql(Queries.listProviders);
 const ListProvidersByLocationID = gql(Queries.listProvidersByLocationID)
 // const CreateProvider = gql(Mutations.createProvider);
@@ -30,9 +31,10 @@ export const queries = {
     },
     listProvidersByLocationID: () => {
         let result = graphql(ListProvidersByLocationID, {
-            options: {
+            options: (props) => ({
+                variables: { locationid: props.locationID },
                 fetchPolicy: 'cache-and-network'
-            },
+            }),
             props: props => ({
                 providers: props.data.listProvidersByLocationID ? props.data.listProvidersByLocationID.items : []
             })

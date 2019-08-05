@@ -46,7 +46,8 @@ export default class LoginScreen extends React.Component{
     
 
     goMainScreen() {
-        Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME)
+        // Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME)
+        Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_SEARCH)
         // this.setState({ isVisible: false })
     }
 
@@ -68,7 +69,10 @@ export default class LoginScreen extends React.Component{
     }
 
     render(){
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log('loginScreen called')
+        console.log('------------------------------------------------------------------------------------------------------------')
         return(
             // <View style={{flex: 1}}>
             <LinearGradient

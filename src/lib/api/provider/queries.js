@@ -64,8 +64,8 @@ export const listProviders = `query getProviders {
   }
 }`
 
-export const listProvidersByLocationID = `query getProvidersByLocationID {
-  listProvidersByLocationID {
+export const listProvidersByLocationID = `query getProvidersByLocationID($locationid: String!) {
+  listProvidersByLocationID(locationID: $locationid) {
     items {
       ID
       SORTKEY
@@ -87,6 +87,7 @@ export const listProvidersByLocationID = `query getProvidersByLocationID {
       deactivateIP
       deactivateDate
 
+      locationIDs
       type
       companyID
       companyStatus

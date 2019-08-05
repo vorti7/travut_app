@@ -3,8 +3,12 @@ import { View , ScrollView, Dimensions, Image } from 'react-native';
 import { Header, Input, Text, Button } from 'react-native-elements'
 
 import { Icon } from 'react-native-eva-icons';
+import { compose, withApollo } from 'react-apollo'
+
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 // import AuthClass from '../lib/auth'
+import { Api } from '../lib/api'
 import {Navigator, ScreenConst} from '../navigation'
 
 export default class ProviderInfoScreen extends React.Component{
@@ -14,11 +18,22 @@ export default class ProviderInfoScreen extends React.Component{
         this.state = {
         };
     }
+
+    goTripRequest(){
+        passProps={
+            locationID:this.props.locationID,
+            providerID:this.props.providerID
+        }
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MAKETRIP_INTRO, passProps)
+    }
     
     render(){
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log('providerInfoScreen called')
+        console.log('------------------------------------------------------------------------------------------------------------')
         let screenHeight = Dimensions.get('window').height
-        console.log(this.props.image)
+        // console.log(this.props)
         return(
             <View style={{flex:1, alignItems: 'center'}}>
                 {/* <Header
@@ -101,6 +116,7 @@ export default class ProviderInfoScreen extends React.Component{
                         }}
                     >
                         <Button
+                            onPress={this.goTripRequest.bind(this)}
                             buttonStyle={{backgroundColor:'#4535AA'}}
                             title="  Make Travel With  "
                         />
@@ -170,3 +186,7 @@ export default class ProviderInfoScreen extends React.Component{
         )
     }
 }
+
+// export default compose(
+//     // Api.Provider.queries.
+// )(ProviderInfoScreen)

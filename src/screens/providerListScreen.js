@@ -22,6 +22,8 @@ class ProviderListScreen extends React.Component{
 
     goProviderInfo(){
         passProps = {
+            locationID:this.props.locationID,
+            providerID:'',
             image: 'https://images.unsplash.com/photo-1541298645675-6cc8e127934d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             rating: 4,
             name : 'Han',
@@ -38,12 +40,13 @@ class ProviderListScreen extends React.Component{
     }
 
     render(){
-
         let screenHeight = Dimensions.get('window').height
         let screenWidth = Dimensions.get('window').width
         
-        console.log('providerInfoScreen called')
-        
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('providerListScreen called')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log(this.props)
 
         return(
@@ -146,5 +149,6 @@ const ProviderCard = (props) => {
 }
 
 export default compose(
+    // console.log(this.props),
     Api.Provider.queries.listProvidersByLocationID()
 )(ProviderListScreen)
