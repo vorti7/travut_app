@@ -3,7 +3,6 @@ export const createMessage = `mutation createMessage($createmessageinput: Create
         ID
         SORTKEY
         userID
-        user
         type
         message
         regIP

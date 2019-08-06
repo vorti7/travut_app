@@ -1,12 +1,14 @@
 export const getLocation = `query getLocation($getlocationinput: GetInput!) {
   getLocation(input: $getlocationinput) {
-    ID
-    SORTKEY
-    region
-    locationName
-    locationInfo
-    mapInfo
-    order
+    	ID
+      SORTKEY
+      region
+      locationName
+      locationInfo
+      mapInfo
+      order
+      badgeUrl
+      providerCount
   }
 }`
 export const listLocations = `query getLocations {
@@ -19,6 +21,8 @@ export const listLocations = `query getLocations {
       locationInfo
       mapInfo
       order
+      badgeUrl
+      providerCount
     }
   }
 }`

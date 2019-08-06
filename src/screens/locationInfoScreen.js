@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { Header, Overlay, Text } from 'react-native-elements'
+import { Api } from '../lib/api'
+import { compose, withApollo } from 'react-apollo'
 
 import { Icon } from 'react-native-eva-icons';
 // import Icon from 'react-native-vector-icons/FontAwesome';
@@ -8,7 +10,7 @@ import { Icon } from 'react-native-eva-icons';
 // import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
-export default class LocationinfoScreen extends React.Component{
+class LocationinfoScreen extends React.Component{
 
     constructor(props) {
         super(props);
@@ -102,6 +104,7 @@ export default class LocationinfoScreen extends React.Component{
         console.log('------------------------------------------------------------------------------------------------------------')
         locationArr = this.props.locationName.split('/')
         cityName = locationArr[locationArr.length-1]
+        // console.log(this.props)
         return(
             <ImageBackground style={{flex:1, alignItems: 'center'}} source={{uri:this.props.backgroundImage}}>
                 <Overlay
@@ -304,3 +307,8 @@ export default class LocationinfoScreen extends React.Component{
         )
     }
 }
+
+
+export default compose(
+    Api.Location.queries.getLocation()
+)(LocationinfoScreen)

@@ -3,7 +3,6 @@ export const getProvider = `query getProvider($getproviderinput: GetInput!) {
     ID
     SORTKEY
     locationID
-    location
     email
     status
     firstName

@@ -66,6 +66,7 @@ export default class MainScreen extends React.Component{
     onClick5(){
         console.log('onClick5 button clicked')
         passProps = {
+            chatID: 'chatID01',
             chatData : [
                 {
                     type: 'text',

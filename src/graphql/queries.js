@@ -14,6 +14,8 @@ export const getUser = `query GetUser($input: GetInput!) {
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     email
     status
@@ -57,6 +59,8 @@ export const getTraveler = `query GetTraveler($input: GetInput!) {
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     email
     status
@@ -90,6 +94,8 @@ export const getProvider = `query GetProvider($input: GetInput!) {
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     email
     status
@@ -131,6 +137,8 @@ export const getTripRequest = `query GetTripRequest($input: GetInput!) {
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     status
     travelerIDs
@@ -160,6 +168,8 @@ export const getTripOffer = `query GetTripOffer($input: GetInput!) {
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     status
     title
@@ -179,6 +189,8 @@ export const getTripOffer = `query GetTripOffer($input: GetInput!) {
         mapInfo
         locationInfo
         order
+        badgeUrl
+        providerCount
       }
       status
       travelerIDs
@@ -211,6 +223,8 @@ export const getLocation = `query GetLocation($input: GetInput!) {
     mapInfo
     locationInfo
     order
+    badgeUrl
+    providerCount
   }
 }
 `;
@@ -220,46 +234,6 @@ export const getChat = `query GetChat($input: GetInput!) {
     SORTKEY
     name
     usersID
-    users {
-      ID
-      SORTKEY
-      locationID
-      location {
-        ID
-        SORTKEY
-        region
-        locationName
-        mapInfo
-        locationInfo
-        order
-      }
-      email
-      status
-      firstName
-      lastName
-      nickName
-      gender
-      birthday
-      phone
-      languages
-      photoURL
-      regIP
-      regDate
-      updateIP
-      updateDate
-      deactivateIP
-      deactivateDate
-      ... on Provider {
-        locationIDs
-        type
-        companyID
-        companyStatus
-        campanyInfo
-        certInfo
-        welcomeMSG
-        serviceList
-      }
-    }
     regIP
     regDate
     updateIP
@@ -272,46 +246,6 @@ export const getMessage = `query GetMessage($input: GetInput!) {
     ID
     SORTKEY
     userID
-    user {
-      ID
-      SORTKEY
-      locationID
-      location {
-        ID
-        SORTKEY
-        region
-        locationName
-        mapInfo
-        locationInfo
-        order
-      }
-      email
-      status
-      firstName
-      lastName
-      nickName
-      gender
-      birthday
-      phone
-      languages
-      photoURL
-      regIP
-      regDate
-      updateIP
-      updateDate
-      deactivateIP
-      deactivateDate
-      ... on Provider {
-        locationIDs
-        type
-        companyID
-        companyStatus
-        campanyInfo
-        certInfo
-        welcomeMSG
-        serviceList
-      }
-    }
     type
     message
     regIP
@@ -339,6 +273,8 @@ export const listTravelers = `query ListTravelers(
         mapInfo
         locationInfo
         order
+        badgeUrl
+        providerCount
       }
       email
       status
@@ -379,6 +315,8 @@ export const listTripRequests = `query ListTripRequests(
         mapInfo
         locationInfo
         order
+        badgeUrl
+        providerCount
       }
       status
       travelerIDs
@@ -421,6 +359,8 @@ export const listTripRequestsByTravelerId = `query ListTripRequestsByTravelerId(
         mapInfo
         locationInfo
         order
+        badgeUrl
+        providerCount
       }
       status
       travelerIDs
@@ -457,6 +397,8 @@ export const listTripOffers = `query ListTripOffers(
         mapInfo
         locationInfo
         order
+        badgeUrl
+        providerCount
       }
       status
       title
@@ -506,6 +448,8 @@ export const listLocations = `query ListLocations(
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     nextToken
   }
@@ -529,6 +473,8 @@ export const listProviders = `query ListProviders(
         mapInfo
         locationInfo
         order
+        badgeUrl
+        providerCount
       }
       email
       status
@@ -583,6 +529,8 @@ export const listProvidersByLocationId = `query ListProvidersByLocationId(
         mapInfo
         locationInfo
         order
+        badgeUrl
+        providerCount
       }
       email
       status
@@ -624,37 +572,6 @@ export const listChats = `query ListChats(
       SORTKEY
       name
       usersID
-      users {
-        ID
-        SORTKEY
-        locationID
-        email
-        status
-        firstName
-        lastName
-        nickName
-        gender
-        birthday
-        phone
-        languages
-        photoURL
-        regIP
-        regDate
-        updateIP
-        updateDate
-        deactivateIP
-        deactivateDate
-        ... on Provider {
-          locationIDs
-          type
-          companyID
-          companyStatus
-          campanyInfo
-          certInfo
-          welcomeMSG
-          serviceList
-        }
-      }
       regIP
       regDate
       updateIP
@@ -674,37 +591,33 @@ export const listMessages = `query ListMessages(
       ID
       SORTKEY
       userID
-      user {
-        ID
-        SORTKEY
-        locationID
-        email
-        status
-        firstName
-        lastName
-        nickName
-        gender
-        birthday
-        phone
-        languages
-        photoURL
-        regIP
-        regDate
-        updateIP
-        updateDate
-        deactivateIP
-        deactivateDate
-        ... on Provider {
-          locationIDs
-          type
-          companyID
-          companyStatus
-          campanyInfo
-          certInfo
-          welcomeMSG
-          serviceList
-        }
-      }
+      type
+      message
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+    nextToken
+  }
+}
+`;
+export const listMessagesByChatId = `query ListMessagesByChatId(
+  $filter: TableMessageFilterInput
+  $limit: Int
+  $nextToken: String
+  $chatID: String!
+) {
+  listMessagesByChatID(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    chatID: $chatID
+  ) {
+    items {
+      ID
+      SORTKEY
+      userID
       type
       message
       regIP

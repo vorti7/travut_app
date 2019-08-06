@@ -26,6 +26,8 @@ export const onCreateTraveler = `subscription OnCreateTraveler(
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     email
     status
@@ -71,6 +73,8 @@ export const onUpdateTraveler = `subscription OnUpdateTraveler(
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     email
     status
@@ -116,6 +120,8 @@ export const onDeleteTraveler = `subscription OnDeleteTraveler(
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     email
     status

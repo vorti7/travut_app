@@ -11,7 +11,7 @@ import { compose, withApollo } from 'react-apollo'
 import { Api } from '../lib/api'
 import {Navigator, ScreenConst} from '../navigation'
 
-export default class ProviderInfoScreen extends React.Component{
+class ProviderInfoScreen extends React.Component{
 
     constructor(props) {
         super(props);
@@ -33,7 +33,7 @@ export default class ProviderInfoScreen extends React.Component{
         console.log('providerInfoScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
         let screenHeight = Dimensions.get('window').height
-        // console.log(this.props)
+        console.log(this.props)
         return(
             <View style={{flex:1, alignItems: 'center'}}>
                 {/* <Header
@@ -187,6 +187,6 @@ export default class ProviderInfoScreen extends React.Component{
     }
 }
 
-// export default compose(
-//     // Api.Provider.queries.
-// )(ProviderInfoScreen)
+export default compose(
+    Api.Provider.queries.getProvider()
+)(ProviderInfoScreen)

@@ -3,7 +3,6 @@ export const getMessage = `query getMessage($getmessageinput: GetInput!) {
         ID
         SORTKEY
         userID
-        user
         type
         message
         regIP
@@ -20,7 +19,6 @@ export const getMessage = `query getMessage($getmessageinput: GetInput!) {
         ID
         SORTKEY
         userID
-        user
         type
         message
         regIP
@@ -31,3 +29,19 @@ export const getMessage = `query getMessage($getmessageinput: GetInput!) {
     }
   }
   `;
+
+  export const listMessagesByChatID = `query getMessagesByChatID($chatid: String!) {
+    listMessagesByChatID(chatID: $chatid) {
+      items {
+        ID
+        SORTKEY
+        userID
+        type
+        message
+        regIP
+        regDate
+        updateIP
+        updateDate
+      }
+    }
+  }`

@@ -7,6 +7,7 @@ import * as Queries from './queries'
 // import * as Subscriptions from './subscriptions'
 import * as Mutations from './mutations'
 
+const GetLocation = gql(Queries.getLocation)
 const ListLocations = gql(Queries.listLocations);
 const CreateLocation = gql(Mutations.createLocation);
 // const DeleteLocation = gql(Mutations.deleteLocation);
@@ -16,6 +17,18 @@ const CreateLocation = gql(Mutations.createLocation);
 // const onUpdateLocation = gql(Subscriptions.onUpdateLocation);
 
 export const queries = {
+    getLocation: () => {
+        let result = graphql(GetLocation, {
+            options: (props) => ({
+              variables: {getlocationinput:{ ID: props.locationID, SORTKEY: "location_LA0001" }},
+              fetchPolicy: 'cache-and-network'
+            }),
+            props: props => ({
+              location: props.data.getLocation ? props.data.getLocation :[]
+            })
+          }) 
+          return result;
+    },
     listLocations: () => {
         let result = graphql(ListLocations, {
             options: {

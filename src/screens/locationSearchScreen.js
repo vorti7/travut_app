@@ -18,7 +18,8 @@ class LocationsearchScreen extends React.Component{
         super(props);
 
         this.state = {
-            idString:'Abigail'
+            idString:'Abigail',
+            searchString: ''
         };
     }
 
@@ -93,17 +94,22 @@ class LocationsearchScreen extends React.Component{
                                 color='#AEA9C9'
                             />
                         }
+                        onChangeText={(searchString) => this.setState({searchString: searchString})}
                     />
                 </View>
                 <View style={{height:"40%", justifyContent: 'center'}}>
                     <ScrollView horizontal={true}>
                         {this.props.locations.map((contact, i) => {
                             const locationArr = contact.locationName.split('/')
-                            return (
-                                <TouchableOpacity onPress={this.goLocationInfo.bind(this, contact)} key={i}>
-                                    <LocationItem locationName={locationArr[locationArr.length-1]} locationImage={JSON.parse(contact.locationInfo).badgeUrl}/>
-                                </TouchableOpacity>
-                            )
+                            const locationName = locationArr[locationArr.length-1]
+                            const locationUrl = JSON.parse(contact.locationInfo).badgeUrl
+                            if(locationName.includes(this.state.searchString.toUpperCase())){
+                                return (
+                                    <TouchableOpacity onPress={this.goLocationInfo.bind(this, contact)} key={i}>
+                                        <LocationItem locationName={locationName} locationImage={locationUrl}/>
+                                    </TouchableOpacity>
+                                )
+                            }
                         })}
                         {/* <LocationItem locationName={'Seoul'} locationImage={'https://lh5.googleusercontent.com/p/AF1QipOcxqktNzkz-BMlCXE_KskkE3AXTL0zqtFEuRU=w462-h240-k-no'}/>
                         <LocationItem locationName={'Busan'} locationImage={'https://lh5.googleusercontent.com/p/AF1QipN33SroDbOFnVUpDw3KWI2KaQt5WxVlF_Owh7o9=w408-h270-k-no'}/> */}
@@ -151,17 +157,17 @@ class LocationsearchScreen extends React.Component{
 
 const LocationItem = (props) => {
     return (
-        <View style={{width:220, height:220, justifyContent:'center', alignItems:'center', marginLeft:10, marginRight:10}}>
+        <View style={{width:220, height:220, justifyContent:'center', alignItems:'center', marginLeft:5, marginRight:5}}>
             <Image
                 style={{
-                    width: 220,
-                    height: 220,
-                    borderRadius: 110
+                    width: 200,
+                    height: 200,
+                    borderRadius: 100
                     // backgroundColor: '#4535AA'
                 }}
                 source={{uri:props.locationImage}}
             />
-            <Text h1 h1Style={{color:'#FFF'}} style={{position:'absolute'}}>{props.locationName}</Text>
+            <Text h2 h2Style={{color:'#FFF'}} style={{position:'absolute'}}>{props.locationName}</Text>
         </View>
     )
 }

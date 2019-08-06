@@ -14,6 +14,8 @@ export const createTraveler = `mutation CreateTraveler($input: CreateTravelerInp
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     email
     status
@@ -47,6 +49,8 @@ export const createTripRequest = `mutation CreateTripRequest($input: CreateTripR
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     status
     travelerIDs
@@ -76,6 +80,8 @@ export const createTripOffer = `mutation CreateTripOffer($input: CreateTripOffer
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     status
     title
@@ -95,6 +101,8 @@ export const createTripOffer = `mutation CreateTripOffer($input: CreateTripOffer
         mapInfo
         locationInfo
         order
+        badgeUrl
+        providerCount
       }
       status
       travelerIDs
@@ -127,6 +135,8 @@ export const createLocation = `mutation CreateLocation($input: CreateLocationInp
     mapInfo
     locationInfo
     order
+    badgeUrl
+    providerCount
   }
 }
 `;
@@ -136,46 +146,6 @@ export const createChat = `mutation CreateChat($input: CreateChatInput!) {
     SORTKEY
     name
     usersID
-    users {
-      ID
-      SORTKEY
-      locationID
-      location {
-        ID
-        SORTKEY
-        region
-        locationName
-        mapInfo
-        locationInfo
-        order
-      }
-      email
-      status
-      firstName
-      lastName
-      nickName
-      gender
-      birthday
-      phone
-      languages
-      photoURL
-      regIP
-      regDate
-      updateIP
-      updateDate
-      deactivateIP
-      deactivateDate
-      ... on Provider {
-        locationIDs
-        type
-        companyID
-        companyStatus
-        campanyInfo
-        certInfo
-        welcomeMSG
-        serviceList
-      }
-    }
     regIP
     regDate
     updateIP
@@ -188,46 +158,6 @@ export const createMessage = `mutation CreateMessage($input: CreateMessageInput!
     ID
     SORTKEY
     userID
-    user {
-      ID
-      SORTKEY
-      locationID
-      location {
-        ID
-        SORTKEY
-        region
-        locationName
-        mapInfo
-        locationInfo
-        order
-      }
-      email
-      status
-      firstName
-      lastName
-      nickName
-      gender
-      birthday
-      phone
-      languages
-      photoURL
-      regIP
-      regDate
-      updateIP
-      updateDate
-      deactivateIP
-      deactivateDate
-      ... on Provider {
-        locationIDs
-        type
-        companyID
-        companyStatus
-        campanyInfo
-        certInfo
-        welcomeMSG
-        serviceList
-      }
-    }
     type
     message
     regIP
@@ -250,6 +180,8 @@ export const updateTraveler = `mutation UpdateTraveler($input: UpdateTravelerInp
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     email
     status
@@ -283,6 +215,8 @@ export const updateTripRequest = `mutation UpdateTripRequest($input: UpdateTripR
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     status
     travelerIDs
@@ -312,6 +246,8 @@ export const updateTripOffer = `mutation UpdateTripOffer($input: UpdateTripOffer
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     status
     title
@@ -331,6 +267,8 @@ export const updateTripOffer = `mutation UpdateTripOffer($input: UpdateTripOffer
         mapInfo
         locationInfo
         order
+        badgeUrl
+        providerCount
       }
       status
       travelerIDs
@@ -363,6 +301,8 @@ export const updateLocation = `mutation UpdateLocation($input: UpdateLocationInp
     mapInfo
     locationInfo
     order
+    badgeUrl
+    providerCount
   }
 }
 `;
@@ -372,46 +312,6 @@ export const updateChat = `mutation UpdateChat($input: UpdateChatInput!) {
     SORTKEY
     name
     usersID
-    users {
-      ID
-      SORTKEY
-      locationID
-      location {
-        ID
-        SORTKEY
-        region
-        locationName
-        mapInfo
-        locationInfo
-        order
-      }
-      email
-      status
-      firstName
-      lastName
-      nickName
-      gender
-      birthday
-      phone
-      languages
-      photoURL
-      regIP
-      regDate
-      updateIP
-      updateDate
-      deactivateIP
-      deactivateDate
-      ... on Provider {
-        locationIDs
-        type
-        companyID
-        companyStatus
-        campanyInfo
-        certInfo
-        welcomeMSG
-        serviceList
-      }
-    }
     regIP
     regDate
     updateIP
@@ -424,46 +324,6 @@ export const updateMessage = `mutation UpdateMessage($input: UpdateMessageInput!
     ID
     SORTKEY
     userID
-    user {
-      ID
-      SORTKEY
-      locationID
-      location {
-        ID
-        SORTKEY
-        region
-        locationName
-        mapInfo
-        locationInfo
-        order
-      }
-      email
-      status
-      firstName
-      lastName
-      nickName
-      gender
-      birthday
-      phone
-      languages
-      photoURL
-      regIP
-      regDate
-      updateIP
-      updateDate
-      deactivateIP
-      deactivateDate
-      ... on Provider {
-        locationIDs
-        type
-        companyID
-        companyStatus
-        campanyInfo
-        certInfo
-        welcomeMSG
-        serviceList
-      }
-    }
     type
     message
     regIP
@@ -486,6 +346,8 @@ export const deleteTraveler = `mutation DeleteTraveler($input: DeleteTravelerInp
       mapInfo
       locationInfo
       order
+      badgeUrl
+      providerCount
     }
     email
     status

@@ -8,6 +8,7 @@ import * as Queries from './queries'
 import * as Mutations from './mutations'
 
 const ListMessages = gql(Queries.listMessages);
+const ListMessagesByChatID = gql(Queries.listMessagesByChatID)
 const CreateMessage = gql(Mutations.createMessage);
 // const DeleteMessage = gql(Mutations.deleteMessage);
 // const UpdateMessage = gql(Mutations.updateMessage);
@@ -26,11 +27,23 @@ export const queries = {
             })
         })
         return result;
+    },
+    listMessagesByChatID: () => {
+        let result = graphql(ListMessagesByChatID, {
+            options: (props) => ({
+                variables: { chatid: props.chatID },
+                fetchPolicy: 'cache-and-network'
+            }),
+            props: props => ({
+                messages: props.data.listMessagesByChatID ? props.data.listMessagesByChatID.items : []
+            })
+        })
+        return result;
     }
 }
 
 export const mutations = {
     createMessage: () => {
-        return graphqlMutation( CreateMessage, ListMessages, 'Message' )
+        return graphqlMutation( CreateMessage, ListMessagesByChatID, 'Message' )
     }
 }

@@ -130,6 +130,8 @@ type Location {
 	mapInfo : AWSJSON
 	locationInfo : AWSJSON
 	order : AWSJSON
+	badgeUrl : String
+	providerCount : Int
 }
 
 type Chat {
@@ -137,8 +139,8 @@ type Chat {
 	SORTKEY : String!
 	name : String
 	
-	usersID : [String]
-	users : [User]
+	usersID : String
+	# users : [User]
 	# providerID : String
 	# provider : [Provider]
 	# travelersID : [String]
@@ -154,7 +156,7 @@ type Message {
 	ID : String!
 	SORTKEY : String!
 	userID : String
-	user : User
+	# user : User
 	type : String
 	message: String
 	regIP : AWSIPAddress
@@ -222,13 +224,12 @@ input CreateLocationInput {
 	mapInfo : AWSJSON
 	locationInfo : AWSJSON
 	order : AWSJSON
+	badgeUrl : String
 }
 
 input CreateChatInput {
-	ID : String!
-	SORTKEY : String!
 	name : String
-	usersID : [String]
+	usersID : String
 	regIP : AWSIPAddress
 }
 
@@ -301,13 +302,15 @@ input UpdateLocationInput {
 	mapInfo : AWSJSON
 	locationInfo : AWSJSON
 	order : AWSJSON
+	badgeUrl: String
+	providerCount: Int
 }
 
 input UpdateChatInput {
 	ID : String!
 	SORTKEY : String!
 	name : String
-	usersID : [String]
+	usersID : String
 	updateIP : AWSIPAddress
 	updateDate : String
 }
@@ -417,6 +420,7 @@ input TableLocationFilterInput {
 	SORTKEY: TableStringFilterInput
 	region : TableStringFilterInput
 	locationName : TableStringFilterInput
+	badgeUrl : TableStringFilterInput
 }
 
 input TableChatFilterInput {
@@ -512,6 +516,7 @@ type Query {
 	listProvidersByLocationID(filter: TableProviderFilterInput, limit: Int, nextToken: String, locationID: String!): ProviderConnection
 	listChats(filter: TableChatFilterInput, limit: Int, nextToken: String): ChatConnection
 	listMessages(filter: TableMessageFilterInput, limit: Int, nextToken: String): MessageConnection
+	listMessagesByChatID(filter: TableMessageFilterInput, limit: Int, nextToken: String, chatID: String!): MessageConnection
 }
 
 type Subscription {

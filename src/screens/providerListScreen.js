@@ -20,10 +20,11 @@ class ProviderListScreen extends React.Component{
         };
     }
 
-    goProviderInfo(){
+    goProviderInfo(ID, SORTKEY){
         passProps = {
             locationID:this.props.locationID,
-            providerID:'',
+            providerID: ID,
+            providerSORTKEY: SORTKEY,
             image: 'https://images.unsplash.com/photo-1541298645675-6cc8e127934d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             rating: 4,
             name : 'Han',
@@ -71,11 +72,19 @@ class ProviderListScreen extends React.Component{
                     }
                 />
                 <ScrollView style={{width:"100%"}}>
-                    <ProviderCard
-                    screenHeight={screenHeight}
-                    goProviderInfo={this.goProviderInfo.bind(this)}
-                    // screenWidth={screenWidth}
-                    ></ProviderCard>
+                    {
+                        this.props.providers.map((contact,i) => {
+                            return(
+                                <ProviderCard
+                                    key={i}
+                                    screenHeight={screenHeight}
+                                    goProviderInfo={this.goProviderInfo.bind(this, contact.ID, contact.SORTKEY)}
+                                    data={contact}
+                                // screenWidth={screenWidth}
+                                ></ProviderCard>
+                            )
+                        })
+                    }
                 </ScrollView>
             </View>
         )
@@ -113,7 +122,7 @@ const ProviderCard = (props) => {
                     </View>
                 </View>
                 <View style={{position:'absolute', bottom:0, alignItems: 'center'}}>
-                    <Text h3 h3Style={{color:'white', textShadowColor:'#585858', textShadowOffset:{width: 5, height: 5}, textShadowRadius:10}}>Provider name01</Text>
+                    <Text h3 h3Style={{color:'white', textShadowColor:'#585858', textShadowOffset:{width: 5, height: 5}, textShadowRadius:10}}>{props.data.firstName} {props.data.lastNAme}</Text>
                     <Text h4 h4Style={{color:'black', textShadowColor:'#585858', textShadowOffset:{width: 5, height: 5}, textShadowRadius:5}}>Provider greeting</Text>
                 </View>
             </View>

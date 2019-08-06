@@ -1,19 +1,64 @@
 import React from 'react';
-import { View, ScrollView, Dimensions, TouchableHighlight, Switch } from 'react-native';
+import { View, ScrollView, Dimensions, TouchableOpacity, Switch } from 'react-native';
 
 import { Header, Card, Badge, Text, Avatar, Image } from 'react-native-elements';
 
 import { Icon } from 'react-native-eva-icons';
-// import AuthClass from '../lib/auth'
-// import {Navigator, ScreenConst} from '../navigation'
+import AuthClass from '../lib/auth'
+import {Navigator, ScreenConst} from '../navigation'
+import { Api } from '../lib/api'
+import { compose, withApollo } from 'react-apollo'
 
-export default class TripofferScreen extends React.Component{
+class TripofferScreen extends React.Component{
 
     constructor(props) {
         super(props);
 
         this.state = {
-      };
+        };
+    }
+
+    goChat(){
+        AuthClass.getTravelerInfo().then(success => {
+            let data = {
+                "name" : "text",
+                "usersID": "sdfasdgs",
+                "regIP" : "127.0.0.1"
+            }
+            this.props.createChat({createchatinput:data}).then((e) => {
+                // console.log(e);
+                passProps = {
+                    chatID: e.data.createChat.ID,
+                    chatData : [
+                        {
+                            type: 'text',
+                            auther: 'A',
+                            autherImage: '',
+                            content:'Hello!'
+                        },
+                        {
+                            type: 'text',
+                            auther: '',
+                            autherImage: '',
+                            content:'Hello!'
+                        },
+                        {
+                            type: 'text',
+                            auther: '',
+                            autherImage: '',
+                            content:'This is test message\n this is test message\n this is test message'
+                        },
+                        {
+                            type: 'text',
+                            auther: 'A',
+                            autherImage: '',
+                            content:'This is test message\n this is test message\n this is test message'
+                        }
+                    ]
+                }
+                Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_CHAT, passProps)
+            })
+        })
     }
 
     
@@ -183,7 +228,7 @@ export default class TripofferScreen extends React.Component{
                     <View style={{height:screenHeight/5}}></View>
                 </ScrollView>
                 <View
-                    style={{width:'100%', height:'14%', bottom : 0, paddingLeft:'5%', paddingRight:'5%', position:'absolute', flexDirection:'row', backgroundColor:"#FFF"}}
+                    style={{width:'100%', height:'12%', bottom : 0, paddingLeft:'5%', paddingRight:'5%', position:'absolute', flexDirection:'row', backgroundColor:"#FFF"}}
                 >
                     <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                         <Icon
@@ -202,12 +247,14 @@ export default class TripofferScreen extends React.Component{
                         />
                     </View>
                     <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                        <Icon
-                            name='message-square-outline'
-                            width={40}
-                            height={40}
-                            fill='#4535AA'
-                        />
+                        <TouchableOpacity onPress={this.goChat.bind(this)}>
+                            <Icon
+                                name='message-square-outline'
+                                width={40}
+                                height={40}
+                                fill='#4535AA'
+                            />
+                        </TouchableOpacity>
                     </View>
                     <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
                         <View style={{width:'90%', height:'60%', borderRadius:20, backgroundColor:'#4535AA', flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
@@ -268,3 +315,7 @@ class ServiceComponent extends React.Component{
         )
     }
 }
+
+export default compose(
+    Api.Chat.mutations.createChat()
+)(TripofferScreen)

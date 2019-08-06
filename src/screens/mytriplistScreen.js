@@ -10,6 +10,8 @@ import { compose, withApollo } from 'react-apollo'
 // import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
+import { TripOfferListComponent } from '../components'
+
 class MytriplistScreen extends React.Component{
 
     constructor(props) {
@@ -101,6 +103,7 @@ const MytripCard = (props) => {
     console.log(props)
     let cardHeight = props.cardHeight
     const [ extraView, setExtraView ] = useState(false)
+    const [ offerListView, setOfferListView ] = useState(false)
     
     let locationNameShow
     if(props.data.location){
@@ -143,17 +146,21 @@ const MytripCard = (props) => {
                 <Text>현지 여행호스트 {props.data.recipientsCnt}명에게 요청, {props.data.checkedCnt}명 확인</Text>
             </View>
             <TouchableOpacity onPress={() => setExtraView(!extraView)}>
+                { offerListView ? <TripOfferListComponent></TripOfferListComponent> : 
                 <View style={{flex:1, height:cardHeight/4}}>
                     <Text>아직 도착한 여행제안이 없습니다.</Text>
+                </View>}
+                
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setOfferListView(!offerListView)}>
+                <View style={{flex:1, height:cardHeight/4, flexDirection:'row'}}>
+                        <VectorIcon name="schedule" size={25} color='#4535AA'/>
+                        <View style={{flex:1, left:5}}>
+                            <Text style={{color:'#4535AA'}}>{Math.floor(((new Date(props.data.expTime*1)).getTime() - (new Date()).getTime()) / (1000*60*60))} 시간 남음</Text>
+                        </View>
+                        <VectorIcon name="delete-forever" size={25}/>
                 </View>
             </TouchableOpacity>
-            <View style={{flex:1, height:cardHeight/4, flexDirection:'row'}}>
-                    <VectorIcon name="schedule" size={25} color='#4535AA'/>
-                    <View style={{flex:1, left:5}}>
-                        <Text style={{color:'#4535AA'}}>{Math.floor(((new Date(props.data.expTime*1)).getTime() - (new Date()).getTime()) / (1000*60*60))} 시간 남음</Text>
-                    </View>
-                    <VectorIcon name="delete-forever" size={25}/>
-            </View>
             {extraView ? extraCard(cardHeight) : <View/>}
         </View>
     )

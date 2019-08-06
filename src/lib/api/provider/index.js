@@ -18,6 +18,18 @@ const ListProvidersByLocationID = gql(Queries.listProvidersByLocationID)
 // const onUpdateProvider = gql(Subscriptions.onUpdateProvider);
 
 export const queries = {
+    getProvider: () => {
+        let result = graphql(GetProvider, {
+            options: (props) => ({
+              variables: {getproviderinput:{ ID: props.providerID, SORTKEY: props.providerSORTKEY }},
+              fetchPolicy: 'cache-and-network'
+            }),
+            props: props => ({
+              provider: props.data.getProvider ? props.data.getProvider :[]
+            })
+          }) 
+          return result;
+    },
     listProviders: () => {
         let result = graphql(ListProviders, {
             options: {

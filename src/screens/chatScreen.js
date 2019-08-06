@@ -1,20 +1,38 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, TouchableOpacity } from 'react-native';
 import { Header, Text, Avatar, Button, ButtonGroup, Input } from 'react-native-elements'
 import { Api } from '../lib/api'
 import { compose, withApollo } from 'react-apollo'
+import AuthClass from '../lib/auth'
 
 import { Icon } from 'react-native-eva-icons';
 // import {Navigator, ScreenConst} from '../navigation'
 
 
-export default class ChatScreen extends React.Component{
+class ChatScreen extends React.Component{
 
     constructor(props) {
         super(props);
 
         this.state = {
+            messageState:''
         };
+    }
+
+    sendMessage(){
+        AuthClass.getTravelerInfo().then(success => {
+            let data = {
+                "ID" : this.props.chatID,
+                "userID" : success,
+                "type" : "text",
+                "message": this.state.messageState,
+                "regIP" : "127.0.0.1"
+            }
+            console.log(data)
+            this.props.createMessage({createmessageinput:data}).then((e) => {
+                console.log(e);
+            })
+        })
     }
 
     _renderItem = ({item}) => (
@@ -65,17 +83,20 @@ export default class ChatScreen extends React.Component{
                     <View style={{flex:1, justifyContent: 'center'}}>
                         <Input
                             placeholder='Type message...'
-                            containerStyle={{with:'100%', height:'70%', backgroundColor:'#EBE8FA', borderRadius:20}}
+                            containerStyle={{width:'100%', height:'70%', backgroundColor:'#EBE8FA', borderRadius:20}}
                             inputContainerStyle={{borderBottomWidth:0}}
+                            onChangeText={(messageInput) => this.setState({messageState: messageInput})}
                         />
                     </View>
                     <View style={{justifyContent:'center', padding:3}}>
-                        <Icon
-                            name='arrow-back'
-                            width={30}
-                            height={30}
-                            fill='#EBE8FA'
-                        />
+                        <TouchableOpacity onPress={this.sendMessage.bind(this)}>
+                            <Icon
+                                name='arrow-back'
+                                width={30}
+                                height={30}
+                                fill='#EBE8FA'
+                            />
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -152,9 +173,13 @@ class ChatItem extends React.Component {
         }
         return content
     }
-  }
+}
 
 
-//   export default compose(
-      
-// )(ChatScreen)
+
+
+
+export default compose(
+    Api.Message.queries.listMessagesByChatID(),
+    Api.Message.mutations.createMessage()
+)(ChatScreen)
