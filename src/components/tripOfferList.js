@@ -6,14 +6,14 @@ import { compose } from 'react-apollo'
 import { View, FlatList } from 'react-native';
 import { Api } from '../lib/api'
 
-export default class TripOfferList extends React.Component{
+class TripOfferList extends React.Component{
     constructor(props) {
         super(props);
 
         this.state = {
       };
     }
-
+    
     _renderItem = ({item}) => (
         <TripOfferItem
             item={item}
@@ -32,6 +32,6 @@ export default class TripOfferList extends React.Component{
     }
 }
 
-// export default compose(
-    
-// )(TripOfferList)
+export default compose(
+    Api.TripOffer.queries.listTripOffersByRequestID()
+)(TripOfferList)

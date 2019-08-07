@@ -8,7 +8,7 @@ import { View, Alert } from 'react-native';
 import { Input, Button, Text, CheckBox } from 'react-native-elements'
 import { Icon } from 'react-native-eva-icons';
 
-export default class TvlrFormComponent extends React.Component{
+class TvlrFormComponent extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -102,6 +102,7 @@ export default class TvlrFormComponent extends React.Component{
     // }
 
     render(){
+        console.log(this.props)
         if(this.props.overlayTrigger){
             return(
                 <View style={{flex: 1,
@@ -224,7 +225,7 @@ export default class TvlrFormComponent extends React.Component{
     }
 }
 
-// export default compose(
-//     Api.Traveler.queries.listTravelers(),
-//     Api.Traveler.mutations.createTraveler()
-// )(TvlrFormComponent)
+export default compose(
+    Api.Traveler.queries.listTravelers(),
+    Api.Traveler.mutations.createTraveler()
+)(TvlrFormComponent)

@@ -1,6 +1,6 @@
 import * as Traveler from './traveler'
 import * as TripRequest from './triprequest'
-// import * as TripOffer from './tripoffer'
+import * as TripOffer from './tripoffer'
 import * as Location from './location'
 import * as Provider from './provider'
 import * as Chat from './chat'
@@ -10,7 +10,7 @@ import * as Message from './message'
 export const Api = {
     Traveler,
     TripRequest,
-    // TripOffer,
+    TripOffer,
     Location,
     Provider,
     Chat,

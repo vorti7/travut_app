@@ -146,7 +146,7 @@ const MytripCard = (props) => {
                 <Text>현지 여행호스트 {props.data.recipientsCnt}명에게 요청, {props.data.checkedCnt}명 확인</Text>
             </View>
             <TouchableOpacity onPress={() => setExtraView(!extraView)}>
-                { offerListView ? <TripOfferListComponent></TripOfferListComponent> : 
+                { offerListView ? <TripOfferListComponent tripRequestID={props.data.ID+'#'+props.data.SORTKEY}></TripOfferListComponent> : 
                 <View style={{flex:1, height:cardHeight/4}}>
                     <Text>아직 도착한 여행제안이 없습니다.</Text>
                 </View>}

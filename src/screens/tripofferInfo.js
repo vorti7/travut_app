@@ -68,11 +68,12 @@ class TripofferScreen extends React.Component{
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('tripofferScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
+        console.log(this.props)
         let screenHeight = Dimensions.get('window').height
         return(
             <View style={{flex:1, alignItems: 'center'}}>
                 <Header
-                    containerStyle={{backgroundColor:'#EBE8FA', height:'15%'}}
+                    containerStyle={{backgroundColor:'#EBE8FA', height:'12%'}}
                     leftComponent={
                         <Icon
                             name='arrow-back'
@@ -82,8 +83,8 @@ class TripofferScreen extends React.Component{
                         />
                     }
                     centerComponent={
-                        <View style={{backgroundColor:'#FFF', borderRadius:20, paddingBottom:3, paddingTop:3, paddingLeft:18, paddingRight:18}}>
-                            <Text style={{color:'#16C1A0', fontWeight:'bold'}}>
+                        <View style={{backgroundColor:'#FFF', borderRadius:20, paddingBottom:5, paddingTop:5, paddingLeft:18, paddingRight:18}}>
+                            <Text style={{color:'#16C1A0', fontWeight:'bold', fontSize:18}}>
                                 Offer Accepted
                             </Text>
                         </View>
@@ -317,5 +318,6 @@ class ServiceComponent extends React.Component{
 }
 
 export default compose(
+    Api.TripOffer.queries.getTripOffer(),
     Api.Chat.mutations.createChat()
 )(TripofferScreen)

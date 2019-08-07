@@ -434,6 +434,67 @@ export const listTripOffers = `query ListTripOffers(
   }
 }
 `;
+export const listTripOffersByRequestId = `query ListTripOffersByRequestId(
+  $filter: TableTripOfferFilterInput
+  $limit: Int
+  $nextToken: String
+  $tripRequestID: String!
+) {
+  listTripOffersByRequestID(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    tripRequestID: $tripRequestID
+  ) {
+    items {
+      ID
+      SORTKEY
+      locationID
+      locationInfo {
+        ID
+        SORTKEY
+        region
+        locationName
+        mapInfo
+        locationInfo
+        order
+        badgeUrl
+        providerCount
+      }
+      status
+      title
+      chatID
+      contractInfo
+      paymentInfo
+      tripReqID
+      tripReqINFO {
+        ID
+        SORTKEY
+        locationID
+        status
+        travelerIDs
+        tripReqInfo
+        recipientsCnt
+        checkedIDs
+        participantsIDs
+        refusersIDs
+        expTime
+        regIP
+        regDate
+        updateIP
+        updateDate
+      }
+      tripReqInfo
+      expTime
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+    nextToken
+  }
+}
+`;
 export const listLocations = `query ListLocations(
   $filter: TableLocationFilterInput
   $limit: Int

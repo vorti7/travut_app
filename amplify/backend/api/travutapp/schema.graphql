@@ -511,6 +511,7 @@ type Query {
 	listTripRequests(filter: TableTripRequestFilterInput, limit: Int, nextToken: String): TripRequestConnection
 	listTripRequestsByTravelerID(filter: TableTripRequestFilterInput, limit: Int, nextToken: String, , travelerID: String!): TripRequestConnection
 	listTripOffers(filter: TableTripOfferFilterInput, limit: Int, nextToken: String): TripOfferConnection
+	listTripOffersByRequestID(filter: TableTripOfferFilterInput, limit: Int, nextToken: String, tripRequestID: String!): TripOfferConnection
 	listLocations(filter: TableLocationFilterInput, limit: Int, nextToken: String): LocationConnection
 	listProviders(filter: TableProviderFilterInput, limit: Int, nextToken: String): ProviderConnection
 	listProvidersByLocationID(filter: TableProviderFilterInput, limit: Int, nextToken: String, locationID: String!): ProviderConnection
