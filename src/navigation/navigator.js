@@ -1,6 +1,7 @@
 import { Navigation } from "react-native-navigation"
-import AuthClass from "../lib/auth"
 import * as Const from './const'
+import AuthClass from '../lib/auth'
+
 // cmpId -> this.props.componentId
 export default {
   initScreen() {
@@ -72,11 +73,24 @@ export default {
       console.log('checkLoginChangePage called')
       AuthClass.checkLogin().then(success => {
           console.log('session found ', cmpId)
-          this.setRootScreen(cmpId, yesSession)
+          AuthClass.getTravelerInfo().then(userInfo => {
+            console.log(userInfo)
+            passProps={
+              userID: userInfo.username,
+              userSORTKEY: "traveler_"+userInfo.attributes['custom:regDate2'],
+              userNickName: userInfo.attributes.name
+            }
+            // console.log(passProps)
+            this.setRootScreen(cmpId, yesSession, passProps)
+          })
+
       })
       .catch(err => {
           console.log('no session found ', cmpId)
-          this.setRootScreen(cmpId, noSession)
+          passProps={
+
+          }
+          this.setRootScreen(cmpId, noSession, passProps)
       })
   },
 
@@ -115,11 +129,12 @@ export default {
   },
 
   
-  setRootScreen(cmpId, targetScreen){
+  setRootScreen(cmpId, targetScreen, passProps){
     Navigation.setStackRoot(cmpId, [
       {
           component: {
             name: targetScreen,
+            passProps: passProps
           }
       }
     ]);

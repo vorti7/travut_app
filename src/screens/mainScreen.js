@@ -6,7 +6,13 @@ import {Navigator, ScreenConst} from '../navigation'
 
 import { Button, Header } from 'react-native-elements'
 
-export default class MainScreen extends React.Component{
+
+import { Api } from '../lib/api'
+import { compose } from 'react-apollo'
+
+
+
+class MainScreen extends React.Component{
 
     constructor(props) {
         super(props);
@@ -14,7 +20,16 @@ export default class MainScreen extends React.Component{
         this.state = {
       };
     }
-    
+
+    // componentDidMount(){
+    //     if(this.props.traveler.length==0){
+    //         console.log('need to create travelerData')
+    //     }else{
+    //         console.log('travelerData already existed')
+    //     }
+    // }
+
+
     onClick1(){
         console.log('onClick1 button clicked')
         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_SEARCH)
@@ -39,9 +54,9 @@ export default class MainScreen extends React.Component{
         // }
 
         AuthClass.getTravelerInfo()
-        .then(success => {
+        .then(userInfo => {
             passProps = {
-                travelerID:success
+                travelerID:userInfo.username
             }
             Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST, passProps)
         })
@@ -114,6 +129,24 @@ export default class MainScreen extends React.Component{
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('mainScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
+        console.log(this.props)
+
+        if(this.props.traveler.length==0){
+            console.log('need to create travelerData')
+        //     let data = {
+        //         "ID" : this.props.userID,
+        //         "SORTKEY" : this.props.userSORTKEY,
+        //         // "email" : ,
+        //         "nickName" : this.props.userNickName,
+        //         "regIP" : '127.0.0.1'
+        //     };
+        //    this.props.createTraveler({input:data}).then((e) => {
+        //        console.log(e);
+        //    })
+        }else{
+            console.log('travelerData already existed')
+        }
+
         return(
             <View>
                 <Header containerStyle={{backgroundColor:'white'}}></Header>
@@ -157,3 +190,9 @@ export default class MainScreen extends React.Component{
         )
     }
 }
+
+export default compose(
+    Api.Traveler.queries.getTraveler(),
+    // Api.Traveler.queries.listTravelers(),
+    Api.Traveler.mutations.createTraveler()
+)(MainScreen)

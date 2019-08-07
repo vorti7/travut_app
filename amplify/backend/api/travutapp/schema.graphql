@@ -167,21 +167,19 @@ type Message {
 
 input CreateTravelerInput {
 	ID: String!
-	locationID: String
-	email: AWSEmail
-	status: String
-	firstName: String
-	lastName: String
+	SORTKEY: String!
+	# locationID: String
+	# email: AWSEmail
+	# status: String
+	# firstName: String
+	# lastName: String
 	nickName: String
-	gender: String
-	birthday: String
-	phone: AWSPhone
-	languages: [String]
-	photoURL: AWSURL
+	# gender: String
+	# birthday: String
+	# phone: AWSPhone
+	# languages: [String]
+	# photoURL: AWSURL
 	regIP: AWSIPAddress
-	# regDate: String
-	# updateIP: AWSIPAddress
-	# updateDate: String
 }
 
 input CreateTripRequestInput {

@@ -47,7 +47,14 @@ export default class LoginScreen extends React.Component{
 
     goMainScreen() {
         // Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME)
-        Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_SEARCH)
+        AuthClass.getTravelerInfo().then(userInfo => {
+            console.log(userInfo)
+            passProps={
+                userID: userInfo.username,
+                userSORTKEY: "traveler_"+userInfo.attributes['custom:regDate2']
+              }
+            Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME, passProps)
+        })
         // this.setState({ isVisible: false })
     }
 

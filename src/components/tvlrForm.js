@@ -8,7 +8,7 @@ import { View, Alert } from 'react-native';
 import { Input, Button, Text, CheckBox } from 'react-native-elements'
 import { Icon } from 'react-native-eva-icons';
 
-class TvlrFormComponent extends React.Component{
+export default class TvlrFormComponent extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -54,6 +54,7 @@ class TvlrFormComponent extends React.Component{
                 password: this.state.passwordState,
                 attributes: {
                   name: this.state.nameState,
+                  'custom:regDate2': new Date().getTime().toString()
                 }
             }
             
@@ -103,6 +104,7 @@ class TvlrFormComponent extends React.Component{
 
     render(){
         console.log(this.props)
+
         if(this.props.overlayTrigger){
             return(
                 <View style={{flex: 1,
@@ -225,7 +227,7 @@ class TvlrFormComponent extends React.Component{
     }
 }
 
-export default compose(
-    Api.Traveler.queries.listTravelers(),
-    Api.Traveler.mutations.createTraveler()
-)(TvlrFormComponent)
+// export default compose(
+//     Api.Traveler.queries.listTravelers(),
+//     Api.Traveler.mutations.createTraveler()
+// )(TvlrFormComponent)

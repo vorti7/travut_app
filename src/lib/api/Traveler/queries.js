@@ -1,6 +1,5 @@
 export const getTraveler = `query getTraveler($gettravelerinput: GetInput!) {
     getTraveler(input: $gettravelerinput) {
-      __typename
       ID
       SORTKEY
       locationID

@@ -46,11 +46,6 @@ class MaketripScreen extends React.Component{
     today = new Date()
     componentDidMount(){
         this.addQuestion(0)
-        // AuthClass.getTravelerInfo()
-        // .then(success => {
-        //     // Alert.alert(success)
-        // })
-        // .catch(err => Alert.alert(err))
     }
 
 
@@ -123,23 +118,7 @@ class MaketripScreen extends React.Component{
     
     completeTripRequest(){
         AuthClass.getTravelerInfo()
-        .then(success => {
-            // input = {
-            //     "createtriprequestinput":  {
-            //         "ID" : success,
-            //         "locationID" : "LO00000000",
-            //         "status" : "status",
-            //         "travelerIDs" : [success],
-            //         "tripReqInfo" : JSON.parse(this.state.aList),
-            //         "recipientsCnt" : 0,
-            //         "checkedIDs" : [],
-            //         "participantsIDs" : [],
-            //         "refusersIDs" : [],
-            //         "regIP" : "127.0.0.1",
-            //         "updateIP" : "127.0.0.1"
-            //     }
-            // }
-
+        .then(userInfo => {
             Alert.alert(
                 'Trip Request successfully created!',
                 'Would you like to send Trip Request to your trip Provider?',
@@ -160,10 +139,10 @@ class MaketripScreen extends React.Component{
                                                 });
                                                 // console.log(jsonData)
                                                 let data = {
-                                                    "ID" : success,
+                                                    "ID" : userInfo.username,
                                                     "locationID" : this.props.locationID,
                                                     "status" : "status",
-                                                    "travelerIDs" : [success],
+                                                    "travelerIDs" : [userInfo.username],
                                                     "tripReqInfo" : JSON.stringify(jsonData),
                                                     "recipientsCnt" : 0,
                                                     "checkedIDs" : [],

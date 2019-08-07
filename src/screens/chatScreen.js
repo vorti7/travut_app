@@ -20,10 +20,10 @@ class ChatScreen extends React.Component{
     }
 
     sendMessage(){
-        AuthClass.getTravelerInfo().then(success => {
+        AuthClass.getTravelerInfo().then(userInfo => {
             let data = {
                 "ID" : this.props.chatID,
-                "userID" : success,
+                "userID" : userInfo.username,
                 "type" : "text",
                 "message": this.state.messageState,
                 "regIP" : "127.0.0.1"

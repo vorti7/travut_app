@@ -19,7 +19,7 @@ class TripofferScreen extends React.Component{
     }
 
     goChat(){
-        AuthClass.getTravelerInfo().then(success => {
+        AuthClass.getTravelerInfo().then(userInfo => {
             let data = {
                 "name" : "text",
                 "usersID": "sdfasdgs",

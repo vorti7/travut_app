@@ -1,6 +1,7 @@
-export const createTraveler = `mutation createTraveler($createtravelerinput: CreateTravelerInput!) {
-    createTraveler(input: $createtravelerinput) {
+export const createTraveler = `mutation createTraveler($input: CreateTravelerInput!) {
+    createTraveler(input: $input) {
       ID
+      SORTKEY
       locationID
       email
       status

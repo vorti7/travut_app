@@ -3,8 +3,15 @@ import { View, Image } from 'react-native';
 import { Navigator, ScreenConst } from '../navigation'
 import LinearGradient from 'react-native-linear-gradient'
 import { Text } from 'react-native-elements'
+import AuthClass from '../lib/auth'
 
 export default class IntroScreen extends React.Component{
+
+    outIntroScreen(){
+
+        Navigator.checkLoginChangePage(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME, ScreenConst.SCREEN_USER_LOGIN)
+    }
+
 
     render(){
         console.log('------------------------------------------------------------------------------------------------------------')
@@ -21,9 +28,8 @@ export default class IntroScreen extends React.Component{
         // });
         
         // Next Screen after 3sec
-        setTimeout(() => {Navigator.checkLoginChangePage(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME, ScreenConst.SCREEN_USER_LOGIN)}, 3000)
+        setTimeout(() => {this.outIntroScreen()}, 3000)
         // setTimeout(() => {Navigator.checkLoginChangePage(this.props.componentId, ScreenConst.SCREEN_LOCATION_SEARCH, ScreenConst.SCREEN_USER_LOGIN)}, 3000)
-
 
         // Navigation.mergeOptions(this.props.componentId, {
         //     sideMenu: {

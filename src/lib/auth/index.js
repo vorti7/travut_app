@@ -1,5 +1,6 @@
 import Amplify, { Auth } from 'aws-amplify';
 import { Navigator, ScreenConst } from '../../navigation';
+import AuthClass from '../auth'
 
 const User = {
     /*
@@ -83,11 +84,11 @@ const User = {
         console.log('checkLoginChangePage called')
         this.checkLogin().then(success => {
             console.log('session found ', cmpId)
-            Navigator.setRootScreen(cmpId, yesSession)
+            Navigator.setRootScreen(cmpId, yesSession, {})
         })
         .catch(err => {
             console.log('no session found ', cmpId)
-            Navigator.setRootScreen(cmpId, noSession)
+            Navigator.setRootScreen(cmpId, noSession, {})
         })
     },
 
@@ -157,7 +158,7 @@ const User = {
             Auth.signOut()
                 .then(success => {
                     resolve(success)
-                    Navigator.setRootScreen(cmpId,ScreenConst.SCREEN_USER_LOGIN)
+                    Navigator.setRootScreen(cmpId,ScreenConst.SCREEN_USER_LOGIN, {})
                 })
                 .catch(err => {
                     reject(err.message)
@@ -209,8 +210,8 @@ const User = {
 
     getTravelerInfo(){
         return new Promise(function (resolve, reject){
-            Auth.currentAuthenticatedUser()
-                .then(data => console.log('currentAuthenticatedUser data : ',resolve(data.username)))
+            Auth.currentUserInfo()
+                .then(data => resolve(data))
                 .catch(err => {console.log('error : ',err,'\n\n')})
         })
     },

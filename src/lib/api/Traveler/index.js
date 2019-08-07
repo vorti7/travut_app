@@ -7,6 +7,7 @@ import * as Queries from './queries'
 // import * as Subscriptions from './subscriptions'
 import * as Mutations from './mutations'
 
+const GetTraveler = gql(Queries.getTraveler)
 const ListTravelers = gql(Queries.listTravelers);
 const CreateTraveler = gql(Mutations.createTraveler);
 // const DeleteTraveler = gql(Mutations.deleteTraveler);
@@ -16,6 +17,18 @@ const CreateTraveler = gql(Mutations.createTraveler);
 // const onUpdateTraveler = gql(Subscriptions.onUpdateTraveler);
 
 export const queries = {
+    getTraveler: () => {
+        let result = graphql(GetTraveler, {
+            options: (props) => ({
+              variables: {gettravelerinput:{ ID: props.userID, SORTKEY: props.userSORTKEY }},
+              fetchPolicy: 'cache-and-network'
+            }),
+            props: props => ({
+              traveler: props.data.getTraveler ? props.data.getTraveler :[]
+            })
+          }) 
+          return result;
+    },
     listTravelers: () => {
         let result = graphql(ListTravelers, {
             options: {
