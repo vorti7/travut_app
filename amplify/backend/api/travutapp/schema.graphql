@@ -105,21 +105,38 @@ type TripRequest {
 type TripOffer {
 	ID: String!
 	SORTKEY: String!
-	locationID: String!
+	locationID: String
 	locationInfo: Location
 	status: String
 	title: String
 	chatID: String
 	contractInfo: AWSJSON
 	paymentInfo: AWSJSON
-	tripReqID: String!
+	tripReqID: String
 	tripReqINFO: TripRequest
 	tripReqInfo: AWSJSON
 	expTime: AWSDateTime
-	regIP: AWSIPAddress!
-	regDate: AWSDateTime!
+	regIP: AWSIPAddress
+	regDate: AWSDateTime
 	updateIP: AWSIPAddress
 	updateDate: AWSDateTime
+}
+
+type ServiceOffer {
+	ID: String!
+	SORTKEY: String!
+	bookingInfo: String
+	comments: [AWSJSON]
+	info: AWSJSON!
+	locationID: String!
+	svcCategoryID: String!
+	tripOfferID: String!
+	type: String
+	expTime: AWSDateTime
+	regDate: AWSDateTime!
+	regIP: AWSIPAddress!
+	updateDate: AWSDateTime
+	updateIP: AWSIPAddress
 }
 
 type Location {
@@ -205,13 +222,28 @@ input CreateTripOfferInput {
 	chatID: String
 	contractInfo: AWSJSON
 	paymentInfo: AWSJSON
-	tripReqID: String!
+	tripReqID: String
 	tripReqInfo: AWSJSON
 	expTime: AWSDateTime
-	regIP: AWSIPAddress!
-	regDate: AWSDateTime!
+	regIP: AWSIPAddress
+	regDate: AWSDateTime
 	updateIP: AWSIPAddress
 	updateDate: AWSDateTime	
+}
+
+input CreateServiceOfferInput {
+	ID: String!
+	SORTKEY: String!
+	bookingInfo: String
+	comments: [AWSJSON]
+	info: AWSJSON!
+	locationID: String!
+	svcCategoryID: String!
+	tripOfferID: String!
+	type: String
+	expTime: AWSDateTime
+	regDate: AWSDateTime!
+	regIP: AWSIPAddress!
 }
 
 input CreateLocationInput {
@@ -279,17 +311,34 @@ input UpdateTripRequestInput {
 input UpdateTripOfferInput {
 	ID: String!
 	SORTKEY: String!
-	locationID: String!
-	status: String
-	title: String
+	# locationID: String
+	# status: String
+	# title: String
 	chatID: String
-	contractInfo: AWSJSON
-	paymentInfo: AWSJSON
-	tripReqID: String!
-	tripReqInfo: AWSJSON
+	# contractInfo: AWSJSON
+	# paymentInfo: AWSJSON
+	# tripReqID: String
+	# tripReqInfo: AWSJSON
+	# expTime: AWSDateTime
+	# updateIP: AWSIPAddress
+	# updateDate: AWSDateTime
+}
+
+input UpdateServiceOfferInput {
+	ID: String!
+	SORTKEY: String!
+	bookingInfo: String
+	comments: [AWSJSON]
+	info: AWSJSON!
+	locationID: String!
+	svcCategoryID: String!
+	tripOfferID: String!
+	type: String
 	expTime: AWSDateTime
-	updateIP: AWSIPAddress
-	updateDate: AWSDateTime
+	regDate: AWSDateTime!
+	regIP: AWSIPAddress!
+	updateIP : AWSIPAddress
+	updateDate : String
 }
 
 input UpdateLocationInput {
@@ -385,6 +434,21 @@ input TableTripOfferFilterInput {
 	updateDate: TableStringFilterInput
 }
 
+input TableServiceOfferFilterInput {
+	ID: TableStringFilterInput
+	SORTKEY: TableStringFilterInput
+	bookingInfo: TableStringFilterInput
+	locationID: TableStringFilterInput
+	svcCategoryID: TableStringFilterInput
+	tripOfferID: TableStringFilterInput
+	type: TableStringFilterInput
+	expTime: TableStringFilterInput
+	regDate: TableStringFilterInput
+	regIP: AWSIPAddress!
+	updateIP : TableStringFilterInput
+	updateDate : TableStringFilterInput
+}
+
 input TableProviderFilterInput {
 	ID : TableStringFilterInput	
     SORTKEY : TableStringFilterInput	
@@ -459,6 +523,11 @@ type TripOfferConnection {
 	nextToken: String
 }
 
+type ServiceOfferConnection {
+	items: [ServiceOffer]
+	nextToken: String
+}
+
 type LocationConnection {
 	items: [Location]
 	nextToken: String
@@ -483,12 +552,14 @@ type Mutation {
 	createTraveler(input: CreateTravelerInput!): Traveler
 	createTripRequest(input: CreateTripRequestInput!): TripRequest
 	createTripOffer(input: CreateTripOfferInput!): TripOffer
+	createServiceOffer(input: CreateServiceOfferInput!): ServiceOffer
 	createLocation(input: CreateLocationInput!): Location
 	createChat(input: CreateChatInput!): Chat
 	createMessage(input: CreateMessageInput!): Message
 	updateTraveler(input: UpdateTravelerInput!): Traveler
 	updateTripRequest(input: UpdateTripRequestInput!): TripRequest
 	updateTripOffer(input: UpdateTripOfferInput!): TripOffer
+	updateServiceOffer(input: UpdateServiceOfferInput!): ServiceOffer
 	updateLocation(input: UpdateLocationInput!): Location
 	updateChat(input: UpdateChatInput!): Chat
 	updateMessage(input: UpdateMessageInput!): Message
@@ -501,6 +572,7 @@ type Query {
 	getProvider(input: GetInput!): Provider
 	getTripRequest(input: GetInput!): TripRequest
 	getTripOffer(input: GetInput!): TripOffer
+	getServiceOffer(input: GetInput!): ServiceOffer
 	getLocation(input: GetInput!): Location
 	getChat(input: GetInput!): Chat
 	getMessage(input: GetInput!): Message
@@ -510,6 +582,8 @@ type Query {
 	listTripRequestsByTravelerID(filter: TableTripRequestFilterInput, limit: Int, nextToken: String, , travelerID: String!): TripRequestConnection
 	listTripOffers(filter: TableTripOfferFilterInput, limit: Int, nextToken: String): TripOfferConnection
 	listTripOffersByRequestID(filter: TableTripOfferFilterInput, limit: Int, nextToken: String, tripRequestID: String!): TripOfferConnection
+	listServiceOffers(filter: TableServiceOfferFilterInput, limit: Int, nextToken: String): ServiceOfferConnection
+	listServiceOffersByTripOfferID(filter: TableServiceOfferFilterInput, limit: Int, nextToken: String, tripOfferID: String!): ServiceOfferConnection
 	listLocations(filter: TableLocationFilterInput, limit: Int, nextToken: String): LocationConnection
 	listProviders(filter: TableProviderFilterInput, limit: Int, nextToken: String): ProviderConnection
 	listProvidersByLocationID(filter: TableProviderFilterInput, limit: Int, nextToken: String, locationID: String!): ProviderConnection
@@ -543,6 +617,11 @@ type Subscription {
 		status: String
 	): Traveler
 		@aws_subscribe(mutations: ["deleteTraveler"])
+	onCreateTripOffer(
+		ID: String,
+		SORTKEY: String
+	): TripOffer
+		@aws_subscribe(mutations: ["createTripOffer"])
 }
 
 input TableBooleanFilterInput {

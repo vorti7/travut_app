@@ -12,7 +12,7 @@ const ListTripOffers = gql(Queries.listTripOffers);
 const ListTripOffersByRequestID =gql(Queries.listTripOffersByRequestID)
 // const CreateTripOffer = gql(Mutations.createTripOffer);
 // const DeleteTripOffer = gql(Mutations.deleteTripOffer);
-// const UpdateTripOffer = gql(Mutations.updateTripOffer);
+const UpdateTripOffer = gql(Mutations.updateTripOffer);
 // const onCreateTripOffer = gql(Subscriptions.onCreateTripOffer);
 // const onDeleteTripOffer = gql(Subscriptions.onDeleteTripOffer);
 // const onUpdateTripOffer = gql(Subscriptions.onUpdateTripOffer);
@@ -25,7 +25,8 @@ export const queries = {
               fetchPolicy: 'cache-and-network'
             }),
             props: props => ({
-              tripOffer: props.data.getTripOffer ? props.data.getTripOffer :[]
+              tripOffer: props.data.getTripOffer ? props.data.getTripOffer :[],
+              data:props.data
             })
           }) 
           return result;
@@ -55,8 +56,11 @@ export const queries = {
     }
 }
 
-// export const mutations = {
-//     createTripOffer: () => {
-//         return graphqlMutation( CreateTripOffer, ListTripOffers, 'TripOffer' )
-//     }
-// }
+export const mutations = {
+    // createTripOffer: () => {
+    //     return graphqlMutation( CreateTripOffer, ListTripOffers, 'TripOffer' )
+    // },
+    updateTripOffer: () => {
+        return graphqlMutation( UpdateTripOffer, '', 'TripOffer' )
+    }
+}

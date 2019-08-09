@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, FlatList, TouchableOpacity } from 'react-native';
 import { Header, Text, Avatar, Button, ButtonGroup, Input } from 'react-native-elements'
+import { Navigator, ScreenConst } from '../navigation';
 import { Api } from '../lib/api'
 import { compose, withApollo } from 'react-apollo'
 import AuthClass from '../lib/auth'
 
 import { Icon } from 'react-native-eva-icons';
-// import {Navigator, ScreenConst} from '../navigation'
+import { tsThisType } from '@babel/types';
 
 
 class ChatScreen extends React.Component{
@@ -15,24 +16,66 @@ class ChatScreen extends React.Component{
         super(props);
 
         this.state = {
-            messageState:''
+            chatIDState: this.props.chatID,
+            messageState:'',
+            loadingMessageState:{
+                userID:'test',
+                message:'loading...'
+            }
         };
     }
 
     sendMessage(){
-        AuthClass.getTravelerInfo().then(userInfo => {
-            let data = {
-                "ID" : this.props.chatID,
-                "userID" : userInfo.username,
-                "type" : "text",
-                "message": this.state.messageState,
+        // Navigator.showOverlay("spinnerOverlay",  ScreenConst.SCREEN_COMMON_LOADING)
+        if(this.state.chatIDState){
+            console.log('chatID : ',this.state.chatIDState)
+            AuthClass.getTravelerInfo().then(userInfo => {
+                console.log(userInfo)
+                let data = {
+                    "ID" : this.state.chatIDState,
+                    "userID" : userInfo.username,
+                    "type" : "text",
+                    "message": this.state.messageState,
+                    "regIP" : "127.0.0.1"
+                }
+                // console.log(data)
+                this.props.createMessage({createmessageinput:data}).then((e) => {
+                    console.log(',,,,,,,', e);
+                    console.log('create message done : ', this.props)
+                    // this.props.data.refetch().then(() => {
+                    //     Navigator.dismissOverlay("spinnerOverlay")
+                    // })
+                    // console.log(e.data.createMessage);
+                    // console.log('before this.props.message',this.props.messages);
+                    // this.props.messages.push(e.data.createMessage);
+                    // console.log('after this.props.message', this.props.messages);
+                    
+
+                })
+            })
+        }else{
+            console.log('chatID needed')
+            let chatCreateInput = {
+                "name" : "text",
+                "usersID": this.props.tripOfferID+"#"+this.props.tripOfferSORTKEY,
                 "regIP" : "127.0.0.1"
             }
-            console.log(data)
-            this.props.createMessage({createmessageinput:data}).then((e) => {
-                console.log(e);
+            this.props.createChat({createchatinput:chatCreateInput}).then((e) => {
+                console.log('chat room created')
+                let tripOfferUpdateInput = {
+                    "ID" : this.props.tripOfferID,
+                    "SORTKEY" : this.props.tripOfferSORTKEY,
+                    "chatID" : e.data.createChat.ID
+                }
+                console.log(tripOfferUpdateInput)
+                this.props.updateTripOffer({input:tripOfferUpdateInput}).then((f) => {
+                    console.log('tripOffer now have chatID')
+                    this.setState({chatIDState: f.data.updateTripOffer.chatID})
+                    sendMessage()
+                })
             })
-        })
+                    
+        }
     }
 
     _renderItem = ({item}) => (
@@ -43,8 +86,19 @@ class ChatScreen extends React.Component{
 
 
     render(){
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('------------------------------------------------------------------------------------------------------------')
         console.log('chatScreen called')
-        console.log(this.props.chatData)
+        console.log('------------------------------------------------------------------------------------------------------------')
+        console.log('chatting Contents-------------------------------------------------------------------------------------------')
+        console.log(this.props.messages)
+        console.log('propsData Contents------------------------------------------------------------------------------------------')
+        // console.log(this.props.data)
+        console.log(this.props.chatID)
+        console.log(this.props.tripOfferID)
+        console.log(this.props.tripOfferSORTKEY)
+
+        console.log(this.props)
         return(
             <View style={{flex:1}}>
                 <Header
@@ -66,7 +120,7 @@ class ChatScreen extends React.Component{
                     }
                 />
                 <FlatList
-                    data={this.props.chatData}
+                    data={this.props.messages}
                     renderItem={this._renderItem}
                 />
                 <View
@@ -113,9 +167,11 @@ class ChatItem extends React.Component {
     }
     render() {
         // const itemPosition = this.props.item.auther ? 'flex-start' : 'flex-end';
-        console.log(this.props.item)
+        console.log(this.props)
+        itemData = this.props.item
+        // console.log(itemData)
         let content
-        if(this.props.item.auther){
+        if(itemData.userID){
             content = (
                 <View style={{width:'100%', alignItems:'flex-start', flexDirection:'row', paddingTop:10}}>
                     <Avatar
@@ -141,7 +197,7 @@ class ChatItem extends React.Component {
                         elevation:5
                         }}
                     >
-                        <Text>{this.props.item.content}</Text>
+                        <Text>{itemData.message}</Text>
                     </View>
                 </View>
             )
@@ -166,7 +222,7 @@ class ChatItem extends React.Component {
                         elevation:5
                         }}
                     >
-                        <Text style={{color:'#FFF'}}>{this.props.item.content}</Text>
+                        <Text style={{color:'#FFF'}}>{itemData.message}</Text>
                     </View>
                 </View>
             )
@@ -181,5 +237,8 @@ class ChatItem extends React.Component {
 
 export default compose(
     Api.Message.queries.listMessagesByChatID(),
-    Api.Message.mutations.createMessage()
+    Api.Message.mutations.createMessage(),
+    Api.Chat.mutations.createChat(),
+    // Api.TripOffer.queries.listTripOffers(),
+    Api.TripOffer.mutations.updateTripOffer()
 )(ChatScreen)

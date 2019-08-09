@@ -3,3 +3,10 @@ export const createTripOffer = `mutation createTripOffer($input: CreateTripOffer
         
     }
   }`
+export const updateTripOffer = `mutation updateTripOffer($input: UpdateTripOfferInput!) {
+  updateTripOffer(input: $input) {
+    ID
+    SORTKEY
+    chatID
+  }
+}`

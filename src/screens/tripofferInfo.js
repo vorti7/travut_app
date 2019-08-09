@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, ScrollView, Dimensions, TouchableOpacity, Switch } from 'react-native';
 
-import { Header, Card, Badge, Text, Avatar, Image } from 'react-native-elements';
+import { Header, Text, Avatar } from 'react-native-elements';
 
 import { Icon } from 'react-native-eva-icons';
 import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 import { Api } from '../lib/api'
-import { compose, withApollo } from 'react-apollo'
+import { compose } from 'react-apollo'
 
 class TripofferScreen extends React.Component{
 
@@ -20,44 +20,45 @@ class TripofferScreen extends React.Component{
 
     goChat(){
         AuthClass.getTravelerInfo().then(userInfo => {
-            let data = {
-                "name" : "text",
-                "usersID": "sdfasdgs",
-                "regIP" : "127.0.0.1"
-            }
-            this.props.createChat({createchatinput:data}).then((e) => {
-                // console.log(e);
-                passProps = {
-                    chatID: e.data.createChat.ID,
-                    chatData : [
-                        {
-                            type: 'text',
-                            auther: 'A',
-                            autherImage: '',
-                            content:'Hello!'
-                        },
-                        {
-                            type: 'text',
-                            auther: '',
-                            autherImage: '',
-                            content:'Hello!'
-                        },
-                        {
-                            type: 'text',
-                            auther: '',
-                            autherImage: '',
-                            content:'This is test message\n this is test message\n this is test message'
-                        },
-                        {
-                            type: 'text',
-                            auther: 'A',
-                            autherImage: '',
-                            content:'This is test message\n this is test message\n this is test message'
-                        }
-                    ]
+            if(!this.props.data.loading){
+                if(this.props.tripOffer.chatID){
+                    console.log('chatID found')
+                    passProps = {
+                        tripOfferID : this.props.tripOffer.ID,
+                        tripOfferSORTKEY : this.props.tripOffer.SORTKEY,
+                        chatID: this.props.tripOffer.chatID
+                    }
+                    Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_CHAT, passProps)
+                }else{
+                    console.log('chatID not found')
+                    passProps = {
+                        tripOfferID : this.props.tripOffer.ID,
+                        tripOfferSORTKEY : this.props.tripOffer.SORTKEY,
+                        chatID: null
+                    }
+                    Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_CHAT, passProps)
+                    // let chatCreateInput = {
+                    //     "name" : "text",
+                    //     "usersID": "sdfasdgs",
+                    //     "regIP" : "127.0.0.1"
+                    // }
+                    // this.props.createChat({createchatinput:chatCreateInput}).then((e) => {
+                    //     console.log('chat room created')
+                    //     let tripOfferUpdateInput = {
+                    //         "ID" : this.props.tripOffer.ID,
+                    //         "SORTKEY" : this.props.tripOffer.SORTKEY,
+                    //         "chatID" : e.data.createChat.ID
+                    //     }
+                    //     this.props.updateTripOffer({updatetripofferinput:tripOfferUpdateInput}).then(() => {
+                    //         passProps = {
+                    //             chatID: e.data.createChat.ID
+                    //         }
+                    //         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_CHAT, passProps)
+                    //     })
+                    // })
                 }
-                Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_CHAT, passProps)
-            })
+            }
+            
         })
     }
 
@@ -68,7 +69,12 @@ class TripofferScreen extends React.Component{
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('tripofferScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
-        console.log(this.props)
+
+        // Trip Offer Content By TripOFferID
+        // console.log(this.props.tripOffer)
+        // Servie Offer List By TripOfferID
+        // console.log(this.props.serviceOffers)
+
         let screenHeight = Dimensions.get('window').height
         return(
             <View style={{flex:1, alignItems: 'center'}}>
@@ -198,7 +204,14 @@ class TripofferScreen extends React.Component{
                             </View>
                         </View>
                     </View>
-                    <ServiceComponent></ServiceComponent>
+
+                    {
+                        this.props.serviceOffers.map((contact, i) => {
+                            return(
+                                <ServiceComponent key={i}></ServiceComponent>
+                            )
+                        })
+                    }
                     {/* <View style={{height:screenHeight, alignItems:'center'}}>
                         <View style={{width:'90%', flexDirection:'column'}}>
                             <View style={{paddingTop:20, paddingBottom:5, flexDirection:'row'}}>
@@ -281,7 +294,12 @@ class ServiceComponent extends React.Component{
         super(props);
 
         this.state = {
+            switchState:false
         };
+    }
+
+    switchToggle(){
+        this.setState({switchState:!this.state.switchState})
     }
 
     render(){
@@ -292,13 +310,24 @@ class ServiceComponent extends React.Component{
                         <Text style={{fontSize:20, fontWeight:'bold', color:'#4535AA'}}>Service Name</Text>
                         <View style={{flex:1}}></View>
                         <Switch
-
+                            onValueChange= {this.switchToggle.bind(this)}
+                            value={this.state.switchState}
                         />
                     </View>
                     <View style={{minHeight:30, backgroundColor:'#EBE8FA', borderRadius:10}}>
                         <View>
                             <View style={{minHeight:30, padding:10}}>
-
+                                <View style={{padding:10}}>
+                                    <Text>This is Service Contents.</Text>
+                                </View>
+                                <View style={{backgroundColor:'#FFF', padding:10, flexDirection:'row'}}>
+                                    <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
+                                        <Text>Price options</Text>
+                                    </View>
+                                    <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
+                                        <Text>$ Test Price</Text>
+                                    </View>
+                                </View>
                             </View>
                             <View style={{height:30, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                                 <Icon
@@ -319,5 +348,7 @@ class ServiceComponent extends React.Component{
 
 export default compose(
     Api.TripOffer.queries.getTripOffer(),
+    Api.TripOffer.mutations.updateTripOffer(),
+    Api.ServiceOffer.queries.listServiceOffersByTripOfferID(),
     Api.Chat.mutations.createChat()
 )(TripofferScreen)

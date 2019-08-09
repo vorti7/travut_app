@@ -2,6 +2,7 @@ export const getTripOffer = `query getTripOffer($gettripofferinput: GetInput!) {
     getTripOffer(input: $gettripofferinput) {
       ID
       SORTKEY
+      chatID
     }
   }`
 export const listTripOffers = `query getTripOffers {
@@ -9,6 +10,7 @@ export const listTripOffers = `query getTripOffers {
     items {
         ID
         SORTKEY
+        chatID
     }
   }
 }`
@@ -17,6 +19,7 @@ export const listTripOffersByRequestID = `query getTripOffersByRequestID($tripre
     items {
         ID
         SORTKEY
+        chatID
     }
   }
 }`

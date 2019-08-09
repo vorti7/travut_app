@@ -35,7 +35,8 @@ export const queries = {
                 fetchPolicy: 'cache-and-network'
             }),
             props: props => ({
-                messages: props.data.listMessagesByChatID ? props.data.listMessagesByChatID.items : []
+                messages: props.data.listMessagesByChatID ? props.data.listMessagesByChatID.items : [],
+                data: props.data
             })
         })
         return result;
@@ -44,6 +45,15 @@ export const queries = {
 
 export const mutations = {
     createMessage: () => {
-        return graphqlMutation( CreateMessage, ListMessagesByChatID, 'Message' )
+        // return graphqlMutation( CreateMessage, ListMessagesByChatID, 'Message' )
+        return graphqlMutation( CreateMessage, [
+            {
+                query: ListMessagesByChatID,
+                variables: (props) => {
+                    console.log('apis create message props ============> ', props)
+                    return { chatid: props.chatID }
+                }
+            }
+        ], 'Message' )
     }
 }

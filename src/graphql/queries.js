@@ -214,6 +214,25 @@ export const getTripOffer = `query GetTripOffer($input: GetInput!) {
   }
 }
 `;
+export const getServiceOffer = `query GetServiceOffer($input: GetInput!) {
+  getServiceOffer(input: $input) {
+    ID
+    SORTKEY
+    bookingInfo
+    comments
+    info
+    locationID
+    svcCategoryID
+    tripOfferID
+    type
+    expTime
+    regDate
+    regIP
+    updateDate
+    updateIP
+  }
+}
+`;
 export const getLocation = `query GetLocation($input: GetInput!) {
   getLocation(input: $input) {
     ID
@@ -490,6 +509,64 @@ export const listTripOffersByRequestId = `query ListTripOffersByRequestId(
       regDate
       updateIP
       updateDate
+    }
+    nextToken
+  }
+}
+`;
+export const listServiceOffers = `query ListServiceOffers(
+  $filter: TableServiceOfferFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listServiceOffers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      ID
+      SORTKEY
+      bookingInfo
+      comments
+      info
+      locationID
+      svcCategoryID
+      tripOfferID
+      type
+      expTime
+      regDate
+      regIP
+      updateDate
+      updateIP
+    }
+    nextToken
+  }
+}
+`;
+export const listServiceOffersByTripOfferId = `query ListServiceOffersByTripOfferId(
+  $filter: TableServiceOfferFilterInput
+  $limit: Int
+  $nextToken: String
+  $tripOfferID: String!
+) {
+  listServiceOffersByTripOfferID(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    tripOfferID: $tripOfferID
+  ) {
+    items {
+      ID
+      SORTKEY
+      bookingInfo
+      comments
+      info
+      locationID
+      svcCategoryID
+      tripOfferID
+      type
+      expTime
+      regDate
+      regIP
+      updateDate
+      updateIP
     }
     nextToken
   }

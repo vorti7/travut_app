@@ -126,6 +126,25 @@ export const createTripOffer = `mutation CreateTripOffer($input: CreateTripOffer
   }
 }
 `;
+export const createServiceOffer = `mutation CreateServiceOffer($input: CreateServiceOfferInput!) {
+  createServiceOffer(input: $input) {
+    ID
+    SORTKEY
+    bookingInfo
+    comments
+    info
+    locationID
+    svcCategoryID
+    tripOfferID
+    type
+    expTime
+    regDate
+    regIP
+    updateDate
+    updateIP
+  }
+}
+`;
 export const createLocation = `mutation CreateLocation($input: CreateLocationInput!) {
   createLocation(input: $input) {
     ID
@@ -289,6 +308,25 @@ export const updateTripOffer = `mutation UpdateTripOffer($input: UpdateTripOffer
     regDate
     updateIP
     updateDate
+  }
+}
+`;
+export const updateServiceOffer = `mutation UpdateServiceOffer($input: UpdateServiceOfferInput!) {
+  updateServiceOffer(input: $input) {
+    ID
+    SORTKEY
+    bookingInfo
+    comments
+    info
+    locationID
+    svcCategoryID
+    tripOfferID
+    type
+    expTime
+    regDate
+    regIP
+    updateDate
+    updateIP
   }
 }
 `;

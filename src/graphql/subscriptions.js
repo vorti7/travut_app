@@ -142,3 +142,62 @@ export const onDeleteTraveler = `subscription OnDeleteTraveler(
   }
 }
 `;
+export const onCreateTripOffer = `subscription OnCreateTripOffer($ID: String, $SORTKEY: String) {
+  onCreateTripOffer(ID: $ID, SORTKEY: $SORTKEY) {
+    ID
+    SORTKEY
+    locationID
+    locationInfo {
+      ID
+      SORTKEY
+      region
+      locationName
+      mapInfo
+      locationInfo
+      order
+      badgeUrl
+      providerCount
+    }
+    status
+    title
+    chatID
+    contractInfo
+    paymentInfo
+    tripReqID
+    tripReqINFO {
+      ID
+      SORTKEY
+      locationID
+      location {
+        ID
+        SORTKEY
+        region
+        locationName
+        mapInfo
+        locationInfo
+        order
+        badgeUrl
+        providerCount
+      }
+      status
+      travelerIDs
+      tripReqInfo
+      recipientsCnt
+      checkedIDs
+      participantsIDs
+      refusersIDs
+      expTime
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+    tripReqInfo
+    expTime
+    regIP
+    regDate
+    updateIP
+    updateDate
+  }
+}
+`;

@@ -1,10 +1,10 @@
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { graphqlMutation } from 'aws-appsync-react'
-// import { buildSubscription } from 'aws-appsync'
+import { buildSubscription } from 'aws-appsync'
 
 import * as Queries from './queries'
-// import * as Subscriptions from './subscriptions'
+import * as Subscriptions from './subscriptions'
 import * as Mutations from './mutations'
 
 const ListTripRequests = gql(Queries.listTripRequests);
@@ -12,7 +12,7 @@ const ListTripRequestsByTravelerID = gql(Queries.listTripRequestsByTravelerID)
 const CreateTripRequest = gql(Mutations.createTripRequest);
 // const DeleteTripRequest = gql(Mutations.deleteTripRequest);
 // const UpdateTripRequest = gql(Mutations.updateTripRequest);
-// const onCreateTripRequest = gql(Subscriptions.onCreateTripRequest);
+const onCreateTripRequest = gql(Subscriptions.onCreateTripRequest);
 // const onDeleteTripRequest = gql(Subscriptions.onDeleteTripRequest);
 // const onUpdateTripRequest = gql(Subscriptions.onUpdateTripRequest);
 
@@ -45,5 +45,11 @@ export const queries = {
 export const mutations = {
     createTripRequest: () => {
         return graphqlMutation( CreateTripRequest, ListTripRequests, 'TripRequest' )
+    }
+}
+
+export const subscriptions = {
+    onCreateTripRequest: () => {
+        return buildSubscription( onCreateTripRequest, ListTripRequests )
     }
 }

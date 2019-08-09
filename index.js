@@ -34,6 +34,9 @@ const client = new AWSAppSyncClient({
     type: AppSyncConfig.aws_appsync_authenticationType,
     jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
   },
+  // cacheOptions: {
+  //   dataIdFromObject: (obj) => `${obj.__typename}:${obj.myKey}`
+  // }
 })
 
 const WithProvider = (Component) => {

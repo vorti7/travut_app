@@ -24,7 +24,8 @@ export const queries = {
               fetchPolicy: 'cache-and-network'
             }),
             props: props => ({
-              traveler: props.data.getTraveler ? props.data.getTraveler :[]
+              traveler: props.data.getTraveler ? props.data.getTraveler :[],
+              data:props.data
             })
           }) 
           return result;

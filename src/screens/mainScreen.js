@@ -21,15 +21,6 @@ class MainScreen extends React.Component{
       };
     }
 
-    // componentDidMount(){
-    //     if(this.props.traveler.length==0){
-    //         console.log('need to create travelerData')
-    //     }else{
-    //         console.log('travelerData already existed')
-    //     }
-    // }
-
-
     onClick1(){
         console.log('onClick1 button clicked')
         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_SEARCH)
@@ -40,19 +31,6 @@ class MainScreen extends React.Component{
     }
     onClick3(){
         console.log('onClick3 button clicked')
-
-        // passProps = {
-        //     passProps:[
-        //         {
-        //             locationName : 'Seoul/Korea',
-        //             recipientsCnt : 35,
-        //             checkedCnt : 2,
-        //             tripOffer : [],
-        //             expirationDate : '2020-07-31'
-        //         }
-        //     ]
-        // }
-
         AuthClass.getTravelerInfo()
         .then(userInfo => {
             passProps = {
@@ -60,14 +38,13 @@ class MainScreen extends React.Component{
             }
             Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST, passProps)
         })
-        // Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST, passProps)   
     }
 
     onClick4(){
         console.log('onClick4 button clicked')
         passProps = {
             tripOfferID:'1d492b69-7050-4d6e-a62a-aeb65d5657ce',
-            tripOfferSORTKEY:'trip_offer_1565058020424',
+            tripOfferSORTKEY:'trip_offer_2019-08-07T15:44:40.378Z',
             providerImage: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             providerName: 'George Clooney',
             languages: [ 'Korean', 'English', 'Japanese' ],
@@ -129,24 +106,30 @@ class MainScreen extends React.Component{
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('mainScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
-        console.log(this.props)
-
-        if(this.props.traveler.length==0){
-            console.log('need to create travelerData')
-        //     let data = {
-        //         "ID" : this.props.userID,
-        //         "SORTKEY" : this.props.userSORTKEY,
-        //         // "email" : ,
-        //         "nickName" : this.props.userNickName,
-        //         "regIP" : '127.0.0.1'
-        //     };
-        //    this.props.createTraveler({input:data}).then((e) => {
-        //        console.log(e);
-        //    })
-        }else{
-            console.log('travelerData already existed')
+        
+        // Check Logined Travel Info
+        // console.log(this.props.traveler)
+        
+        if(this.props.data.loading){
+            console.log('Check TravelerData .....')
+            if(this.props.traveler.length==0){
+                console.log('need to create travelerData')
+                let data = {
+                    "ID" : this.props.userID,
+                    "SORTKEY" : this.props.userSORTKEY,
+                    // "email" : ,
+                    "nickName" : this.props.userNickName,
+                    "regIP" : '127.0.0.1'
+                };
+               this.props.createTraveler({input:data}).then((e) => {
+                //    console.log(e);
+                    console.log('TravelerData Created')
+               })
+            }else{
+                console.log('travelerData already existed')
+            }
         }
-
+        
         return(
             <View>
                 <Header containerStyle={{backgroundColor:'white'}}></Header>
