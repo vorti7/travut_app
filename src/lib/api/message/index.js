@@ -4,7 +4,7 @@ import { graphqlMutation } from 'aws-appsync-react'
 // import { buildSubscription } from 'aws-appsync'
 
 import * as Queries from './queries'
-// import * as Subscriptions from './subscriptions'
+import * as Subscriptions from './subscriptions'
 import * as Mutations from './mutations'
 
 const ListMessages = gql(Queries.listMessages);
@@ -12,7 +12,8 @@ const ListMessagesByChatID = gql(Queries.listMessagesByChatID)
 const CreateMessage = gql(Mutations.createMessage);
 // const DeleteMessage = gql(Mutations.deleteMessage);
 // const UpdateMessage = gql(Mutations.updateMessage);
-// const onCreateMessage = gql(Subscriptions.onCreateMessage);
+const OnCreateMessage = gql(Subscriptions.onCreateMessage);
+// const onCreateMessageByChatID = gql(Subscriptions.onCreateMessageByChatID);
 // const onDeleteMessage = gql(Subscriptions.onDeleteMessage);
 // const onUpdateMessage = gql(Subscriptions.onUpdateMessage);
 
@@ -57,3 +58,9 @@ export const mutations = {
         ], 'Message' )
     }
 }
+
+// export const subscriptions = {
+//     onCreateMessage: () => {
+//         return graphql
+//     }
+// }

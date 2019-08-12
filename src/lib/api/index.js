@@ -6,6 +6,7 @@ import * as Location from './location'
 import * as Provider from './provider'
 import * as Chat from './chat'
 import * as Message from './message'
+import * as Comment from './comment'
 // import * as XX from './xx'
 
 export const Api = {
@@ -16,5 +17,6 @@ export const Api = {
     Location,
     Provider,
     Chat,
-    Message
+    Message,
+    Comment
 }

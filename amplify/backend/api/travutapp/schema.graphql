@@ -1,3 +1,9 @@
+schema {
+	query: Query
+	mutation: Mutation
+	subscription: Subscription
+}
+
 interface User {
 	# typename : String!
 
@@ -110,11 +116,11 @@ type TripOffer {
 	status: String
 	title: String
 	chatID: String
+	tripOfferInfo: AWSJSON
 	contractInfo: AWSJSON
 	paymentInfo: AWSJSON
 	tripReqID: String
-	tripReqINFO: TripRequest
-	tripReqInfo: AWSJSON
+	tripRequest: TripRequest
 	expTime: AWSDateTime
 	regIP: AWSIPAddress
 	regDate: AWSDateTime
@@ -126,6 +132,7 @@ type ServiceOffer {
 	ID: String!
 	SORTKEY: String!
 	bookingInfo: String
+	serviceOfferInfo: AWSJSON
 	comments: [AWSJSON]
 	info: AWSJSON!
 	locationID: String!
@@ -182,6 +189,19 @@ type Message {
 	updateDate : String
 }
 
+type Comment {
+	ID : String!
+	SORTKEY : String!
+	userID : String
+	content : String
+	likeUserIDs : [String]
+	dislikeUserIDs : [String]
+	regIP : AWSIPAddress
+	regDate : String
+	updateIP : AWSIPAddress
+	updateDate : String
+}
+
 input CreateTravelerInput {
 	ID: String!
 	SORTKEY: String!
@@ -220,10 +240,10 @@ input CreateTripOfferInput {
 	status: String
 	title: String
 	chatID: String
+	tripOfferInfo: AWSJSON
 	contractInfo: AWSJSON
 	paymentInfo: AWSJSON
 	tripReqID: String
-	tripReqInfo: AWSJSON
 	expTime: AWSDateTime
 	regIP: AWSIPAddress
 	regDate: AWSDateTime
@@ -235,6 +255,7 @@ input CreateServiceOfferInput {
 	ID: String!
 	SORTKEY: String!
 	bookingInfo: String
+	serviceOfferInfo: AWSJSON
 	comments: [AWSJSON]
 	info: AWSJSON!
 	locationID: String!
@@ -271,6 +292,18 @@ input CreateMessageInput {
 	regIP : AWSIPAddress
 }
 
+input CreateCommentInput {
+	ID : String!
+	SORTKEY : String!
+	userID : String
+	content : String
+	likeUserIDs : [String]
+	dislikeUserIDs : [String]
+	regIP : AWSIPAddress
+	regDate : String
+	updateIP : AWSIPAddress
+	updateDate : String
+}
 
 input UpdateTravelerInput {
 	ID: String!
@@ -315,10 +348,10 @@ input UpdateTripOfferInput {
 	# status: String
 	# title: String
 	chatID: String
+	# tripOfferInfo: AWSJSON
 	# contractInfo: AWSJSON
 	# paymentInfo: AWSJSON
 	# tripReqID: String
-	# tripReqInfo: AWSJSON
 	# expTime: AWSDateTime
 	# updateIP: AWSIPAddress
 	# updateDate: AWSDateTime
@@ -328,6 +361,7 @@ input UpdateServiceOfferInput {
 	ID: String!
 	SORTKEY: String!
 	bookingInfo: String
+	serviceOfferInfo: AWSJSON
 	comments: [AWSJSON]
 	info: AWSJSON!
 	locationID: String!
@@ -368,6 +402,19 @@ input UpdateMessageInput {
 	userID : String
 	type : String
 	message: String
+	regIP : AWSIPAddress
+	regDate : String
+	updateIP : AWSIPAddress
+	updateDate : String
+}
+
+input UpdateCommentInput {
+	ID : String!
+	SORTKEY : String!
+	userID : String
+	content : String
+	likeUserIDs : [String]
+	dislikeUserIDs : [String]
 	regIP : AWSIPAddress
 	regDate : String
 	updateIP : AWSIPAddress
@@ -508,6 +555,19 @@ input TableMessageFilterInput {
 	updateDate : TableStringFilterInput
 }
 
+input TableCommentFilterInput {
+	ID : TableStringFilterInput
+	SORTKEY : TableStringFilterInput
+	userID : TableStringFilterInput
+	content : TableStringFilterInput
+	likeUserIDs : TableStringFilterInput
+	dislikeUserIDs : TableStringFilterInput
+	regIP : TableStringFilterInput
+	regDate : TableStringFilterInput
+	updateIP : TableStringFilterInput
+	updateDate : TableStringFilterInput
+}
+
 type TravelerConnection {
 	items: [Traveler]
 	nextToken: String
@@ -548,6 +608,11 @@ type MessageConnection {
 	nextToken: String
 }
 
+type CommentConnection {
+	items: [Comment]
+	nextToken: String
+}
+
 type Mutation {
 	createTraveler(input: CreateTravelerInput!): Traveler
 	createTripRequest(input: CreateTripRequestInput!): TripRequest
@@ -556,6 +621,7 @@ type Mutation {
 	createLocation(input: CreateLocationInput!): Location
 	createChat(input: CreateChatInput!): Chat
 	createMessage(input: CreateMessageInput!): Message
+	createComment(input: CreateCommentInput!): Comment
 	updateTraveler(input: UpdateTravelerInput!): Traveler
 	updateTripRequest(input: UpdateTripRequestInput!): TripRequest
 	updateTripOffer(input: UpdateTripOfferInput!): TripOffer
@@ -563,6 +629,7 @@ type Mutation {
 	updateLocation(input: UpdateLocationInput!): Location
 	updateChat(input: UpdateChatInput!): Chat
 	updateMessage(input: UpdateMessageInput!): Message
+	updateComment(inpu: UpdateCommentInput!) : Comment
 	deleteTraveler(input: DeleteTravelerInput!): Traveler
 }
 
@@ -576,6 +643,7 @@ type Query {
 	getLocation(input: GetInput!): Location
 	getChat(input: GetInput!): Chat
 	getMessage(input: GetInput!): Message
+	getComment(input: GetInput!): Comment
 
 	listTravelers(filter: TableTravelerFilterInput, limit: Int, nextToken: String): TravelerConnection
 	listTripRequests(filter: TableTripRequestFilterInput, limit: Int, nextToken: String): TripRequestConnection
@@ -590,6 +658,8 @@ type Query {
 	listChats(filter: TableChatFilterInput, limit: Int, nextToken: String): ChatConnection
 	listMessages(filter: TableMessageFilterInput, limit: Int, nextToken: String): MessageConnection
 	listMessagesByChatID(filter: TableMessageFilterInput, limit: Int, nextToken: String, chatID: String!): MessageConnection
+	listComments(filter: TableCommentFilterInput, limit: Int, nextToken: String): CommentConnection
+	listCommentsByParentID(filter: TableCommentFilterInput, limit: Int, nextToken: String, parentID: String!): CommentConnection
 }
 
 type Subscription {
@@ -622,6 +692,11 @@ type Subscription {
 		SORTKEY: String
 	): TripOffer
 		@aws_subscribe(mutations: ["createTripOffer"])
+	onCreateMessage(
+		ID: String,
+		SORTKEY: String
+	): Message
+		@aws_subscribe(mutations: ["createMessage"])
 }
 
 input TableBooleanFilterInput {

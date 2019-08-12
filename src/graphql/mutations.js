@@ -86,10 +86,11 @@ export const createTripOffer = `mutation CreateTripOffer($input: CreateTripOffer
     status
     title
     chatID
+    tripOfferInfo
     contractInfo
     paymentInfo
     tripReqID
-    tripReqINFO {
+    tripRequest {
       ID
       SORTKEY
       locationID
@@ -117,7 +118,6 @@ export const createTripOffer = `mutation CreateTripOffer($input: CreateTripOffer
       updateIP
       updateDate
     }
-    tripReqInfo
     expTime
     regIP
     regDate
@@ -131,6 +131,7 @@ export const createServiceOffer = `mutation CreateServiceOffer($input: CreateSer
     ID
     SORTKEY
     bookingInfo
+    serviceOfferInfo
     comments
     info
     locationID
@@ -179,6 +180,21 @@ export const createMessage = `mutation CreateMessage($input: CreateMessageInput!
     userID
     type
     message
+    regIP
+    regDate
+    updateIP
+    updateDate
+  }
+}
+`;
+export const createComment = `mutation CreateComment($input: CreateCommentInput!) {
+  createComment(input: $input) {
+    ID
+    SORTKEY
+    userID
+    content
+    likeUserIDs
+    dislikeUserIDs
     regIP
     regDate
     updateIP
@@ -271,10 +287,11 @@ export const updateTripOffer = `mutation UpdateTripOffer($input: UpdateTripOffer
     status
     title
     chatID
+    tripOfferInfo
     contractInfo
     paymentInfo
     tripReqID
-    tripReqINFO {
+    tripRequest {
       ID
       SORTKEY
       locationID
@@ -302,7 +319,6 @@ export const updateTripOffer = `mutation UpdateTripOffer($input: UpdateTripOffer
       updateIP
       updateDate
     }
-    tripReqInfo
     expTime
     regIP
     regDate
@@ -316,6 +332,7 @@ export const updateServiceOffer = `mutation UpdateServiceOffer($input: UpdateSer
     ID
     SORTKEY
     bookingInfo
+    serviceOfferInfo
     comments
     info
     locationID
@@ -364,6 +381,21 @@ export const updateMessage = `mutation UpdateMessage($input: UpdateMessageInput!
     userID
     type
     message
+    regIP
+    regDate
+    updateIP
+    updateDate
+  }
+}
+`;
+export const updateComment = `mutation UpdateComment($inpu: UpdateCommentInput!) {
+  updateComment(inpu: $inpu) {
+    ID
+    SORTKEY
+    userID
+    content
+    likeUserIDs
+    dislikeUserIDs
     regIP
     regDate
     updateIP

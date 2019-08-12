@@ -19,6 +19,7 @@ export const listServiceOffersByTripOfferID = `query getServiceOffersByTripOffer
     items {
         ID
         SORTKEY
+        serviceOfferInfo
     }
   }
 }`

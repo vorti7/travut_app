@@ -7,6 +7,5 @@ export const updateServiceOffer = `mutation updateServiceOffer($input: UpdateSer
   updateServiceOffer(input: $input) {
     ID
     SORTKEY
-    chatID
   }
 }`

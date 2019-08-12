@@ -174,10 +174,11 @@ export const getTripOffer = `query GetTripOffer($input: GetInput!) {
     status
     title
     chatID
+    tripOfferInfo
     contractInfo
     paymentInfo
     tripReqID
-    tripReqINFO {
+    tripRequest {
       ID
       SORTKEY
       locationID
@@ -205,7 +206,6 @@ export const getTripOffer = `query GetTripOffer($input: GetInput!) {
       updateIP
       updateDate
     }
-    tripReqInfo
     expTime
     regIP
     regDate
@@ -219,6 +219,7 @@ export const getServiceOffer = `query GetServiceOffer($input: GetInput!) {
     ID
     SORTKEY
     bookingInfo
+    serviceOfferInfo
     comments
     info
     locationID
@@ -267,6 +268,21 @@ export const getMessage = `query GetMessage($input: GetInput!) {
     userID
     type
     message
+    regIP
+    regDate
+    updateIP
+    updateDate
+  }
+}
+`;
+export const getComment = `query GetComment($input: GetInput!) {
+  getComment(input: $input) {
+    ID
+    SORTKEY
+    userID
+    content
+    likeUserIDs
+    dislikeUserIDs
     regIP
     regDate
     updateIP
@@ -422,10 +438,11 @@ export const listTripOffers = `query ListTripOffers(
       status
       title
       chatID
+      tripOfferInfo
       contractInfo
       paymentInfo
       tripReqID
-      tripReqINFO {
+      tripRequest {
         ID
         SORTKEY
         locationID
@@ -442,7 +459,6 @@ export const listTripOffers = `query ListTripOffers(
         updateIP
         updateDate
       }
-      tripReqInfo
       expTime
       regIP
       regDate
@@ -483,10 +499,11 @@ export const listTripOffersByRequestId = `query ListTripOffersByRequestId(
       status
       title
       chatID
+      tripOfferInfo
       contractInfo
       paymentInfo
       tripReqID
-      tripReqINFO {
+      tripRequest {
         ID
         SORTKEY
         locationID
@@ -503,7 +520,6 @@ export const listTripOffersByRequestId = `query ListTripOffersByRequestId(
         updateIP
         updateDate
       }
-      tripReqInfo
       expTime
       regIP
       regDate
@@ -524,6 +540,7 @@ export const listServiceOffers = `query ListServiceOffers(
       ID
       SORTKEY
       bookingInfo
+      serviceOfferInfo
       comments
       info
       locationID
@@ -556,6 +573,7 @@ export const listServiceOffersByTripOfferId = `query ListServiceOffersByTripOffe
       ID
       SORTKEY
       bookingInfo
+      serviceOfferInfo
       comments
       info
       locationID
@@ -758,6 +776,56 @@ export const listMessagesByChatId = `query ListMessagesByChatId(
       userID
       type
       message
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+    nextToken
+  }
+}
+`;
+export const listComments = `query ListComments(
+  $filter: TableCommentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      ID
+      SORTKEY
+      userID
+      content
+      likeUserIDs
+      dislikeUserIDs
+      regIP
+      regDate
+      updateIP
+      updateDate
+    }
+    nextToken
+  }
+}
+`;
+export const listCommentsByParentId = `query ListCommentsByParentId(
+  $filter: TableCommentFilterInput
+  $limit: Int
+  $nextToken: String
+  $parentID: String!
+) {
+  listCommentsByParentID(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    parentID: $parentID
+  ) {
+    items {
+      ID
+      SORTKEY
+      userID
+      content
+      likeUserIDs
+      dislikeUserIDs
       regIP
       regDate
       updateIP

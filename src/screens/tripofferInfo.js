@@ -5,9 +5,10 @@ import { Header, Text, Avatar } from 'react-native-elements';
 
 import { Icon } from 'react-native-eva-icons';
 import AuthClass from '../lib/auth'
-import {Navigator, ScreenConst} from '../navigation'
+import { Navigator, ScreenConst } from '../navigation'
 import { Api } from '../lib/api'
 import { compose } from 'react-apollo'
+import { ServiceItemComponent } from '../components'
 
 class TripofferScreen extends React.Component{
 
@@ -37,43 +38,121 @@ class TripofferScreen extends React.Component{
                         chatID: null
                     }
                     Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_CHAT, passProps)
-                    // let chatCreateInput = {
-                    //     "name" : "text",
-                    //     "usersID": "sdfasdgs",
-                    //     "regIP" : "127.0.0.1"
-                    // }
-                    // this.props.createChat({createchatinput:chatCreateInput}).then((e) => {
-                    //     console.log('chat room created')
-                    //     let tripOfferUpdateInput = {
-                    //         "ID" : this.props.tripOffer.ID,
-                    //         "SORTKEY" : this.props.tripOffer.SORTKEY,
-                    //         "chatID" : e.data.createChat.ID
-                    //     }
-                    //     this.props.updateTripOffer({updatetripofferinput:tripOfferUpdateInput}).then(() => {
-                    //         passProps = {
-                    //             chatID: e.data.createChat.ID
-                    //         }
-                    //         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_CHAT, passProps)
-                    //     })
-                    // })
                 }
             }
             
         })
     }
 
-    
-    
+    showBottom(){
+        if(this.props.tripOffer.status=="Submitted"){
+            return(
+                <View
+                    style={{width:'100%', height:'auto', bottom : 0, paddingLeft:'5%', paddingTop:'2%', paddingRight:'5%', position:'absolute', flexDirection:'column', backgroundColor:"#FFF"}}
+                >
+                    <View style={{alignItems:'center', justifyContent:'center'}}>
+                        <Text style={{fontSize:15, color:'#4535AA'}}>
+                            If you accept the contact, you will be able to chat with the host and coordinate your services.
+                        </Text>
+                        <Text style={{fontSize:20, color:'#16C1A0'}}>
+                            Do you want to connect with the host?
+                        </Text>
+                    </View>
+                    <View style={{width:'100%', flexDirection:'row'}}>
+                        <View style={{width:'50%', padding:10}}>
+                            <TouchableOpacity onPress={()=>{
+                                // let tripOfferUpdateInput = {
+                                //     "ID" : this.props.tripOfferID,
+                                //     "SORTKEY" : this.props.tripOfferSORTKEY,
+                                //     "chatID" : ''
+                                // }
+                                // this.props.updateTripOffer({input:tripOfferUpdateInput}).then((f) => {
+                                //     console.log('tripOffer status changed.')
+                                // })
+                            }}>
+                                <View style={{width: '100%', height:'auto', borderWidth:1.5, borderRadius:20, alignItems:'center', borderColor:'#4535AA'}}>
+                                    <Text h4 h4Style={{color:'#4535AA'}}>SKIP</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{width:'50%', padding:10}}>
+                            <TouchableOpacity onPress={()=>{
+                                // let tripOfferUpdateInput = {
+                                //     "ID" : this.props.tripOfferID,
+                                //     "SORTKEY" : this.props.tripOfferSORTKEY,
+                                //     "status" : ''
+                                // }
+                                // this.props.updateTripOffer({input:tripOfferUpdateInput}).then((f) => {
+                                //     console.log('tripOffer status changed.')
+                                // })
+                            }}>
+                                <View style={{width: '100%', height:'auto', borderWidth:1.5, borderRadius:20, alignItems:'center', borderColor:'#4535AA'}}>
+                                        <Text h4 h4Style={{color:'#4535AA'}}>ACCEPT</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            )
+        }else if(this.props.tripOffer.status=='dealing'){
+            return(
+                <View
+                    style={{width:'100%', height:'12%', bottom : 0, paddingLeft:'5%', paddingRight:'5%', position:'absolute', flexDirection:'row', backgroundColor:"#FFF"}}
+                >
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                        <Icon
+                            name='close-circle-outline'
+                            width={40}
+                            height={40}
+                            fill='#4535AA'
+                        />
+                    </View>
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                        <Icon
+                            name='home'
+                            width={40}
+                            height={40}
+                            fill='#4535AA'
+                        />
+                    </View>
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                        <TouchableOpacity onPress={this.goChat.bind(this)}>
+                            <Icon
+                                name='message-square-outline'
+                                width={40}
+                                height={40}
+                                fill='#4535AA'
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
+                        <View style={{width:'90%', height:'60%', borderRadius:20, backgroundColor:'#4535AA', flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                            <Icon
+                                name='checkmark-square-outline'
+                                width={30}
+                                height={30}
+                                fill='#FFF'
+                            />
+                            <Text style={{color:'#FFF', fontSize:20, fontWeight:'bold'}}> ORDER</Text>
+                        </View>
+                    </View>
+                </View>
+            )
+        }
+    }
+
     render(){
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('tripofferScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
 
-        // Trip Offer Content By TripOFferID
+        // Trip Offer Content By TripOfferID
         // console.log(this.props.tripOffer)
         // Servie Offer List By TripOfferID
         // console.log(this.props.serviceOffers)
+        // Trip Offer Status
+        console.log('Status : ', this.props.tripOffer.status)
 
         let screenHeight = Dimensions.get('window').height
         return(
@@ -91,7 +170,7 @@ class TripofferScreen extends React.Component{
                     centerComponent={
                         <View style={{backgroundColor:'#FFF', borderRadius:20, paddingBottom:5, paddingTop:5, paddingLeft:18, paddingRight:18}}>
                             <Text style={{color:'#16C1A0', fontWeight:'bold', fontSize:18}}>
-                                Offer Accepted
+                                {this.props.tripOffer.status}
                             </Text>
                         </View>
                     }
@@ -115,15 +194,6 @@ class TripofferScreen extends React.Component{
                                     }}
                                     style={{width:'100%', height:'100%'}}
                                 />
-                                {/* <Image
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        borderRadius: 40
-                                        // backgroundColor: '#4535AA'
-                                    }}
-                                    source={{uri:this.props.providerImage}}
-                                /> */}
                             </View>
                             <View style={{flex:2, flexDirection:'column', paddingLeft:10}}>
                                 <View style={{flex:1, flexDirection:'row'}}>
@@ -208,147 +278,82 @@ class TripofferScreen extends React.Component{
                     {
                         this.props.serviceOffers.map((contact, i) => {
                             return(
-                                <ServiceComponent key={i}></ServiceComponent>
+                                <ServiceItemComponent parentID={contact.ID+"#"+contact.SORTKEY} service={contact.serviceOfferInfo} key={i}></ServiceItemComponent>
                             )
                         })
                     }
-                    {/* <View style={{height:screenHeight, alignItems:'center'}}>
-                        <View style={{width:'90%', flexDirection:'column'}}>
-                            <View style={{paddingTop:20, paddingBottom:5, flexDirection:'row'}}>
-                                <Text style={{fontSize:20, fontWeight:'bold', color:'#4535AA'}}>Service Name</Text>
-                                <View style={{flex:1}}></View>
-                                <Switch
-
-                                />
-                            </View>
-                            <View style={{minHeight:30, backgroundColor:'#EBE8FA', borderRadius:10}}>
-                                <View>
-                                    <View style={{minHeight:30, padding:10}}>
-
-                                    </View>
-                                    <View style={{height:30, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                        <Icon
-                                            name='message-square-outline'
-                                            width={18}
-                                            height={18}
-                                            fill='#4535AA'
-                                        />
-                                        <Text style={{color:'#4535AA', fontSize:13, borderBottomWidth:0.5}}>추가요청이 있으시면 여기를 눌러 코멘트를 남겨주세요.</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
-                    </View> */}
                     <View style={{height:screenHeight/5}}></View>
                 </ScrollView>
-                <View
-                    style={{width:'100%', height:'12%', bottom : 0, paddingLeft:'5%', paddingRight:'5%', position:'absolute', flexDirection:'row', backgroundColor:"#FFF"}}
-                >
-                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                        <Icon
-                            name='close-circle-outline'
-                            width={40}
-                            height={40}
-                            fill='#4535AA'
-                        />
-                    </View>
-                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                        <Icon
-                            name='home'
-                            width={40}
-                            height={40}
-                            fill='#4535AA'
-                        />
-                    </View>
-                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                        <TouchableOpacity onPress={this.goChat.bind(this)}>
-                            <Icon
-                                name='message-square-outline'
-                                width={40}
-                                height={40}
-                                fill='#4535AA'
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
-                        <View style={{width:'90%', height:'60%', borderRadius:20, backgroundColor:'#4535AA', flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                            <Icon
-                                name='checkmark-square-outline'
-                                width={30}
-                                height={30}
-                                fill='#FFF'
-                            />
-                            <Text style={{color:'#FFF', fontSize:20, fontWeight:'bold'}}> ORDER</Text>
-                        </View>
-                    </View>
-
-                    
-                </View>
+                {this.showBottom()}
             </View>
         )
     }
 }
 
-class ServiceComponent extends React.Component{
-    constructor(props){
-        super(props);
+// class ServiceComponent extends React.Component{
+//     constructor(props){
+//         super(props);
 
-        this.state = {
-            switchState:false
-        };
-    }
+//         this.state = {
+//             switchState:false
+//         };
+//     }
 
-    switchToggle(){
-        this.setState({switchState:!this.state.switchState})
-    }
+//     switchToggle(){
+//         this.setState({switchState:!this.state.switchState})
+//     }
 
-    render(){
-        return(
-            <View style={{height:'auto', alignItems:'center'}}>
-                <View style={{width:'90%', flexDirection:'column'}}>
-                    <View style={{paddingTop:20, paddingBottom:5, flexDirection:'row'}}>
-                        <Text style={{fontSize:20, fontWeight:'bold', color:'#4535AA'}}>Service Name</Text>
-                        <View style={{flex:1}}></View>
-                        <Switch
-                            onValueChange= {this.switchToggle.bind(this)}
-                            value={this.state.switchState}
-                        />
-                    </View>
-                    <View style={{minHeight:30, backgroundColor:'#EBE8FA', borderRadius:10}}>
-                        <View>
-                            <View style={{minHeight:30, padding:10}}>
-                                <View style={{padding:10}}>
-                                    <Text>This is Service Contents.</Text>
-                                </View>
-                                <View style={{backgroundColor:'#FFF', padding:10, flexDirection:'row'}}>
-                                    <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
-                                        <Text>Price options</Text>
-                                    </View>
-                                    <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
-                                        <Text>$ Test Price</Text>
-                                    </View>
-                                </View>
-                            </View>
-                            <View style={{height:30, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                <Icon
-                                    name='message-square-outline'
-                                    width={18}
-                                    height={18}
-                                    fill='#4535AA'
-                                />
-                                <Text style={{color:'#4535AA', fontSize:13, borderBottomWidth:0.5}}>추가요청이 있으시면 여기를 눌러 코멘트를 남겨주세요.</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-            </View>
-        )
-    }
-}
+//     render(){
+//         // console.log(this.props.service)
+//         serviceInfo = JSON.parse(JSON.parse(this.props.service.serviceOfferInfo))
+//         console.log(serviceInfo)
+//         return(
+//             <View style={{height:'auto', alignItems:'center'}}>
+//                 <View style={{width:'90%', flexDirection:'column'}}>
+//                     <View style={{paddingTop:20, paddingBottom:5, flexDirection:'row'}}>
+//                         <Text style={{fontSize:20, fontWeight:'bold', color:'#4535AA'}}>Service Name</Text>
+//                         <View style={{flex:1}}></View>
+//                         <Switch
+//                             onValueChange= {this.switchToggle.bind(this)}
+//                             value={this.state.switchState}
+//                         />
+//                     </View>
+//                     <View style={{minHeight:30, backgroundColor:'#EBE8FA', borderRadius:10}}>
+//                         <View>
+//                             <View style={{minHeight:30, padding:10}}>
+//                                 <View style={{padding:10}}>
+//                                     <Text>{serviceInfo.content}</Text>
+//                                 </View>
+//                                 <View style={{backgroundColor:'#FFF', padding:10, flexDirection:'row'}}>
+//                                     <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
+//                                         <Text>{serviceInfo.priceDesc}</Text>
+//                                     </View>
+//                                     <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
+//                                         <Text>${serviceInfo.priceAmount}</Text>
+//                                     </View>
+//                                 </View>
+//                             </View>
+//                             <View style={{height:30, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+//                                 <Icon
+//                                     name='message-square-outline'
+//                                     width={18}
+//                                     height={18}
+//                                     fill='#4535AA'
+//                                 />
+//                                 <Text style={{color:'#4535AA', fontSize:13, borderBottomWidth:0.5}}>추가요청이 있으시면 여기를 눌러 코멘트를 남겨주세요.</Text>
+//                             </View>
+//                         </View>
+//                     </View>
+//                 </View>
+//             </View>
+//         )
+//     }
+// }
 
 export default compose(
     Api.TripOffer.queries.getTripOffer(),
-    Api.TripOffer.mutations.updateTripOffer(),
     Api.ServiceOffer.queries.listServiceOffersByTripOfferID(),
-    Api.Chat.mutations.createChat()
+    Api.TripOffer.mutations.updateTripOffer()
+    // Api.TripOffer.mutations.updateTripOffer(),
+    // Api.Chat.mutations.createChat()
 )(TripofferScreen)

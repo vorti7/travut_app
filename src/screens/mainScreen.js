@@ -44,7 +44,7 @@ class MainScreen extends React.Component{
         console.log('onClick4 button clicked')
         passProps = {
             tripOfferID:'1d492b69-7050-4d6e-a62a-aeb65d5657ce',
-            tripOfferSORTKEY:'trip_offer_2019-08-07T15:44:40.378Z',
+            tripOfferSORTKEY:'trip_offer_1565539010674',
             providerImage: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             providerName: 'George Clooney',
             languages: [ 'Korean', 'English', 'Japanese' ],

@@ -161,10 +161,11 @@ export const onCreateTripOffer = `subscription OnCreateTripOffer($ID: String, $S
     status
     title
     chatID
+    tripOfferInfo
     contractInfo
     paymentInfo
     tripReqID
-    tripReqINFO {
+    tripRequest {
       ID
       SORTKEY
       locationID
@@ -192,8 +193,21 @@ export const onCreateTripOffer = `subscription OnCreateTripOffer($ID: String, $S
       updateIP
       updateDate
     }
-    tripReqInfo
     expTime
+    regIP
+    regDate
+    updateIP
+    updateDate
+  }
+}
+`;
+export const onCreateMessage = `subscription OnCreateMessage($ID: String, $SORTKEY: String) {
+  onCreateMessage(ID: $ID, SORTKEY: $SORTKEY) {
+    ID
+    SORTKEY
+    userID
+    type
+    message
     regIP
     regDate
     updateIP
