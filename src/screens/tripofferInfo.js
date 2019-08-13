@@ -61,14 +61,14 @@ class TripofferScreen extends React.Component{
                     <View style={{width:'100%', flexDirection:'row'}}>
                         <View style={{width:'50%', padding:10}}>
                             <TouchableOpacity onPress={()=>{
-                                // let tripOfferUpdateInput = {
-                                //     "ID" : this.props.tripOfferID,
-                                //     "SORTKEY" : this.props.tripOfferSORTKEY,
-                                //     "chatID" : ''
-                                // }
-                                // this.props.updateTripOffer({input:tripOfferUpdateInput}).then((f) => {
-                                //     console.log('tripOffer status changed.')
-                                // })
+                                let tripOfferUpdateInput = {
+                                    "ID" : this.props.tripOfferID,
+                                    "SORTKEY" : this.props.tripOfferSORTKEY,
+                                    "status" : 'Skipped Offer'
+                                }
+                                this.props.updateTripOffer({input:tripOfferUpdateInput}).then((f) => {
+                                    console.log('tripOffer status changed.')
+                                })
                             }}>
                                 <View style={{width: '100%', height:'auto', borderWidth:1.5, borderRadius:20, alignItems:'center', borderColor:'#4535AA'}}>
                                     <Text h4 h4Style={{color:'#4535AA'}}>SKIP</Text>
@@ -77,14 +77,14 @@ class TripofferScreen extends React.Component{
                         </View>
                         <View style={{width:'50%', padding:10}}>
                             <TouchableOpacity onPress={()=>{
-                                // let tripOfferUpdateInput = {
-                                //     "ID" : this.props.tripOfferID,
-                                //     "SORTKEY" : this.props.tripOfferSORTKEY,
-                                //     "status" : ''
-                                // }
-                                // this.props.updateTripOffer({input:tripOfferUpdateInput}).then((f) => {
-                                //     console.log('tripOffer status changed.')
-                                // })
+                                let tripOfferUpdateInput = {
+                                    "ID" : this.props.tripOfferID,
+                                    "SORTKEY" : this.props.tripOfferSORTKEY,
+                                    "status" : 'Accepted'
+                                }
+                                this.props.updateTripOffer({input:tripOfferUpdateInput}).then((f) => {
+                                    console.log('tripOffer status changed.')
+                                })
                             }}>
                                 <View style={{width: '100%', height:'auto', borderWidth:1.5, borderRadius:20, alignItems:'center', borderColor:'#4535AA'}}>
                                         <Text h4 h4Style={{color:'#4535AA'}}>ACCEPT</Text>
@@ -94,7 +94,7 @@ class TripofferScreen extends React.Component{
                     </View>
                 </View>
             )
-        }else if(this.props.tripOffer.status=='dealing'){
+        }else if(this.props.tripOffer.status=='Accepted'){
             return(
                 <View
                     style={{width:'100%', height:'12%', bottom : 0, paddingLeft:'5%', paddingRight:'5%', position:'absolute', flexDirection:'row', backgroundColor:"#FFF"}}

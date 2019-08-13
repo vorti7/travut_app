@@ -78,6 +78,10 @@ type Provider implements User {
 	deactivateIP : AWSIPAddress
 	deactivateDate : String
 
+	experience : Int
+	reviews : Int
+	rating : Int
+
 	locationIDs : String
 	type : String
 	companyID : String
@@ -345,7 +349,7 @@ input UpdateTripOfferInput {
 	ID: String!
 	SORTKEY: String!
 	# locationID: String
-	# status: String
+	status: String
 	# title: String
 	chatID: String
 	# tripOfferInfo: AWSJSON
@@ -515,7 +519,11 @@ input TableProviderFilterInput {
     updateIP : TableStringFilterInput	
     updateDate : TableStringFilterInput	
     deactivateIP : TableStringFilterInput	
-    deactivateDate : TableStringFilterInput	
+    deactivateDate : TableStringFilterInput
+
+	experience : TableIntFilterInput
+	reviews : TableIntFilterInput
+	rating : TableIntFilterInput
     
     type : TableStringFilterInput	
     companyID : TableStringFilterInput	

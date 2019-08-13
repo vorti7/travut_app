@@ -66,7 +66,7 @@ class ProviderInfoScreen extends React.Component{
                             style={{
                                 flex: 1
                             }}
-                            source={{uri:this.props.image}}
+                            source={{uri:this.props.provider.photoURL}}
                         />
                     </View>
                     <View
@@ -77,7 +77,7 @@ class ProviderInfoScreen extends React.Component{
                             justifyContent: 'center'
                         }}
                     >
-                        <Text h4>{this.props.greeting}</Text>
+                        <Text h4>Greeting Message</Text>
                     </View>
                     <View
                         style={{
@@ -95,15 +95,15 @@ class ProviderInfoScreen extends React.Component{
                         <View style={{width:'40%', height:'100%', flexDirection:'column'}}>
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                 <Text style={{color:'#AEA9C9', fontSize:20}}>Experience</Text>
-                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.experience}</Text>
+                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.provider.experience}</Text>
                             </View>
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                 <Text style={{color:'#AEA9C9', fontSize:20}}>Response Rate</Text>
-                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.responseRate}</Text>
+                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.provider.responseRate}</Text>
                             </View>
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                 <Text style={{color:'#AEA9C9', fontSize:20}}>Replies Within</Text>
-                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.responseTime}</Text>
+                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.provider.responseTime}</Text>
                             </View>
                         </View>
                     </View>

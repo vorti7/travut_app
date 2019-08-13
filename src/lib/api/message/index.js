@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { graphqlMutation } from 'aws-appsync-react'
-// import { buildSubscription } from 'aws-appsync'
+import { buildSubscription } from 'aws-appsync'
 
 import * as Queries from './queries'
 import * as Subscriptions from './subscriptions'
@@ -37,6 +37,27 @@ export const queries = {
             }),
             props: props => ({
                 messages: props.data.listMessagesByChatID ? props.data.listMessagesByChatID.items : [],
+                subscribeToNewMessages: () =>{
+                    props.data.subscribeToMore({
+                        document: OnCreateMessage,
+                        updateQuery: (prev, {subscriptionData: { data : { onCreateMessage }}}) =>{
+                            let messages = prev.listMessagesByChatID.items.filter(u => u.ID !== onCreateMessage.ID)
+                            messages = [
+                                ...messages,
+                                onCreateMessage,
+                            ]
+                            console.log('messages:', messages)
+
+                            return {
+                                ...prev,
+                                listMessages: {
+                                    ...prev.listMessagesByChatID,
+                                    items: messages
+                                }
+                            }
+                        }
+                    })
+                },
                 data: props.data
             })
         })
@@ -46,16 +67,17 @@ export const queries = {
 
 export const mutations = {
     createMessage: () => {
+        return graphqlMutation( CreateMessage, ListMessages, 'Message' )
         // return graphqlMutation( CreateMessage, ListMessagesByChatID, 'Message' )
-        return graphqlMutation( CreateMessage, [
-            {
-                query: ListMessagesByChatID,
-                variables: (props) => {
-                    console.log('apis create message props ============> ', props)
-                    return { chatid: props.chatID }
-                }
-            }
-        ], 'Message' )
+        // return graphqlMutation( CreateMessage, [
+        //     {
+        //         query: ListMessagesByChatID,
+        //         variables: (props) => {
+        //             console.log('apis create message props ============> ', props)
+        //             return { chatid: props.chatID }
+        //         }
+        //     }
+        // ], 'Message' )
     }
 }
 

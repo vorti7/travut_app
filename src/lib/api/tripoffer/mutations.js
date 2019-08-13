@@ -8,5 +8,6 @@ export const updateTripOffer = `mutation updateTripOffer($input: UpdateTripOffer
     ID
     SORTKEY
     chatID
+    status
   }
 }`

@@ -107,7 +107,8 @@ const ProviderCard = (props) => {
                     <Image
                         style={{width:"100%", height:cardHeight, borderRadius:10}}
                         resizeMode="cover"
-                        source={require('../assets/images/test/profile_test01.jpeg')}
+                        // source={require('../assets/images/test/profile_test01.jpeg')}
+                        source={{uri:props.data.photoURL}}
                     />
                 </TouchableOpacity>
                 <View style={{position:'absolute', top:0, flexDirection:'row'}}>
@@ -139,16 +140,16 @@ const ProviderCard = (props) => {
             </View>
             <View style={{flex:1, height:cardHeight/6, flexDirection:'row'}}>
                 <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text h4 h4Style={{color:'#4535AA'}}>100</Text>
+                    <Text h4 h4Style={{color:'#4535AA'}}>{props.data.experience}</Text>
                 </View>
                 <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text h4 h4Style={{color:'#4535AA'}}>50</Text>
+                    <Text h4 h4Style={{color:'#4535AA'}}>{props.data.reviews}</Text>
                 </View>
                 <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
                     <Rating
                         imageSize={20}
                         readonly
-                        startingValue={4}
+                        startingValue={props.data.rating}
                     />
                 </View>
             </View>

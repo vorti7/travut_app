@@ -20,6 +20,10 @@ export const getProvider = `query getProvider($getproviderinput: GetInput!) {
     deactivateIP
     deactivateDate
     
+    experience
+    reviews
+    rating
+    
     type
     companyID
     companyStatus
@@ -51,6 +55,10 @@ export const listProviders = `query getProviders {
       updateDate
       deactivateIP
       deactivateDate
+      
+      experience
+      reviews
+      rating
 
       type
       companyID
@@ -85,6 +93,10 @@ export const listProvidersByLocationID = `query getProvidersByLocationID($locati
       updateDate
       deactivateIP
       deactivateDate
+
+      experience
+      reviews
+      rating
 
       locationIDs
       type

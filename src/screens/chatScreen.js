@@ -7,7 +7,6 @@ import { compose, withApollo } from 'react-apollo'
 import AuthClass from '../lib/auth'
 
 import { Icon } from 'react-native-eva-icons';
-import { tsThisType } from '@babel/types';
 
 
 class ChatScreen extends React.Component{
@@ -25,7 +24,12 @@ class ChatScreen extends React.Component{
         };
     }
 
+    componentDidMount(){
+        // this.props.subscribeToNewMessages()
+    }
+
     sendMessage(){
+        this.refs.flatList.scrollToEnd()
         // Navigator.showOverlay("spinnerOverlay",  ScreenConst.SCREEN_COMMON_LOADING)
         if(this.state.chatIDState){
             console.log('chatID : ',this.state.chatIDState)
@@ -40,8 +44,11 @@ class ChatScreen extends React.Component{
                 }
                 // console.log(data)
                 this.props.createMessage({createmessageinput:data}).then((e) => {
-                    console.log(',,,,,,,', e);
-                    console.log('create message done : ', this.props)
+                    // console.log(',,,,,,,', e);
+                    console.log(this.props.messages)
+
+                    // console.log('create message done : ', this.props)
+
                     // this.props.data.refetch().then(() => {
                     //     Navigator.dismissOverlay("spinnerOverlay")
                     // })
@@ -91,14 +98,14 @@ class ChatScreen extends React.Component{
         console.log('chatScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('chatting Contents-------------------------------------------------------------------------------------------')
-        console.log(this.props.messages)
+        // console.log(this.props.messages)
         console.log('propsData Contents------------------------------------------------------------------------------------------')
         // console.log(this.props.data)
-        console.log(this.props.chatID)
-        console.log(this.props.tripOfferID)
-        console.log(this.props.tripOfferSORTKEY)
+        // console.log(this.props.chatID)
+        // console.log(this.props.tripOfferID)
+        // console.log(this.props.tripOfferSORTKEY)
 
-        console.log(this.props)
+        // console.log(Object.keys(this.props))
         return(
             <View style={{flex:1}}>
                 <Header
@@ -120,11 +127,12 @@ class ChatScreen extends React.Component{
                     }
                 />
                 <FlatList
+                    ref="flatList"
                     data={this.props.messages}
                     renderItem={this._renderItem}
                 />
                 <View
-                    style={{width:'100%', height:'10%', bottom : 0, position:'absolute', flexDirection:'row'}}
+                    style={{width:'100%', height:'10%', bottom : 0, flexDirection:'row'}}
                 >
                     <View style={{justifyContent:'center', padding:3}}>
                         <Icon
@@ -230,10 +238,6 @@ class ChatItem extends React.Component {
         return content
     }
 }
-
-
-
-
 
 export default compose(
     Api.Message.queries.listMessagesByChatID(),

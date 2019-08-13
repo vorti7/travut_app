@@ -4,6 +4,7 @@ import {Navigator, ScreenConst} from '../navigation'
 import { compose } from 'react-apollo'
 
 import { View, FlatList } from 'react-native';
+import { Text } from 'react-native-elements'
 import { Api } from '../lib/api'
 
 class TripOfferList extends React.Component{
@@ -22,14 +23,22 @@ class TripOfferList extends React.Component{
 
 
     render(){
-        console.log(this.props)
+        // console.log(this.props)
         return(
             <FlatList
-                // data={this.props}
+                data={this.props.tripOffers}
                 renderItem={this._renderItem}
             />
         )
     }
+}
+
+const TripOfferItem = () => {
+    return(
+        <View>
+            <Text>TripOfferItem</Text>
+        </View>
+    )
 }
 
 export default compose(

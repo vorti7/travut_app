@@ -34,6 +34,9 @@ export const getUser = `query GetUser($input: GetInput!) {
     deactivateIP
     deactivateDate
     ... on Provider {
+      experience
+      reviews
+      rating
       locationIDs
       type
       companyID
@@ -113,6 +116,9 @@ export const getProvider = `query GetProvider($input: GetInput!) {
     updateDate
     deactivateIP
     deactivateDate
+    experience
+    reviews
+    rating
     locationIDs
     type
     companyID
@@ -648,6 +654,9 @@ export const listProviders = `query ListProviders(
       updateDate
       deactivateIP
       deactivateDate
+      experience
+      reviews
+      rating
       locationIDs
       type
       companyID
@@ -704,6 +713,9 @@ export const listProvidersByLocationId = `query ListProvidersByLocationId(
       updateDate
       deactivateIP
       deactivateDate
+      experience
+      reviews
+      rating
       locationIDs
       type
       companyID

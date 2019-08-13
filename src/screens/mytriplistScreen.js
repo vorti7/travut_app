@@ -146,8 +146,8 @@ const MytripCard = (props) => {
                 <View style={{flex:1, height:cardHeight/4}}>
                     <Text>현지 여행호스트 {props.data.recipientsCnt}명에게 요청, {props.data.checkedIDs.length}명 확인</Text>
                 </View>
-                    {
-                        props.data.checkedIDs.length>0 ? <TripOfferListComponent tripRequestID={props.data.ID+'#'+props.data.SORTKEY}></TripOfferListComponent> : 
+                    {//props.data.checkedIDs.length>0
+                        true ? <TripOfferListComponent tripRequestID={props.data.ID+'#'+props.data.SORTKEY}></TripOfferListComponent> : 
                         <View style={{flex:1, height:cardHeight/4}}>
                             <Text>아직 도착한 여행제안이 없습니다.</Text>
                         </View>
