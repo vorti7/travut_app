@@ -239,8 +239,7 @@ input CreateTripRequestInput {
 
 input CreateTripOfferInput {
 	ID: String!
-	SORTKEY: String!
-	locationID: String!
+	locationID: String
 	status: String
 	title: String
 	chatID: String

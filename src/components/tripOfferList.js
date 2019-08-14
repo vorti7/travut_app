@@ -14,6 +14,9 @@ class TripOfferList extends React.Component{
         this.state = {
       };
     }
+    componentDidMount(){
+        this.props.subscribeToNewTripOffers()
+    }
     
     _renderItem = ({item}) => (
         <TripOfferItem
@@ -23,7 +26,7 @@ class TripOfferList extends React.Component{
 
 
     render(){
-        // console.log(this.props)
+        console.log(this.props.tripRequestID)
         return(
             <FlatList
                 data={this.props.tripOffers}
@@ -42,5 +45,6 @@ const TripOfferItem = () => {
 }
 
 export default compose(
-    Api.TripOffer.queries.listTripOffersByRequestID()
+    // Api.TripOffer.queries.listTripOffersByRequestID()
+    Api.TripOffer.subscriptions.onCreateTripOffer()
 )(TripOfferList)

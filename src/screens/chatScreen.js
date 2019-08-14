@@ -7,6 +7,7 @@ import { compose, withApollo } from 'react-apollo'
 import AuthClass from '../lib/auth'
 
 import { Icon } from 'react-native-eva-icons';
+import { buildSubscription } from 'aws-appsync'
 
 
 class ChatScreen extends React.Component{
@@ -25,7 +26,7 @@ class ChatScreen extends React.Component{
     }
 
     componentDidMount(){
-        // this.props.subscribeToNewMessages()
+        this.props.subscribeToNewMessages()
     }
 
     sendMessage(){
@@ -98,14 +99,14 @@ class ChatScreen extends React.Component{
         console.log('chatScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('chatting Contents-------------------------------------------------------------------------------------------')
-        // console.log(this.props.messages)
+        console.log(this.props.messages)
         console.log('propsData Contents------------------------------------------------------------------------------------------')
         // console.log(this.props.data)
         // console.log(this.props.chatID)
         // console.log(this.props.tripOfferID)
         // console.log(this.props.tripOfferSORTKEY)
 
-        // console.log(Object.keys(this.props))
+        console.log(Object.keys(this.props))
         return(
             <View style={{flex:1}}>
                 <Header
@@ -175,7 +176,7 @@ class ChatItem extends React.Component {
     }
     render() {
         // const itemPosition = this.props.item.auther ? 'flex-start' : 'flex-end';
-        console.log(this.props)
+        // console.log(this.props)
         itemData = this.props.item
         // console.log(itemData)
         let content
@@ -240,8 +241,9 @@ class ChatItem extends React.Component {
 }
 
 export default compose(
-    Api.Message.queries.listMessagesByChatID(),
+    // Api.Message.queries.listMessagesByChatID(),
     Api.Message.mutations.createMessage(),
+    Api.Message.subscriptions.onCreateMessage(),
     Api.Chat.mutations.createChat(),
     // Api.TripOffer.queries.listTripOffers(),
     Api.TripOffer.mutations.updateTripOffer()

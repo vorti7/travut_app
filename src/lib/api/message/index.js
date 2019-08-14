@@ -37,27 +37,6 @@ export const queries = {
             }),
             props: props => ({
                 messages: props.data.listMessagesByChatID ? props.data.listMessagesByChatID.items : [],
-                subscribeToNewMessages: () =>{
-                    props.data.subscribeToMore({
-                        document: OnCreateMessage,
-                        updateQuery: (prev, {subscriptionData: { data : { onCreateMessage }}}) =>{
-                            let messages = prev.listMessagesByChatID.items.filter(u => u.ID !== onCreateMessage.ID)
-                            messages = [
-                                ...messages,
-                                onCreateMessage,
-                            ]
-                            console.log('messages:', messages)
-
-                            return {
-                                ...prev,
-                                listMessages: {
-                                    ...prev.listMessagesByChatID,
-                                    items: messages
-                                }
-                            }
-                        }
-                    })
-                },
                 data: props.data
             })
         })
@@ -81,8 +60,35 @@ export const mutations = {
     }
 }
 
-// export const subscriptions = {
-//     onCreateMessage: () => {
-//         return graphql
-//     }
-// }
+export const subscriptions = {
+    onCreateMessage: () =>{
+        let result = graphql(ListMessagesByChatID, {
+            options: (props) => ({
+                variables: { chatid: props.chatID },
+                fetchPolicy:'cache-and-network'
+            }),
+            props: props => ({
+                messages: props.data.listMessagesByChatID ? props.data.listMessagesByChatID.items : [],
+                subscribeToNewMessages: params => {
+                    props.data.subscribeToMore({
+                        document: OnCreateMessage,
+                        updateQuery: (prev, { subscriptionData: {data : { onCreateMessage }}}) => ({
+                            ...prev,
+                            listMessagesByChatID : { __typename: 'MessageConnection', items:[onCreateMessage, ...prev.listMessagesByChatID.items.filter(message => message.SORTKEY !== onCreateMessage.SORTKEY)]}
+                        })
+                    })
+                }
+            })
+        })
+        // let result = graphql(ListMessagesByChatID, {
+        //     options: {
+        //         fetchPolicy: 'cache-and-network'
+        //     },
+        //     props: props => ({
+        //         subscribeToMore: props.data.subscribeToMore(buildSubscription(OnCreateMessage, ListMessagesByChatID)),
+        //         messages: props.data.listMessagesByChatID ? props.data.listMessagesByChatID.items : []
+        //     })
+        // })
+        return result
+    }
+}

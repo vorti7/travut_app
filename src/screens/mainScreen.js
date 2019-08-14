@@ -110,8 +110,8 @@ class MainScreen extends React.Component{
         // Check Logined Travel Info
         // console.log(this.props.traveler)
         
-        if(this.props.data.loading){
-            console.log('Check TravelerData .....')
+        console.log('Check TravelerData .....')
+        if(!this.props.data.loading){
             if(this.props.traveler.length==0){
                 console.log('need to create travelerData')
                 let data = {

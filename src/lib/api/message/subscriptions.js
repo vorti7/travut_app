@@ -1,5 +1,5 @@
 export const onCreateMessage = `subscription onCreateMessage{
-    addedMessage{
+    onCreateMessage{
       ID
       SORTKEY
       userID

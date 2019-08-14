@@ -4,7 +4,7 @@ import { graphqlMutation } from 'aws-appsync-react'
 // import { buildSubscription } from 'aws-appsync'
 
 import * as Queries from './queries'
-// import * as Subscriptions from './subscriptions'
+import * as Subscriptions from './subscriptions'
 import * as Mutations from './mutations'
 
 const GetTripOffer = gql(Queries.getTripOffer)
@@ -13,7 +13,7 @@ const ListTripOffersByRequestID =gql(Queries.listTripOffersByRequestID)
 // const CreateTripOffer = gql(Mutations.createTripOffer);
 // const DeleteTripOffer = gql(Mutations.deleteTripOffer);
 const UpdateTripOffer = gql(Mutations.updateTripOffer);
-// const onCreateTripOffer = gql(Subscriptions.onCreateTripOffer);
+const OnCreateTripOffer = gql(Subscriptions.onCreateTripOffer);
 // const onDeleteTripOffer = gql(Subscriptions.onDeleteTripOffer);
 // const onUpdateTripOffer = gql(Subscriptions.onUpdateTripOffer);
 
@@ -62,5 +62,29 @@ export const mutations = {
     // },
     updateTripOffer: () => {
         return graphqlMutation( UpdateTripOffer, '', 'TripOffer' )
+    }
+}
+
+export const subscriptions = {
+    onCreateTripOffer: () =>{
+        let result = graphql(ListTripOffersByRequestID, {
+            options: (props) => ({
+                variables: { triprequestid: props.tripRequestID },
+                fetchPolicy:'cache-and-network'
+            }),
+            props: props => ({
+                tripOffers: props.data.listTripOffersByRequestID ? props.data.listTripOffersByRequestID.items : [],
+                subscribeToNewTripOffers: params => {
+                    props.data.subscribeToMore({
+                        document: OnCreateTripOffer,
+                        updateQuery: (prev, { subscriptionData: {data : { onCreateTripOffer }}}) => ({
+                            ...prev,
+                            listTripOffersByRequestID : { __typename: 'TripOfferConnection', items:[onCreateTripOffer, ...prev.listTripOffersByRequestID.items.filter(tripOffer => tripOffer.SORTKEY !== onCreateTripOffer.SORTKEY)]}
+                        })
+                    })
+                }
+            })
+        })
+        return result
     }
 }
