@@ -10,6 +10,8 @@ import { Icon } from 'react-native-eva-icons';
 import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
+// import { Buttons } from '../components'
+
 class LocationinfoScreen extends React.Component{
 
     constructor(props) {
@@ -166,6 +168,7 @@ class LocationinfoScreen extends React.Component{
                             height={24}
                             fill='#FFF'
                         />
+                        // <Buttons.BackBtn/>
                     }
                     centerComponent={
                         <Text style={{fontSize:20, color:'#FFF'}}>{cityName}</Text>

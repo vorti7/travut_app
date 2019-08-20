@@ -96,6 +96,10 @@ export default class MainScreen extends React.Component{
         Navigator.showOverlay("overlay",  ScreenConst.SCREEN_COMMON_OVERLAY)
     }
     
+    testScreen(){
+        console.log('testScreen button clicked')
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_TEST)
+    }
 
     logout(){
         AuthClass.logoutTraveler(this.props.componentId)
@@ -163,6 +167,11 @@ export default class MainScreen extends React.Component{
                     type="clear"
                     onPress={this.overlay.bind(this)}
                     title = "Overlay"
+                />
+                <Button
+                    type="clear"
+                    onPress={this.testScreen.bind(this)}
+                    title="Test Screen"
                 />
                 <Button
                     type="clear"

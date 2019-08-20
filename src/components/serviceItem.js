@@ -3,7 +3,7 @@ import { compose } from 'react-apollo'
 
 import { View, Switch, TouchableOpacity } from 'react-native';
 import { Text, Overlay, Input, Button } from 'react-native-elements'
-// import { WebView } from 'react-native-webview';
+import { WebView } from 'react-native-webview';
 
 import { Api } from '../lib/api'
 import { Icon } from 'react-native-eva-icons';
@@ -106,26 +106,28 @@ class ServiceItem extends React.Component{
                             value={this.state.switchState}
                         />
                     </View>
-                    <View style={{minHeight:30, backgroundColor: this.colorState(), borderRadius:10}}>
+                    <View style={{minHeight:50, backgroundColor: this.colorState(), borderRadius:10}}>
                         <View>
-                            <View style={{minHeight:30, marginLeft:'5%', marginRight:'5%'}}>
-                                <View style={{paddingTop:5, paddingBottom:5}}>
+                            <View style={{minHeight:50, marginLeft:'5%', marginRight:'5%'}}>
+                                <View style={{paddingTop:5, paddingBottom:5, paddingLeft:15, paddingRight:15}}>
                                     <Text>{serviceInfo.content}</Text>
                                     {/* <WebView
                                         originWhitelist={['*']}
                                         source={{html: serviceInfo.content}}
                                     /> */}
                                 </View>
-                                <View style={{backgroundColor:'#FFF', flexDirection:'row'}}>
+                                <View style={{minHeight:30, paddingTop:5, paddingBottom:5, paddingLeft:15, paddingRight:15, backgroundColor:'#FFF', flexDirection:'row'}}>
                                     <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
-                                        <Text>{serviceInfo.priceDesc}</Text>
+                                        <Text style={{fontSize:25, color:'#4535AA'}}>{serviceInfo.priceDesc}</Text>
                                     </View>
                                     <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
-                                        <Text>${serviceInfo.priceAmount}</Text>
+                                        <Text style={{fontSize:25, fontWeight:'bold', color:'#4535AA'}}>${serviceInfo.priceAmount}</Text>
                                     </View>
                                 </View>
                             </View>
-                            <CommentListComponent comments={this.props.comments}></CommentListComponent>
+                            <View style={{paddingTop:15, paddingBottom:5}}>
+                                <CommentListComponent comments={this.props.comments}></CommentListComponent>
+                            </View>
                             <View style={{height:30, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                                 <Icon
                                     name='message-square-outline'

@@ -49,11 +49,11 @@ const CommentItem = (props) => {
     regTime = remainTime(props.item.regDate)
     return (
         <View>
-            <View style={{width:'90%', marginLeft:'5%', marginRight:'5%', flexDirection:'row'}}>
+            <View style={{width:'90%', marginLeft:'5%', marginRight:'5%', paddingBottom:3, flexDirection:'row'}}>
                 <Text style={{color:'#4535AA'}}>{commentWriter}</Text>
                 <Text style={{color:'#AEA9C9'}}> / {regTime}</Text>
             </View>
-            <View style={{width:'90%', marginLeft:'5%', marginRight:'5%', padding:'2%', backgroundColor:'#FFF'}}>
+            <View style={{width:'90%', marginLeft:'5%', marginRight:'5%', padding:5, borderRadius:5, backgroundColor:'#FFF'}}>
                 <Text style={{color:'#4535AA'}}>{props.item.contents}</Text>
             </View>
         </View>

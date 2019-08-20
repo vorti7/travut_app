@@ -3,6 +3,7 @@ package com.traveler_app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.horcrux.svg.SvgPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -43,7 +44,9 @@ public class MainApplication extends NavigationApplication {
         return Arrays.<ReactPackage>asList(
             new RNAWSCognitoPackage(), // needed for cognito
             new SvgPackage(),
-            new LinearGradientPackage()
+            new LinearGradientPackage(),
+            new MainReactPackage(),
+            new RNCWebViewPackage()
             // eg. new VectorIconsPackage()
         );
     }
