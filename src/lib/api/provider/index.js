@@ -8,6 +8,7 @@ import * as Queries from './queries'
 // import * as Mutations from './mutations'
 
 const GetProvider = gql(Queries.getProvider)
+const GetProviderByScan = gql(Queries.getProviderByScan)
 const ListProviders = gql(Queries.listProviders);
 const ListProvidersByLocationID = gql(Queries.listProvidersByLocationID)
 // const CreateProvider = gql(Mutations.createProvider);
@@ -26,6 +27,19 @@ export const queries = {
             }),
             props: props => ({
               provider: props.data.getProvider ? props.data.getProvider :[]
+            })
+          }) 
+          return result;
+    },
+    getProviderByScan: () => {
+        let result = graphql(GetProviderByScan, {
+            options: (props) => ({
+              variables: {providerid: props.item.ID},
+              fetchPolicy: 'cache-and-network'
+            }),
+            props: props => ({
+              provider: props.data.getProviderByScan ? props.data.getProviderByScan :[],
+              data:props.data
             })
           }) 
           return result;

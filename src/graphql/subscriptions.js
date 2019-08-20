@@ -215,3 +215,18 @@ export const onCreateMessage = `subscription OnCreateMessage($ID: String, $SORTK
   }
 }
 `;
+export const onCreateComment = `subscription OnCreateComment($ID: String, $SORTKEY: String) {
+  onCreateComment(ID: $ID, SORTKEY: $SORTKEY) {
+    ID
+    SORTKEY
+    userID
+    contents
+    likeUserIDs
+    dislikeUserIDs
+    regIP
+    regDate
+    updateIP
+    updateDate
+  }
+}
+`;

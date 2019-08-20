@@ -6,7 +6,7 @@ import { compose, withApollo } from 'react-apollo'
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// import AuthClass from '../lib/auth'
+import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
 class LocationsearchScreen extends React.Component{
@@ -27,6 +27,8 @@ class LocationsearchScreen extends React.Component{
         console.log(data)
         jsonData = JSON.parse(data.locationInfo)
         passProps = {
+            // userID: this.props.userID,
+            // userSORTKEY: this.props.userSORTKEY,
             locationID: data.ID,
             backgroundImage: jsonData.backgroundUrl,
             locationName: data.locationName,
@@ -53,11 +55,54 @@ class LocationsearchScreen extends React.Component{
         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MAKETRIP_INTRO, passProps)
     }
 
+    goTempMain(){
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME, {})
+    }
+
+    goTripRequestList(){
+        AuthClass.getTravelerInfo()
+        .then(userInfo => {
+            passProps = {
+                travelerID:userInfo.username
+            }
+            Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST, passProps)
+        })
+    }
+
+    checkLogin(){
+        console.log('Check TravelerData .....')
+        if(!this.props.data.loading){
+            if(this.props.traveler.length==0){
+                console.log('need to create travelerData')
+                let data = {
+                    "ID" : this.props.userID,
+                    "SORTKEY" : this.props.userSORTKEY,
+                    // "email" : ,
+                    "nickName" : this.props.userNickName,
+                    "photoURL" : "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+                    "firstName" : this.props.userNickName,
+                    "lastName" : this.props.userNickName,
+                    "regIP" : "127.0.0.1"
+                };
+               this.props.createTraveler({input:data}).then((e) => {
+                //    console.log(e);
+                    console.log('TravelerData Created')
+               })
+            }else{
+                console.log('travelerData already existed')
+            }
+        }
+    }
+
+
     render(){
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('locationsearchScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
+
+        this.checkLogin()
+
         return(
             <View style={{flex:1, alignItems: 'center'}}>
                 <Header containerStyle={{height:'5%', top : '3%', marginBottom:'8%', backgroundColor:"transparent"}}
@@ -70,7 +115,11 @@ class LocationsearchScreen extends React.Component{
                     }
                 />
                 <View style={{height:"17%"}}>
-                    <Text h3>Hello, {this.state.idString} !</Text>
+                    <TouchableOpacity
+                        onPress={this.goTempMain.bind(this)}
+                    >
+                    <Text h3>Hello, {this.props.userNickName} !</Text>
+                    </TouchableOpacity>
                     <Text h4>Where do you want to go?</Text>
                 </View>
                 <View style={{height:"13%",
@@ -150,6 +199,27 @@ class LocationsearchScreen extends React.Component{
                         /> */}
                     </TouchableOpacity>
                 </View>
+                <View style={{position:'absolute', right:'10%', bottom:0, opacity:0.5}}>
+                    <TouchableOpacity onPress={this.goTripRequestList.bind(this)}>
+                        <View style={{
+                            justifyContent:'center',
+                            alignItems:'center',
+                            width: 50,
+                            height: 50,
+                            borderTopLeftRadius:25,
+                            borderTopRightRadius:25,
+                            // borderRadius: 50/2,
+                            backgroundColor:'#000000'
+                        }}>
+                            {/* <Icon name='paper-plane' width={40} height={40} fill='#FFF'/> */}
+                            <Icon
+                                name='airplanemode-active'
+                                size={40}
+                                color='#FFF'
+                            />
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -173,5 +243,7 @@ const LocationItem = (props) => {
 }
 
 export default compose(
-    Api.Location.queries.listLocations()
+    Api.Location.queries.listLocations(),
+    Api.Traveler.queries.getTraveler(),
+    Api.Traveler.mutations.createTraveler()
 )(LocationsearchScreen)

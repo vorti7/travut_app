@@ -16,7 +16,84 @@ class TripofferScreen extends React.Component{
         super(props);
 
         this.state = {
+            allPrice:0,
+            serviceState:{
+
+            }
         };
+    }
+    dataInitialize(){
+        if(!this.props.data.loading){
+            return [JSON.parse(this.props.tripOffer.tripRequest.tripReqInfo), JSON.parse(this.props.tripOffer.tripOfferInfo)]
+        }else{
+            return [{
+                "travelType": [""],
+                "timeInfo": [],
+                "companion": [""],
+                "companionInfo": [],
+                "extra": [""]
+            },{
+                "offerMessage":{
+                    "content":""
+                },
+                "basicSupport":{
+                    "content":""
+                }
+            }]
+        }
+    }
+
+    initializeServiceState(){
+        let { serviceState } = this.state
+        if(this.props.data.loading && Object.keys(serviceState).length === 0 && this.props.serviceOffers.length !== 0){
+            for(i=0;i<this.props.serviceOffers.length;i++){
+                if(serviceState[i]==null){
+                    serviceState[i] = true
+                }
+            }
+            // console.log(serviceState)
+            this.setState({
+                serviceState: serviceState
+            })
+            this.getPrice(serviceState)
+        }
+    }
+
+    serviceSwitch(key){
+        let { serviceState } = this.state
+        // console.log('key: ', key + " ", trigger)
+        serviceState[key] = !serviceState[key]
+        this.setState({
+            serviceState: serviceState
+        })
+        this.getPrice(serviceState)
+    }
+
+    getPrice(serviceState){
+        let result = 0
+        for(i=0;i<Object.keys(serviceState).length;i++){
+            if(serviceState[i]){
+                addNum = JSON.parse(JSON.parse(this.props.serviceOffers[i].serviceOfferInfo))["priceAmount"]*1
+                // console.log(addNum+'addedddddddddddddddddddddd')
+                // console.log(JSON.parse(this.props.serviceOffers[i].serviceOfferInfo))
+                result += addNum
+            }
+        }
+        this.setState({
+            allPrice: result
+        })
+    }
+
+    dateShow(timeInfo){
+        const result = ""
+        if(timeInfo.length==0){
+            return result
+        }
+        // sortedtimeInfo = timeInfo.sort()
+        // for(i=1;i<timeInfo.length;i++){
+        //     console.log(new Date(timeInfo[i])- new Date(timeInfo[i-1]))
+        // }
+        return timeInfo[0]+"~"+timeInfo[1]
     }
 
     goChat(){
@@ -28,6 +105,7 @@ class TripofferScreen extends React.Component{
                         tripOfferID : this.props.tripOffer.ID,
                         tripOfferSORTKEY : this.props.tripOffer.SORTKEY,
                         chatID: this.props.tripOffer.chatID
+                        // chatID: "12d9a5c1-4971-4033-8d45-ff354f5da8e4"
                     }
                     Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_CHAT, passProps)
                 }else{
@@ -68,6 +146,7 @@ class TripofferScreen extends React.Component{
                                 }
                                 this.props.updateTripOffer({input:tripOfferUpdateInput}).then((f) => {
                                     console.log('tripOffer status changed.')
+                                    Navigator.popScreen(this.props.componentId)
                                 })
                             }}>
                                 <View style={{width: '100%', height:'auto', borderWidth:1.5, borderRadius:20, alignItems:'center', borderColor:'#4535AA'}}>
@@ -146,7 +225,10 @@ class TripofferScreen extends React.Component{
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('tripofferScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
-
+        var [requestData, tripOfferData] = this.dataInitialize()
+        this.initializeServiceState()
+        // console.log(this.state.serviceState)
+        // console.log(requestData)
         // Trip Offer Content By TripOfferID
         // console.log(this.props.tripOffer)
         // Servie Offer List By TripOfferID
@@ -218,7 +300,7 @@ class TripofferScreen extends React.Component{
                         </View>
                         <View style={{width:'100%', height:'15%', paddingLeft:'5%', paddingRight:'5%'}}>
                             <View style={{flex:1, backgroundColor:'#FFF', justifyContent:'center', padding:'2%'}}>
-                                <Text>{this.props.greeting}</Text>
+                                <Text>{tripOfferData.offerMessage.content}</Text>
                             </View>
                         </View>
                         <View style={{width:'100%', height:'15%', flexDirection:'column', paddingLeft:'7%', paddingRight:'7%', paddingTop:'3%', paddingBottom:'3%'}}>
@@ -229,7 +311,7 @@ class TripofferScreen extends React.Component{
                                     height={25}
                                     fill='#4535AA'
                                 />
-                                <Text>{this.props.dateData}</Text>
+                                <Text>  {this.dateShow(requestData.timeInfo)}</Text>
                             </View>
                             <View style={{flex:1, alignItems:'center', flexDirection:'row'}}>
                                 <Icon
@@ -238,7 +320,7 @@ class TripofferScreen extends React.Component{
                                     height={25}
                                     fill='#4535AA'
                                 />
-                                <Text>{this.props.companion}</Text>
+                                <Text>  {requestData.companion}</Text>
                             </View>
                         </View>
                         <View style={{width:'100%', height:'25%', paddingLeft:'5%', paddingRight:'5%', flexDirection:'column'}}>
@@ -254,7 +336,7 @@ class TripofferScreen extends React.Component{
                                     <Text style={{fontSize:10, color:'#FFF'}}>● Tax included</Text>
                                 </View>
                                 <View style={{flex:1, justifyContent:'center', alignItems:'flex-end',paddingRight:'5%'}}>
-                                    <Text style={{fontSize:20, color:'#FFF'}}>Total<Text h4 h4Style={{color:'#FFF'}}>${this.props.price}</Text></Text>
+                                    <Text style={{fontSize:20, color:'#FFF'}}>Total<Text h4 h4Style={{color:'#FFF'}}>${this.state.allPrice}</Text></Text>
                                 </View>
                             </View>
                         </View>
@@ -263,13 +345,13 @@ class TripofferScreen extends React.Component{
                                 <Text style={{fontSize:20, fontWeight:'bold', color:'#000'}}>Basic Support</Text>
                             </View>
                             <View style={{flex:2, justifyContent:'flex-start', paddingTop:3}}>
-                                <View>
+                                <View style={{flexDirection:"row"}}>
                                     <Icon
                                         name='checkmark-outline'
                                         width={15}
                                         height={15}
                                     />
-                                    <Text style={{color:'#000'}}></Text>
+                                    <Text style={{color:'#000'}}>{tripOfferData.basicSupport.content}</Text>
                                 </View>
                             </View>
                         </View>
@@ -277,8 +359,9 @@ class TripofferScreen extends React.Component{
 
                     {
                         this.props.serviceOffers.map((contact, i) => {
+                            console.log(this.state.serviceState[i])
                             return(
-                                <ServiceItemComponent parentID={contact.ID+"#"+contact.SORTKEY} service={contact.serviceOfferInfo} key={i}></ServiceItemComponent>
+                                <ServiceItemComponent serviceSwitch={this.serviceSwitch.bind(this, i)} switchState={this.state.serviceState[i]} parentID={contact.ID+"#"+contact.SORTKEY} service={contact.serviceOfferInfo} key={i}></ServiceItemComponent>
                             )
                         })
                     }

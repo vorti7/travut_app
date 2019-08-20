@@ -27,6 +27,7 @@ class ChatScreen extends React.Component{
 
     componentDidMount(){
         this.props.subscribeToNewMessages()
+        this.refs.flatList.scrollToEnd()
     }
 
     sendMessage(){
@@ -79,7 +80,7 @@ class ChatScreen extends React.Component{
                 this.props.updateTripOffer({input:tripOfferUpdateInput}).then((f) => {
                     console.log('tripOffer now have chatID')
                     this.setState({chatIDState: f.data.updateTripOffer.chatID})
-                    sendMessage()
+                    this.sendMessage()
                 })
             })
                     
@@ -89,6 +90,7 @@ class ChatScreen extends React.Component{
     _renderItem = ({item}) => (
         <ChatItem
             item={item}
+            providerID={this.props.tripOfferID}
         />
     );
 
@@ -180,7 +182,7 @@ class ChatItem extends React.Component {
         itemData = this.props.item
         // console.log(itemData)
         let content
-        if(itemData.userID){
+        if(itemData.userID.startsWith(this.props.providerID)){
             content = (
                 <View style={{width:'100%', alignItems:'flex-start', flexDirection:'row', paddingTop:10}}>
                     <Avatar

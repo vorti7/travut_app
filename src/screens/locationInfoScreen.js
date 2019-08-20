@@ -7,7 +7,7 @@ import { compose, withApollo } from 'react-apollo'
 import { Icon } from 'react-native-eva-icons';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
-// import AuthClass from '../lib/auth'
+import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
 class LocationinfoScreen extends React.Component{
@@ -85,12 +85,30 @@ class LocationinfoScreen extends React.Component{
         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_PROVIDER_LIST, passProps)
     }
 
+    goTripRequestList(){
+        AuthClass.getTravelerInfo()
+        .then(userInfo => {
+            passProps = {
+                travelerID:userInfo.username
+            }
+            Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MYTRIP_LIST, passProps)
+        })
+    }
+
     goTripRequest(){
         passProps={
             locationID:this.props.locationID,
             // providerID:this.props.providerID
         }
         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_MAKETRIP_INTRO, passProps)
+    }
+
+    timeString(number){
+        if(number<10){
+            return '0'+number
+        }else{
+            return number
+        }
     }
 
     showDescription(){
@@ -104,7 +122,8 @@ class LocationinfoScreen extends React.Component{
         console.log('------------------------------------------------------------------------------------------------------------')
         locationArr = this.props.locationName.split('/')
         cityName = locationArr[locationArr.length-1]
-        // console.log(this.props)
+        console.log(this.state.time.toDateString())
+        console.log(this.state.time.toTimeString())
         return(
             <ImageBackground style={{flex:1, alignItems: 'center'}} source={{uri:this.props.backgroundImage}}>
                 <Overlay
@@ -176,8 +195,8 @@ class LocationinfoScreen extends React.Component{
                 />
                 <View style={{height:"12%", width:"100%", flexDirection: 'row'}}>
                     <View style={{width:'50%', paddingLeft:"5%", justifyContent: 'center'}}>
-                        <Text h4 h4Style={{color:'#FFF'}}>{this.state.time.getMonth()+1}/{this.state.time.getDate()} ({this.getDay(this.state.time)})</Text>
-                        <Text h2 h2Style={{color:'#FFF'}}>{this.state.time.getHours()}:{this.state.time.getMinutes()}</Text>
+                        <Text h4 h4Style={{color:'#FFF'}}>{this.timeString(this.state.time.getMonth()+1)}/{this.timeString(this.state.time.getDate())} ({this.getDay(this.state.time)})</Text>
+                        <Text h2 h2Style={{color:'#FFF'}}>{this.timeString(this.state.time.getHours())}:{this.timeString(this.state.time.getMinutes())}</Text>
                     </View>
                     <View style={{width:'50%', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
                         <View style={{flex:1, borderColor:'#FFF', borderStyle:'dotted', borderRightWidth:1.5,justifyContent:'center', alignItems:'center'}}>
@@ -209,11 +228,11 @@ class LocationinfoScreen extends React.Component{
                         </View>
                         <View style={{flex:1, alignItems: 'center'}}>
                             <Text style={{color:'#FFF', fontSize:15}}>High/Low</Text>
-                            <Text style={{color:'#FFF', fontSize:15}}>{this.props.highestTemp}/{this.props.lowestTemp}</Text>
+                            <Text style={{color:'#FFF', fontSize:15}}>{this.props.highestTemp}°C/{this.props.lowestTemp}°C</Text>
                         </View>
                         <View style={{flex:1, alignItems: 'center'}}>
                             <Text style={{color:'#FFF', fontSize:15}}>Humidity</Text>
-                            <Text style={{color:'#FFF', fontSize:15}}>{this.props.humidity}</Text>
+                            <Text style={{color:'#FFF', fontSize:15}}>{this.props.humidity}%</Text>
                         </View>
                         <View style={{flex:1, alignItems: 'center'}}><Icon name='arrow-ios-forward' width={30} height={50} fill='#FFF'/></View>
                     </View>
@@ -300,6 +319,22 @@ class LocationinfoScreen extends React.Component{
                             backgroundColor:'#4535AA'
                         }}>
                             <Text style={{color:'#FFF'}}>10</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                <View style={{position:'absolute', right:'10%', bottom:0, opacity:0.5}}>
+                    <TouchableOpacity onPress={this.goTripRequestList.bind(this)}>
+                        <View style={{
+                            justifyContent:'center',
+                            alignItems:'center',
+                            width: 50,
+                            height: 50,
+                            borderTopLeftRadius:25,
+                            borderTopRightRadius:25,
+                            // borderRadius: 50/2,
+                            backgroundColor:'#000000'
+                        }}>
+                            <Icon name='paper-plane' width={40} height={40} fill='#FFF'/>
                         </View>
                     </TouchableOpacity>
                 </View>

@@ -192,7 +192,7 @@ export const createComment = `mutation CreateComment($input: CreateCommentInput!
     ID
     SORTKEY
     userID
-    content
+    contents
     likeUserIDs
     dislikeUserIDs
     regIP
@@ -393,7 +393,7 @@ export const updateComment = `mutation UpdateComment($inpu: UpdateCommentInput!)
     ID
     SORTKEY
     userID
-    content
+    contents
     likeUserIDs
     dislikeUserIDs
     regIP

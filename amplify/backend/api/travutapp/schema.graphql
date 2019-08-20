@@ -127,7 +127,7 @@ type TripOffer {
 	tripRequest: TripRequest
 	expTime: AWSDateTime
 	regIP: AWSIPAddress
-	regDate: AWSDateTime
+	regDate: String
 	updateIP: AWSIPAddress
 	updateDate: AWSDateTime
 }
@@ -197,7 +197,7 @@ type Comment {
 	ID : String!
 	SORTKEY : String!
 	userID : String
-	content : String
+	contents : String
 	likeUserIDs : [String]
 	dislikeUserIDs : [String]
 	regIP : AWSIPAddress
@@ -212,14 +212,14 @@ input CreateTravelerInput {
 	# locationID: String
 	# email: AWSEmail
 	# status: String
-	# firstName: String
-	# lastName: String
+	firstName: String
+	lastName: String
 	nickName: String
 	# gender: String
 	# birthday: String
 	# phone: AWSPhone
 	# languages: [String]
-	# photoURL: AWSURL
+	photoURL: AWSURL
 	regIP: AWSIPAddress
 }
 
@@ -297,15 +297,9 @@ input CreateMessageInput {
 
 input CreateCommentInput {
 	ID : String!
-	SORTKEY : String!
 	userID : String
-	content : String
-	likeUserIDs : [String]
-	dislikeUserIDs : [String]
+	contents : String
 	regIP : AWSIPAddress
-	regDate : String
-	updateIP : AWSIPAddress
-	updateDate : String
 }
 
 input UpdateTravelerInput {
@@ -415,7 +409,7 @@ input UpdateCommentInput {
 	ID : String!
 	SORTKEY : String!
 	userID : String
-	content : String
+	contents : String
 	likeUserIDs : [String]
 	dislikeUserIDs : [String]
 	regIP : AWSIPAddress
@@ -566,7 +560,7 @@ input TableCommentFilterInput {
 	ID : TableStringFilterInput
 	SORTKEY : TableStringFilterInput
 	userID : TableStringFilterInput
-	content : TableStringFilterInput
+	contents : TableStringFilterInput
 	likeUserIDs : TableStringFilterInput
 	dislikeUserIDs : TableStringFilterInput
 	regIP : TableStringFilterInput
@@ -652,6 +646,8 @@ type Query {
 	getMessage(input: GetInput!): Message
 	getComment(input: GetInput!): Comment
 
+	getProviderByScan(filter: TableProviderFilterInput, limit: Int, nextToken: String, providerID: String!): ProviderConnection
+
 	listTravelers(filter: TableTravelerFilterInput, limit: Int, nextToken: String): TravelerConnection
 	listTripRequests(filter: TableTripRequestFilterInput, limit: Int, nextToken: String): TripRequestConnection
 	listTripRequestsByTravelerID(filter: TableTripRequestFilterInput, limit: Int, nextToken: String, , travelerID: String!): TripRequestConnection
@@ -704,6 +700,11 @@ type Subscription {
 		SORTKEY: String
 	): Message
 		@aws_subscribe(mutations: ["createMessage"])
+	onCreateComment(
+		ID: String,
+		SORTKEY: String
+	): Comment
+		@aws_subscribe(mutations: ["createComment"])
 }
 
 input TableBooleanFilterInput {

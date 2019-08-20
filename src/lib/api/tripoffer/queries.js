@@ -1,18 +1,25 @@
 export const getTripOffer = `query getTripOffer($gettripofferinput: GetInput!) {
-    getTripOffer(input: $gettripofferinput) {
+  getTripOffer(input: $gettripofferinput) {
+    ID
+    SORTKEY
+    status
+    chatID
+    tripOfferInfo
+    tripRequest{
       ID
       SORTKEY
-      status
-      chatID
-      tripOfferInfo
+      tripReqInfo
     }
-  }`
+  }
+}`
 export const listTripOffers = `query getTripOffers {
   listTripOffers {
     items {
         ID
         SORTKEY
         chatID
+        regDate
+        status
     }
   }
 }`
@@ -22,6 +29,8 @@ export const listTripOffersByRequestID = `query getTripOffersByRequestID($tripre
         ID
         SORTKEY
         chatID
+        regDate
+        status
     }
   }
 }`

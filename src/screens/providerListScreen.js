@@ -104,12 +104,19 @@ const ProviderCard = (props) => {
                     onPress={props.goProviderInfo}
                     style={{width:'100%', height:cardHeight}}
                 >
-                    <Image
-                        style={{width:"100%", height:cardHeight, borderRadius:10}}
-                        resizeMode="cover"
-                        // source={require('../assets/images/test/profile_test01.jpeg')}
-                        source={{uri:props.data.photoURL}}
-                    />
+                    {
+                        props.data.photoURL ?
+                        <Image
+                            style={{width:"100%", height:cardHeight, borderRadius:10}}
+                            resizeMode="cover"
+                            source={{uri:props.data.photoURL}}
+                        /> :
+                        <Image
+                            style={{width:"100%", height:cardHeight, borderRadius:10}}
+                            resizeMode="cover"
+                            source={require('../assets/images/test/providerCard_test00.jpg')}
+                        />
+                    }
                 </TouchableOpacity>
                 <View style={{position:'absolute', top:0, flexDirection:'row'}}>
                     <View style={{flex:1}}>

@@ -33,6 +33,43 @@ export const getProvider = `query getProvider($getproviderinput: GetInput!) {
     serviceList
   }
 }`
+export const getProviderByScan = `query getProviderByScan($providerid: String!) {
+  getProviderByScan(providerID: $providerid) {
+    items{
+      ID
+      SORTKEY
+      locationID
+      email
+      status
+      firstName
+      lastName
+      nickName
+      gender
+      birthday
+      phone
+      languages
+      photoURL
+      regIP
+      regDate
+      updateIP
+      updateDate
+      deactivateIP
+      deactivateDate
+      
+      experience
+      reviews
+      rating
+      
+      type
+      companyID
+      companyStatus
+      campanyInfo
+      certInfo
+      welcomeMSG
+      serviceList
+    }
+  }
+}`
 export const listProviders = `query getProviders {
   listProviders {
     items {

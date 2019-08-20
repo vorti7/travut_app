@@ -21,6 +21,9 @@ export const getComment = `query getComment($getcommentinput: GetInput!) {
       items {
         ID
         SORTKEY
+        userID
+        contents
+        regDate
       }
     }
   }`

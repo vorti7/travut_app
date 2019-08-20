@@ -46,7 +46,19 @@ export const queries = {
 
 export const mutations = {
     createMessage: () => {
-        return graphqlMutation( CreateMessage, ListMessages, 'Message' )
+        let result = (graphql(ListMessagesByChatID, {
+            options: (props) => ({
+                variables: { chatid: props.chatID },
+                fetchPolicy: 'cache-and-network'
+            }),
+            props: props => ({
+                messages: props.data.listMessagesByChatID ? props.data.listMessagesByChatID.items : [],
+            })
+        }),
+        graphqlMutation( CreateMessage, ListMessagesByChatID, 'Message' ))
+        return result
+        // return graphqlMutation( CreateMessage, ListMessages, 'Message' )
+
         // return graphqlMutation( CreateMessage, ListMessagesByChatID, 'Message' )
         // return graphqlMutation( CreateMessage, [
         //     {
@@ -74,7 +86,7 @@ export const subscriptions = {
                         document: OnCreateMessage,
                         updateQuery: (prev, { subscriptionData: {data : { onCreateMessage }}}) => ({
                             ...prev,
-                            listMessagesByChatID : { __typename: 'MessageConnection', items:[onCreateMessage, ...prev.listMessagesByChatID.items.filter(message => message.SORTKEY !== onCreateMessage.SORTKEY)]}
+                            listMessagesByChatID : { __typename: 'MessageConnection', items:[...prev.listMessagesByChatID.items.filter(message => message.SORTKEY !== onCreateMessage.SORTKEY), onCreateMessage]}
                         })
                     })
                 }

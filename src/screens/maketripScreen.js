@@ -8,7 +8,7 @@ import { compose, withApollo } from 'react-apollo'
 import { Icon } from 'react-native-eva-icons';
 
 import AuthClass from '../lib/auth'
-// import {Navigator, ScreenConst} from '../navigation'
+import {Navigator, ScreenConst} from '../navigation'
 
 
 class MaketripScreen extends React.Component{
@@ -47,7 +47,6 @@ class MaketripScreen extends React.Component{
     componentDidMount(){
         this.addQuestion(0)
     }
-
 
 
     //example questionList Data
@@ -155,6 +154,7 @@ class MaketripScreen extends React.Component{
                                                 // console.log("{\"a\":1, \"b\":3, \"string\": 234}")
                                                this.props.createTripRequest({input:data}).then((e) => {
                                                    console.log(e);
+                                                   Navigator.popToRootScreen(this.props.componentId)
                                                })
                                             }
                   },
@@ -211,15 +211,15 @@ class MaketripScreen extends React.Component{
     //     this.addQuestion(count+1)
     // }
 
+
     setCalendar(checkedDate){
-        let { calendarDate } =this.state
+        let { calendarDate } = this.state
         // var obj = {}
         // obj[checkedDate.year+'-'+checkedDate.month+'-'+checkedDate.day] = {marked:true}
         calendarDate[checkedDate.dateString] = {selected: true, selectedColor: '#4535AA', textColor: '#FFFFFF'}
         this.setState({
             calendarDate: calendarDate
         })
-        console.log(calendarDate)
         // console.log(this.state.calendarDate)
     }
 
@@ -402,6 +402,7 @@ class MaketripScreen extends React.Component{
             return<View></View>
     }
 
+
     showList(){
         let { qList, aList, count } = this.state
         let returnList = []
@@ -421,7 +422,7 @@ class MaketripScreen extends React.Component{
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log('maketripScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
-        console.log(this.props)
+        // console.log(this.props)
         return(
             <View style={{flex:1, alignItems: 'center'}}>
                 <Header

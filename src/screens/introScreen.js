@@ -8,7 +8,8 @@ import AuthClass from '../lib/auth'
 export default class IntroScreen extends React.Component{
 
     outIntroScreen(){
-        Navigator.checkLoginChangePage(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME, ScreenConst.SCREEN_USER_LOGIN)
+        // Navigator.checkLoginChangePage(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME, ScreenConst.SCREEN_USER_LOGIN)
+        Navigator.checkLoginChangePage(this.props.componentId, ScreenConst.SCREEN_LOCATION_SEARCH, ScreenConst.SCREEN_USER_LOGIN)
     }
 
 

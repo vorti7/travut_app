@@ -286,13 +286,72 @@ export const getComment = `query GetComment($input: GetInput!) {
     ID
     SORTKEY
     userID
-    content
+    contents
     likeUserIDs
     dislikeUserIDs
     regIP
     regDate
     updateIP
     updateDate
+  }
+}
+`;
+export const getProviderByScan = `query GetProviderByScan(
+  $filter: TableProviderFilterInput
+  $limit: Int
+  $nextToken: String
+  $providerID: String!
+) {
+  getProviderByScan(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    providerID: $providerID
+  ) {
+    items {
+      ID
+      SORTKEY
+      locationID
+      location {
+        ID
+        SORTKEY
+        region
+        locationName
+        mapInfo
+        locationInfo
+        order
+        badgeUrl
+        providerCount
+      }
+      email
+      status
+      firstName
+      lastName
+      nickName
+      gender
+      birthday
+      phone
+      languages
+      photoURL
+      regIP
+      regDate
+      updateIP
+      updateDate
+      deactivateIP
+      deactivateDate
+      experience
+      reviews
+      rating
+      locationIDs
+      type
+      companyID
+      companyStatus
+      campanyInfo
+      certInfo
+      welcomeMSG
+      serviceList
+    }
+    nextToken
   }
 }
 `;
@@ -807,7 +866,7 @@ export const listComments = `query ListComments(
       ID
       SORTKEY
       userID
-      content
+      contents
       likeUserIDs
       dislikeUserIDs
       regIP
@@ -835,7 +894,7 @@ export const listCommentsByParentId = `query ListCommentsByParentId(
       ID
       SORTKEY
       userID
-      content
+      contents
       likeUserIDs
       dislikeUserIDs
       regIP

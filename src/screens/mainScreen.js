@@ -12,7 +12,7 @@ import { compose } from 'react-apollo'
 
 
 
-class MainScreen extends React.Component{
+export default class MainScreen extends React.Component{
 
     constructor(props) {
         super(props);
@@ -110,25 +110,25 @@ class MainScreen extends React.Component{
         // Check Logined Travel Info
         // console.log(this.props.traveler)
         
-        console.log('Check TravelerData .....')
-        if(!this.props.data.loading){
-            if(this.props.traveler.length==0){
-                console.log('need to create travelerData')
-                let data = {
-                    "ID" : this.props.userID,
-                    "SORTKEY" : this.props.userSORTKEY,
-                    // "email" : ,
-                    "nickName" : this.props.userNickName,
-                    "regIP" : '127.0.0.1'
-                };
-               this.props.createTraveler({input:data}).then((e) => {
-                //    console.log(e);
-                    console.log('TravelerData Created')
-               })
-            }else{
-                console.log('travelerData already existed')
-            }
-        }
+        // console.log('Check TravelerData .....')
+        // if(!this.props.data.loading){
+        //     if(this.props.traveler.length==0){
+        //         console.log('need to create travelerData')
+        //         let data = {
+        //             "ID" : this.props.userID,
+        //             "SORTKEY" : this.props.userSORTKEY,
+        //             // "email" : ,
+        //             "nickName" : this.props.userNickName,
+        //             "regIP" : '127.0.0.1'
+        //         };
+        //        this.props.createTraveler({input:data}).then((e) => {
+        //         //    console.log(e);
+        //             console.log('TravelerData Created')
+        //        })
+        //     }else{
+        //         console.log('travelerData already existed')
+        //     }
+        // }
         
         return(
             <View>
@@ -174,8 +174,7 @@ class MainScreen extends React.Component{
     }
 }
 
-export default compose(
-    Api.Traveler.queries.getTraveler(),
-    // Api.Traveler.queries.listTravelers(),
-    Api.Traveler.mutations.createTraveler()
-)(MainScreen)
+// export default compose(
+//     Api.Traveler.queries.getTraveler(),
+//     Api.Traveler.mutations.createTraveler()
+// )(MainScreen)
