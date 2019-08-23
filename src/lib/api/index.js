@@ -1,3 +1,5 @@
+import * as TestType from './testtype'
+
 import * as Traveler from './traveler'
 import * as TripRequest from './triprequest'
 import * as TripOffer from './tripoffer'
@@ -10,6 +12,8 @@ import * as Comment from './comment'
 // import * as XX from './xx'
 
 export const Api = {
+    TestType,
+    
     Traveler,
     TripRequest,
     TripOffer,

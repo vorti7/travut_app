@@ -12,14 +12,16 @@ import {Navigator, ScreenConst} from '../navigation'
 class LocationsearchScreen extends React.Component{
 
     componentDidMount(){
+        // this.checkLogin()
     }
 
     constructor(props) {
         super(props);
 
         this.state = {
-            idString:'Abigail',
-            searchString: ''
+            idString:'',
+            searchString: '',
+            checkLoginDone: false
         };
     }
 
@@ -71,7 +73,7 @@ class LocationsearchScreen extends React.Component{
 
     checkLogin(){
         console.log('Check TravelerData .....')
-        if(!this.props.data.loading){
+        if(!this.props.data.loading && !this.state.checkLoginDone){
             if(this.props.traveler.length==0){
                 console.log('need to create travelerData')
                 let data = {
@@ -87,9 +89,15 @@ class LocationsearchScreen extends React.Component{
                this.props.createTraveler({input:data}).then((e) => {
                 //    console.log(e);
                     console.log('TravelerData Created')
+                    this.setState({
+                        checkLoginDone:true
+                    })
                })
             }else{
                 console.log('travelerData already existed')
+                this.setState({
+                    checkLoginDone:true
+                })
             }
         }
     }

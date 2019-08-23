@@ -28,3 +28,4 @@ export const SCREEN_COMMON_LOADING = 'travut.screen.common.loading' // 공통 �
 export const SCREEN_COMMON_OVERLAY = 'travut.screen.common.overlay'
 
 export const SCREEN_TEST = 'travut.screen.test'
+export const SCREEN_TEST_DB = 'travut.screen.test.db'

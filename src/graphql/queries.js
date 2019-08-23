@@ -1,6 +1,29 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
+export const getTestType = `query GetTestType($input: GetInput!) {
+  getTestType(input: $input) {
+    ID
+    SORTKEY
+    attr1
+  }
+}
+`;
+export const listTestTypes = `query ListTestTypes(
+  $filter: TableTestTypeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTestTypes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      ID
+      SORTKEY
+      attr1
+    }
+    nextToken
+  }
+}
+`;
 export const getUser = `query GetUser($input: GetInput!) {
   getUser(input: $input) {
     ID

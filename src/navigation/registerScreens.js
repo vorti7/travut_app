@@ -29,4 +29,5 @@ export default function registerScreens(WithProvider) {
   Navigation.registerComponent(Const.SCREEN_COMMON_OVERLAY, () => WithProvider(Screens.overlayScreen))
 
   Navigation.registerComponent(Const.SCREEN_TEST, () => WithProvider(Screens.TestScreen))
+  Navigation.registerComponent(Const.SCREEN_TEST_DB, () => WithProvider(Screens.dbTestScreen))
 }

@@ -8,7 +8,8 @@ import AuthClass from '../lib/auth'
 import { Navigator, ScreenConst } from '../navigation'
 import { Api } from '../lib/api'
 import { compose } from 'react-apollo'
-import { ServiceItemComponent } from '../components'
+import { ServiceItemComponent, Buttons } from '../components'
+
 
 class TripofferScreen extends React.Component{
 
@@ -240,13 +241,12 @@ class TripofferScreen extends React.Component{
         return(
             <View style={{flex:1, alignItems: 'center'}}>
                 <Header
-                    containerStyle={{backgroundColor:'#EBE8FA', height:'12%'}}
+                    containerStyle={{backgroundColor:'#EBE8FA', height:'12%', paddingTop:0}}
                     leftComponent={
-                        <Icon
-                            name='arrow-back'
-                            width={34}
-                            height={34}
-                            fill='#000'
+                        <Buttons.BackBtn
+                            componentId = {this.props.componentId}
+                            buttonSize = {34}
+                            buttonColor = {"#000"}
                         />
                     }
                     centerComponent={
@@ -271,9 +271,10 @@ class TripofferScreen extends React.Component{
                             <View style={{flex:1}}>
                                 <Avatar
                                     rounded
-                                    source={{
-                                        uri: this.props.providerImage
-                                    }}
+                                    // source={{
+                                    //     uri: this.props.providerImage
+                                    // }}
+                                    source={require('../assets/images/test/profile_test00.png')}
                                     style={{width:'100%', height:'100%'}}
                                 />
                             </View>

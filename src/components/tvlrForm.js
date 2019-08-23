@@ -5,7 +5,7 @@ import { Navigator, ScreenConst } from '../navigation'
 import { compose } from 'react-apollo'
 
 import { View, Alert } from 'react-native';
-import { Input, Button, Text, CheckBox } from 'react-native-elements'
+import { Input, Button, Text, CheckBox, Overlay } from 'react-native-elements'
 import { Icon } from 'react-native-eva-icons';
 
 export default class TvlrFormComponent extends React.Component{
@@ -29,7 +29,7 @@ export default class TvlrFormComponent extends React.Component{
         console.log('Login button clicked')
         AuthClass.loginTraveler(this.state.loginEmailState, this.state.loginPasswordState)
             .then(success => {
-                Alert.alert(success)
+                // Alert.alert(success)
                 this.props.goMainScreen()
             })
             .catch(err => Alert.alert(err))
@@ -60,10 +60,11 @@ export default class TvlrFormComponent extends React.Component{
             
             AuthClass.signupTraveler(signupForm)
             .then(success => {
-                Alert.alert(success)
+                // Alert.alert(success)
                 // AuthClass.loginTraveler
                 // Navigator.popScreen(this.props.componentId)
-                this.props.overlayLogin()
+                // this.props.overlayLogin()
+                this.props.signupSuccess()
             })
             .catch(err => Alert.alert(err))
         }
@@ -205,6 +206,7 @@ export default class TvlrFormComponent extends React.Component{
                                 titleStyle={{fontSize:22}}
                                 onPress={this.signupClicked.bind(this)}
                                 title="Sign up"
+                                disabled={!this.state.confirmCheck}
                             />
 
                             <View style={{flexDirection:'row', marginTop:'3%', alignItems:'center'}}>

@@ -4,6 +4,12 @@ schema {
 	subscription: Subscription
 }
 
+type TestType {
+	ID: String!
+	SORTKEY: String!
+	attr1: String
+}
+
 interface User {
 	# typename : String!
 
@@ -206,6 +212,11 @@ type Comment {
 	updateDate : String
 }
 
+input CreateTestTypeInput {
+	ID: String!
+	attr1: String
+}
+
 input CreateTravelerInput {
 	ID: String!
 	SORTKEY: String!
@@ -300,6 +311,12 @@ input CreateCommentInput {
 	userID : String
 	contents : String
 	regIP : AWSIPAddress
+}
+
+input UpdateTestTypeInput {
+	ID: String!
+	SORTKEY: String!
+	attr1: String
 }
 
 input UpdateTravelerInput {
@@ -426,6 +443,12 @@ input GetInput {
 input DeleteTravelerInput {
 	ID: String!
 	SORTKEY: String!
+}
+
+input TableTestTypeFilterInput {
+	ID: TableStringFilterInput
+	SORTKEY: TableStringFilterInput
+	attr1: TableStringFilterInput
 }
 
 input TableTravelerFilterInput {
@@ -569,6 +592,11 @@ input TableCommentFilterInput {
 	updateDate : TableStringFilterInput
 }
 
+type TestTypeConnection {
+	items: [TestType]
+	nextToken: String
+}
+
 type TravelerConnection {
 	items: [Traveler]
 	nextToken: String
@@ -615,6 +643,9 @@ type CommentConnection {
 }
 
 type Mutation {
+	createTestType(input: CreateTestTypeInput!): TestType
+	updateTestType(input: UpdateTestTypeInput!): TestType
+
 	createTraveler(input: CreateTravelerInput!): Traveler
 	createTripRequest(input: CreateTripRequestInput!): TripRequest
 	createTripOffer(input: CreateTripOfferInput!): TripOffer
@@ -630,11 +661,14 @@ type Mutation {
 	updateLocation(input: UpdateLocationInput!): Location
 	updateChat(input: UpdateChatInput!): Chat
 	updateMessage(input: UpdateMessageInput!): Message
-	updateComment(inpu: UpdateCommentInput!) : Comment
+	updateComment(input: UpdateCommentInput!) : Comment
 	deleteTraveler(input: DeleteTravelerInput!): Traveler
 }
 
 type Query {
+	getTestType(input: GetInput!): TestType
+	listTestTypes(filter:TableTestTypeFilterInput, limit: Int, nextToken: String): TestTypeConnection
+
 	getUser(input: GetInput!): User
 	getTraveler(input: GetInput!): Traveler
 	getProvider(input: GetInput!): Provider

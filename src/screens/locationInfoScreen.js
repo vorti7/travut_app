@@ -10,7 +10,7 @@ import { Icon } from 'react-native-eva-icons';
 import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
-// import { Buttons } from '../components'
+import { Buttons } from '../components'
 
 class LocationinfoScreen extends React.Component{
 
@@ -162,13 +162,11 @@ class LocationinfoScreen extends React.Component{
                 <Header
                     containerStyle={{height:"10%", marginBottom:"5%", backgroundColor:"transparent", borderBottomColor:'transparent'}}
                     leftComponent={
-                        <Icon
-                            name='arrow-back'
-                            width={24}
-                            height={24}
-                            fill='#FFF'
+                        <Buttons.BackBtn
+                            componentId = {this.props.componentId}
+                            buttonSize = {24}
+                            buttonColor = {"#FFF"}
                         />
-                        // <Buttons.BackBtn/>
                     }
                     centerComponent={
                         <Text style={{fontSize:20, color:'#FFF'}}>{cityName}</Text>

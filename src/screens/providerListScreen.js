@@ -147,10 +147,10 @@ const ProviderCard = (props) => {
             </View>
             <View style={{flex:1, height:cardHeight/6, flexDirection:'row'}}>
                 <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text h4 h4Style={{color:'#4535AA'}}>{props.data.experience}</Text>
+                    <Text h4 h4Style={{color:'#4535AA'}}>{props.data.experience ? props.data.experience : 0}</Text>
                 </View>
                 <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text h4 h4Style={{color:'#4535AA'}}>{props.data.reviews}</Text>
+                    <Text h4 h4Style={{color:'#4535AA'}}>{props.data.reviews ? props.data.reviews : 0}</Text>
                 </View>
                 <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
                     <Rating

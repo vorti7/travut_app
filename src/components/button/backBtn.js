@@ -1,12 +1,14 @@
 import React from 'react';
 
 import { View } from 'react-native';
-import {  } from 'react-native-elements'
+// import {  } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Navigator, ScreenConst } from '../../navigation'
 
 export default class BackBtnComponent extends React.Component{
 
     back(){
-
+        Navigator.popScreen(this.props.componentId)
     }
 
     render(){
@@ -14,8 +16,9 @@ export default class BackBtnComponent extends React.Component{
             <View>
                 <Icon.Button
                     name='arrow-back'
-                    size={24}
-                    fill='#FFF'
+                    size={this.props.buttonSize}
+                    color={this.props.buttonColor}
+                    backgroundColor='transparent'
                     onPress={this.back.bind(this)}
                 />
             </View>

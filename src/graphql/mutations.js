@@ -1,6 +1,22 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
+export const createTestType = `mutation CreateTestType($input: CreateTestTypeInput!) {
+  createTestType(input: $input) {
+    ID
+    SORTKEY
+    attr1
+  }
+}
+`;
+export const updateTestType = `mutation UpdateTestType($input: UpdateTestTypeInput!) {
+  updateTestType(input: $input) {
+    ID
+    SORTKEY
+    attr1
+  }
+}
+`;
 export const createTraveler = `mutation CreateTraveler($input: CreateTravelerInput!) {
   createTraveler(input: $input) {
     ID
@@ -388,8 +404,8 @@ export const updateMessage = `mutation UpdateMessage($input: UpdateMessageInput!
   }
 }
 `;
-export const updateComment = `mutation UpdateComment($inpu: UpdateCommentInput!) {
-  updateComment(inpu: $inpu) {
+export const updateComment = `mutation UpdateComment($input: UpdateCommentInput!) {
+  updateComment(input: $input) {
     ID
     SORTKEY
     userID

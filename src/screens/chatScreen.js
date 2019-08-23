@@ -243,7 +243,7 @@ class ChatItem extends React.Component {
 }
 
 export default compose(
-    // Api.Message.queries.listMessagesByChatID(),
+    Api.Message.queries.listMessagesByChatID(),
     Api.Message.mutations.createMessage(),
     Api.Message.subscriptions.onCreateMessage(),
     Api.Chat.mutations.createChat(),

@@ -12,3 +12,6 @@ export { default as TripOfferListComponent } from './tripOfferList'
 export { default as ServiceItemComponent } from './serviceItem'
 export { default as CommentListComponent } from './commentList'
 export { default as TripRequestInsideListComponent } from './tripRequestInsideList'
+
+
+export { default as BackBtn } from './button/backBtn'

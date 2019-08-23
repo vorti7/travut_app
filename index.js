@@ -26,12 +26,14 @@ import AppSyncConfig from './src/aws-exports'
 import Navigation from './src/navigation'
 
 Amplify.configure(AppSyncConfig)
+console.disableYellowBox = true
 
 const client = new AWSAppSyncClient({
   url: AppSyncConfig.aws_appsync_graphqlEndpoint,
   region: AppSyncConfig.aws_project_region,
   auth: {
     type: AppSyncConfig.aws_appsync_authenticationType,
+    // apiKey: AppSyncConfig.apiKey
     jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
   },
   // cacheOptions: {

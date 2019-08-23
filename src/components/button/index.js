@@ -1,4 +1,4 @@
-import * as BackBtn from './backBtn'
+import BackBtn from './backBtn'
 // import * as XX from './xx'
 
 export {

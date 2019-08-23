@@ -18,6 +18,7 @@ export default class LoginScreen extends React.Component{
         this.state = {
             isVisible : false,
             overlayTrigger : true,
+            signupSuccessOverlay : false,
 
             overlayHeight : "80%",
             overlayWidth : "80%",
@@ -51,7 +52,8 @@ export default class LoginScreen extends React.Component{
             console.log(userInfo)
             passProps={
                 userID: userInfo.username,
-                userSORTKEY: "traveler_"+userInfo.attributes['custom:regDate2']
+                userSORTKEY: "traveler_"+userInfo.attributes['custom:regDate2'],
+                userNickName: userInfo.attributes.name
               }
             // Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_INDEX_HOME, passProps)
             Navigator.setRootScreen(this.props.componentId, ScreenConst.SCREEN_LOCATION_SEARCH, passProps)
@@ -60,13 +62,13 @@ export default class LoginScreen extends React.Component{
     }
 
     overlayLogin() {
-        this.setState({overlayTrigger: true})
+        this.setState({overlayTrigger: true, signupSuccessOverlay:false})
         this.setState({overlayHeight: "50%"})
         console.log(this.state.overlayHeight)
     }
 
     overlaySignup() {
-        this.setState({overlayTrigger: false})
+        this.setState({overlayTrigger: false, signupSuccessOverlay:false})
         this.setState({overlayHeight: "80%"})
         console.log(this.state.overlayHeight)
     }
@@ -75,6 +77,20 @@ export default class LoginScreen extends React.Component{
         this.setState({ isVisible: true });
         this.overlayLogin();
     }
+
+    signupSuccessTrigger(){
+        this.setState({
+            signupSuccessOverlay : !this.state.signupSuccessOverlay
+        })
+    }
+
+    overlayOff(){
+        this.setState({
+            isVisible: false,
+            signupSuccessOverlay: false
+        })
+    }
+
 
     render(){
         console.log('------------------------------------------------------------------------------------------------------------')
@@ -97,21 +113,41 @@ export default class LoginScreen extends React.Component{
                 <Overlay
                     borderRadius={10}
                     isVisible={this.state.isVisible}
-                    onBackdropPress={() => this.setState({ isVisible: false })}
+                    onBackdropPress={this.overlayOff.bind(this)}
                     windowBackgroundColor="rgba(0, 0, 0, 0.5)"
                     overlayBackgroundColor="white"
                     width={this.state.overlayWidth}
                     // height={this.state.overlayHeight}
                     height='auto'
                 >
-                    <KeyboardAwareScrollView>
-                        <TvlrFormComponent
-                            overlayTrigger={this.state.overlayTrigger}
-                            overlayLogin={this.overlayLogin.bind(this)}
-                            overlaySignup={this.overlaySignup.bind(this)}
-                            goMainScreen={this.goMainScreen.bind(this)}>
-                        </TvlrFormComponent>
-                    </KeyboardAwareScrollView>
+                    {this.state.signupSuccessOverlay ? 
+                        <View style={{flexDirection:'column'}}>
+                            <View style={{width:'100%', justifyContent:'center', alignItems:'center'}}>
+
+                            </View>
+                            <View style={{width:'100%', padding:'5%', justifyContent:'center', alignItems:'center'}}>
+                                <Text style={{color:'#4535AA', fontSize:22, fontWeight:'bold'}}>Thank you for registration.</Text>
+                            </View>
+                            <View style={{width:'100%', padding:'5%', justifyContent:'center', alignItems:'center'}}>
+                                <Button
+                                    onPress={this.overlayLogin.bind(this)}
+                                    title="Start"
+                                    containerStyle={{width:'80%'}}
+                                    buttonStyle={{backgroundColor:'#4535AA', borderRadius:20}}
+                                    titleStyle={{fontSize:22}}
+                                />
+                            </View>
+                        </View> :
+                        <KeyboardAwareScrollView>
+                            <TvlrFormComponent
+                                overlayTrigger={this.state.overlayTrigger}
+                                overlayLogin={this.overlayLogin.bind(this)}
+                                overlaySignup={this.overlaySignup.bind(this)}
+                                goMainScreen={this.goMainScreen.bind(this)}
+                                signupSuccess={this.signupSuccessTrigger.bind(this)}>
+                            </TvlrFormComponent>
+                        </KeyboardAwareScrollView>
+                    }
                 </Overlay>
                 <View
                     style={{

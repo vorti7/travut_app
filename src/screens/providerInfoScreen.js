@@ -10,6 +10,7 @@ import { compose, withApollo } from 'react-apollo'
 // import AuthClass from '../lib/auth'
 import { Api } from '../lib/api'
 import {Navigator, ScreenConst} from '../navigation'
+import { Buttons } from '../components'
 
 class ProviderInfoScreen extends React.Component{
 
@@ -62,12 +63,22 @@ class ProviderInfoScreen extends React.Component{
                             height:40/100 * screenHeight
                             }}
                     >
-                        <Image
-                            style={{
-                                flex: 1
-                            }}
-                            source={{uri:this.props.provider.photoURL}}
-                        />
+                        {this.props.provider.photoURL ?
+                            <Image
+                                style={{
+                                    flex: 1
+                                }}
+                                resizeMode="cover"
+                                source={{uri:this.props.provider.photoURL}}
+                            /> :
+                            <Image
+                                style={{
+                                    flex: 1
+                                }}
+                                resizeMode="cover"
+                                source={require('../assets/images/test/providerCard_test00.jpg')}
+                            />
+                        }
                     </View>
                     <View
                         style={{
@@ -95,15 +106,15 @@ class ProviderInfoScreen extends React.Component{
                         <View style={{width:'40%', height:'100%', flexDirection:'column'}}>
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                 <Text style={{color:'#AEA9C9', fontSize:20}}>Experience</Text>
-                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.provider.experience}</Text>
+                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.provider.experience ? this.props.provider.experience : 0}</Text>
                             </View>
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                 <Text style={{color:'#AEA9C9', fontSize:20}}>Response Rate</Text>
-                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.provider.responseRate}</Text>
+                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.provider.responseRate ? this.props.provider.responseRate : 0}</Text>
                             </View>
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                 <Text style={{color:'#AEA9C9', fontSize:20}}>Replies Within</Text>
-                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.provider.responseTime}</Text>
+                                <Text style={{color:'#4535AA', fontSize:20}}>{this.props.provider.responseTime ? this.props.provider.responseTime : 0}</Text>
                             </View>
                         </View>
                     </View>
@@ -161,11 +172,10 @@ class ProviderInfoScreen extends React.Component{
                     style={{width:'100%', height:'7%', top : '3%', padding:0, marginBottom:'5%', position:'absolute', flexDirection:'row', backgroundColor:"transparent"}}
                 >
                     <View style={{paddingLeft:10}}>
-                        <Icon
-                            name='arrow-back'
-                            width={34}
-                            height={34}
-                            fill='#FFF'
+                        <Buttons.BackBtn
+                            componentId = {this.props.componentId}
+                            buttonSize = {34}
+                            buttonColor = {"#FFF"}
                         />
                     </View>
     
