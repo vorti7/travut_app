@@ -214,6 +214,7 @@ type Comment {
 
 input CreateTestTypeInput {
 	ID: String!
+	# SORTKEY: String
 	attr1: String
 }
 

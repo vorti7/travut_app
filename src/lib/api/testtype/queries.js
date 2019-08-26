@@ -9,7 +9,6 @@ export const getTestType = `query getTestType($gettesttypeinput: GetInput!) {
     listTestTypes {
       items {
           ID
-          SORTKEY
           attr1
       }
     }

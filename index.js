@@ -39,6 +39,19 @@ const client = new AWSAppSyncClient({
   // cacheOptions: {
   //   dataIdFromObject: (obj) => `${obj.__typename}:${obj.myKey}`
   // }
+  // offlineConfig: {
+  //   callback: (err, succ) => {
+  //     if(err) {
+  //       const { mutation, variables } = err;
+
+  //       console.warn(`ERROR for ${mutation}`, err);
+  //     } else {
+  //       const { mutation, variables } = succ;
+
+  //       console.info(`SUCCESS for ${mutation}`, succ);
+  //     }
+  //   },
+  // },
 })
 
 const WithProvider = (Component) => {

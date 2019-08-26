@@ -1,10 +1,33 @@
 import React from 'react';
 import { View, TextInput, FlatList } from 'react-native';
 import { Header, Overlay, Button, Text } from 'react-native-elements'
-import { compose, withApollo } from 'react-apollo'
+import { compose, withApollo, graphql } from 'react-apollo'
 // import { WebView } from 'react-native-webview'
 
+// import { graphqlMutation } from 'aws-appsync-react'
+
 import { Api } from '../lib/api'
+
+// import { createTestType } from '../lib/api/testtype/mutations'
+// import { listTestTypes } from '../lib/api/testtype/queries'
+// import gql from 'graphql-tag'
+
+// const CreateTestType = gql`mutation createTestType($createtesttypeinput: CreateTestTypeInput!) {
+//     createTestType(input: $createtesttypeinput) {
+//       ID
+//       attr1
+//     }
+//   }`
+
+// const ListTestTypes = gql`query getTestTypes {
+//     listTestTypes {
+//       items {
+//           ID
+//           SORTKEY
+//           attr1
+//       }
+//     }
+//   }`
 
 class DBTestScreen extends React.Component{
 
@@ -37,9 +60,11 @@ class DBTestScreen extends React.Component{
         // console.log(this.sate.attr1Input)
         let data = {
             "ID" : this.state.idInput,
+            // "SORTKEY": "sgsag",
             "attr1" :this.state.attr1Input
         }
-        this.props.createTestType({createtesttypeinput:data})
+        this.props.onAdd({createtesttypeinput:data})
+        console.log('Input : ',data)
         // this.props.createTestType({createtesttypeinput:data}).then((e) => {
         //     console.log(e)
         // })
@@ -48,7 +73,8 @@ class DBTestScreen extends React.Component{
     _renderItem = ({item}) => (
         <View style={{borderWith:1, marginTop:1, marginBottom:1}}>
             <Text>{item.ID}</Text>
-            <Text>{item.SORTKEY}</Text>
+            <Text>{item.attr1}</Text>
+            {/* <Text>{item.SORTKEY}</Text> */}
         </View>
     );
 
@@ -58,7 +84,8 @@ class DBTestScreen extends React.Component{
         console.log('dbtestScreen called')
         console.log('------------------------------------------------------------------------------------------------------------')
         console.log(Object.keys(this.props))
-        console.log(this.props)
+        console.log(this.props.testTypes)
+        
 
         return(
             <View style={{flex:1}}>
@@ -111,5 +138,15 @@ class DBTestScreen extends React.Component{
 export default compose(
     Api.TestType.queries.listTestTypes(),
     Api.TestType.mutations.createTestType()
+    
+    // graphql(ListTestTypes, {
+    //     options: {
+    //         fetchPolicy: 'cache-and-network'
+    //     },
+    //     props: props => ({
+    //         testTypes: props.data.listTestTypes ? props.data.listTestTypes.items : []
+    //     })
+    // }),
+    // graphqlMutation(CreateTestType, ListTestTypes, 'TestType')
 )(DBTestScreen)
 

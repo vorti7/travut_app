@@ -24,13 +24,13 @@ export const queries = {
               fetchPolicy: 'cache-and-network'
             }),
             props: props => ({
-              testType: props.data.getTestType ? props.data.getTestType :[]
+              testTypes: props.data.getTestType ? props.data.getTestType :[]
             })
           }) 
           return result;
     },
     listTestTypes: () => {
-        let result = graphql(ListTestTypes, {
+        return graphql(ListTestTypes, {
             options: {
                 fetchPolicy: 'cache-and-network'
             },
@@ -38,15 +38,14 @@ export const queries = {
                 testTypes: props.data.listTestTypes ? props.data.listTestTypes.items : []
             })
         })
-        return result;
     }
 }
 
 export const mutations = {
     createTestType: () => {
-        return graphqlMutation( CreateTestType, ListTestTypes, 'TestType' )
+        // return graphqlMutation( CreateTestType, ListTestTypes, 'TestType' )
 
-        // let result = (graphql(ListTestTypes, {
+        // return graphql(ListTestTypes, {
         //     options: {
         //         fetchPolicy: 'cache-and-network'
         //     },
@@ -54,40 +53,53 @@ export const mutations = {
         //         testTypes: props.data.listTestTypes ? props.data.listTestTypes.items :[]
         //     })
         // }),
-        // graphqlMutation( CreateTestType, ListTestTypes, 'TestType' ))
-
+        // graphqlMutation( CreateTestType, ListTestTypes, 'TestType' )
 
         // let result = (
-        //     graphql(ListTestTypes, {
-        //         options: {
-        //           fetchPolicy: 'cache-and-network'
-        //         },
+        //     graphql(CreateTestType, {
         //         props: props => ({
-        //           testTypes: props.data.listTestTypes ? props.data.listTestTypes.items : []
-        //         })
-        //       }),
-        //       graphql(CreateTestType, {
-        //         options: {
-        //           update: (dataProxy, { data: { createTestType } }) => {
-        //             const query = ListTestTypes
-        //             const data = dataProxy.readQuery({ query })
-        //             data.listTestTypes.items.push(createTestType)
-        //             dataProxy.writeQuery({ query, data })
-        //           }
-        //         },
-        //         props: (props) => ({
-        //           onAdd: (testType) => {
-        //             props.mutate({
-        //               variables: testType,
-        //               optimisticResponse: () => ({
-        //                 createPost: { ...testType, __typename: 'TestType' }
-        //               }),
+        //             onAdd: testType => props.mutate({
+        //                 variables: testType,
+        //                 optimisticResponse: {
+        //                     __typename: 'Mutation',
+        //                     createTestType: { ...testType, __typename: 'TestType' }
+        //                 },
+        //                 update: (proxy, { data: { createTestType }}) => {
+        //                     const data = proxy.readQuery({query: ListTestTypes})
+        //                     data.listTestTypes.items.push(createTestType)
+        //                     proxy.writeQuery({ query: ListTestTypes, data })
+        //                 }
         //             })
-        //           }
-        //         }),
-        //       })
+        //         })
+        //     })
         // )
-
         // return result
+
+
+        return graphql(CreateTestType, {
+            options: {
+                update: (dataProxy, { data: { createTestType }}) => {
+                    const query = ListTestTypes
+                    const data = dataProxy.readQuery({ query })
+                    // console.log(data)
+                    // console.log("-------------------------------")
+                    data.listTestTypes.items.push(createTestType)
+                    // console.log(data)
+                    dataProxy.writeQuery({ query, data })
+                }
+            },
+            props: (props) => ({
+                onAdd: (testType) => {
+                    props.mutate({
+                        variables: testType,
+                        optimisticResponse: () => ({
+                            // __typename: "Mutation",
+                            createTestType: { ...testType, __typename: 'TestType' }
+                        })
+                    })
+                }
+            })
+        })
+
     }
 }
