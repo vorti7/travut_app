@@ -30,4 +30,6 @@ export default function registerScreens(WithProvider) {
 
   Navigation.registerComponent(Const.SCREEN_TEST, () => WithProvider(Screens.TestScreen))
   Navigation.registerComponent(Const.SCREEN_TEST_DB, () => WithProvider(Screens.dbTestScreen))
+
+  Navigation.registerComponent(Const.SCREEN_TEST_HOOKS, () => WithProvider(Screens.hooksTestScreen))
 }

@@ -106,6 +106,11 @@ export default class MainScreen extends React.Component{
         Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_TEST_DB)
     }
 
+    hooksTestScreen(){
+        console.log('hoosTestScreen button clicked')
+        Navigator.pushScreen(this.props.componentId, ScreenConst.SCREEN_TEST_HOOKS)
+    }
+
     logout(){
         AuthClass.logoutTraveler(this.props.componentId)
     }
@@ -182,6 +187,11 @@ export default class MainScreen extends React.Component{
                     type="clear"
                     onPress={this.dbTestScreen.bind(this)}
                     title="DB Test Screen"
+                />
+                <Button
+                    type="clear"
+                    onPress={this.hooksTestScreen.bind(this)}
+                    title="HOOK Test Screen"
                 />
                 <Button
                     type="clear"

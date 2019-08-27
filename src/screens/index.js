@@ -24,3 +24,4 @@ export { default as overlayScreen } from './common/baseOverlayScreen'
 
 export { default as TestScreen } from './testScreen'
 export { default as dbTestScreen } from './dbTestScreen'
+export { default as hooksTestScreen } from './hooksTestScreen'
