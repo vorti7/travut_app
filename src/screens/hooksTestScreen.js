@@ -2,16 +2,23 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, TextInput, Button } from 'react-native'
 import { API, graphqlOperation } from 'aws-amplify';
 
-export default function hooksTest() {
+// import { useQuery } from '@apollo/react-hooks'; // need to delete lib if not used
+// // import gql from 'graphql-tag';
+// import { gql } from 'apollo-boost' // need to delete lib if not used
+
+
+export default hooksTest = (props) => {
 
     const [ overlay, setOverlay ] = useState(0)
-    const testTypes = getTestTypesFunc()
-
     const [ IDString, setIDString ] = useState("")
     const [ attrString, setAttrString ] = useState("")
 
+    
+    const testTypes = getTestTypesFunc()
 
     console.log(testTypes)
+    // console.log(props)
+
     return (
         <View style={{flex:1}}>
             <View style={{flex:1, flexDirection:'row'}}>
@@ -57,17 +64,21 @@ const createTestType = `mutation createTestType($createtesttypeinput: CreateTest
   }`
 
 function getTestTypesFunc() {
-    const [testTypes, updateTestTypes] = useState([])
+    // const [testTypes, updateTestTypes] = useState([])
 
-    useEffect(async() => {
-        try{
-            const testTypeData = await API.graphql(graphqlOperation(listTestTypes))
-            updateTestTypes(testTypeData.data.listTestTypes.items)
-        } catch (err) {
-            console.log('error : ', err)
-        }
-    }, [])
-    return testTypes
+    // useEffect(async() => {
+    //     try{
+    //         const testTypeData = await API.graphql(graphqlOperation(listTestTypes))
+    //         updateTestTypes(testTypeData.data.listTestTypes.items)
+    //     } catch (err) {
+    //         console.log('error : ', err)
+    //     }
+    // }, [])
+    // return testTypes
+
+    // const { loading, error, data } = useQuery(gql(listTestTypes));
+    //   if (loading) return <p>Loading ...</p>;
+    //   return data.listTestTypes.items
 }
 
 async function createTestTypeFunc(inputData) {

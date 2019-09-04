@@ -20,6 +20,7 @@ import React from 'react'
 import AWSAppSyncClient from 'aws-appsync'
 import Amplify, { Auth } from 'aws-amplify'
 import { ApolloProvider } from 'react-apollo'
+// import { ApolloProvider } from '@apollo/react-hooks'
 import { Rehydrated } from 'aws-appsync-react'
 
 import AppSyncConfig from './src/aws-exports'
