@@ -1,4 +1,6 @@
-export const getLocation = `query getLocation($getlocationinput: GetInput!) {
+import gql from 'graphql-tag'
+
+export const getLocation = gql(`query getLocation($getlocationinput: GetInput!) {
   getLocation(input: $getlocationinput) {
     	ID
       SORTKEY
@@ -10,8 +12,8 @@ export const getLocation = `query getLocation($getlocationinput: GetInput!) {
       badgeUrl
       providerCount
   }
-}`
-export const listLocations = `query getLocations {
+}`)
+export const listLocations = gql(`query getLocations {
   listLocations {
     items {
       ID
@@ -25,4 +27,4 @@ export const listLocations = `query getLocations {
       providerCount
     }
   }
-}`
+}`)

@@ -1,7 +1,9 @@
 // import * as animations from './animations';
 import * as Buttons from './button'
+import * as Container from'./container'
 export {
-  Buttons
+  Buttons,
+  Container,
   // animations
 }
 

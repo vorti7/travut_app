@@ -15,12 +15,14 @@
 
 
 
-import React from 'react'
+import React, { PureComponent } from 'react'
 
 import AWSAppSyncClient from 'aws-appsync'
 import Amplify, { Auth } from 'aws-amplify'
 import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 // import { ApolloProvider } from '@apollo/react-hooks'
+
 import { Rehydrated } from 'aws-appsync-react'
 
 import AppSyncConfig from './src/aws-exports'
@@ -56,14 +58,15 @@ const client = new AWSAppSyncClient({
 })
 
 const WithProvider = (Component) => {
-  return class extends React.Component {
-    static options = Component.options
+  return class extends PureComponent {
     render() {
       return (
         <ApolloProvider client={client}>
-          <Rehydrated>
-            <Component {...this.props} />
-          </Rehydrated>
+          <ApolloHooksProvider client={client}>
+            <Rehydrated>
+              <Component {...this.props} />
+            </Rehydrated>
+          </ApolloHooksProvider>
         </ApolloProvider>
       )
     }
