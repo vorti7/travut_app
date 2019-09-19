@@ -1,4 +1,6 @@
-export const getProvider = `query getProvider($getproviderinput: GetInput!) {
+import gql from 'graphql-tag'
+
+export const getProvider = gql(`query getProvider($getproviderinput: GetInput!) {
   getProvider(input: $getproviderinput) {
     ID
     SORTKEY
@@ -32,8 +34,8 @@ export const getProvider = `query getProvider($getproviderinput: GetInput!) {
     welcomeMSG
     serviceList
   }
-}`
-export const getProviderByScan = `query getProviderByScan($providerid: String!) {
+}`)
+export const getProviderByScan = gql(`query getProviderByScan($providerid: String!) {
   getProviderByScan(providerID: $providerid) {
     items{
       ID
@@ -69,8 +71,8 @@ export const getProviderByScan = `query getProviderByScan($providerid: String!) 
       serviceList
     }
   }
-}`
-export const listProviders = `query getProviders {
+}`)
+export const listProviders = gql(`query getProviders {
   listProviders {
     items {
       ID
@@ -106,9 +108,9 @@ export const listProviders = `query getProviders {
       serviceList
     }
   }
-}`
+}`)
 
-export const listProvidersByLocationID = `query getProvidersByLocationID($locationid: String!) {
+export const listProvidersByLocationID = gql(`query getProvidersByLocationID($locationid: String!) {
   listProvidersByLocationID(locationID: $locationid) {
     items {
       ID
@@ -145,4 +147,4 @@ export const listProvidersByLocationID = `query getProvidersByLocationID($locati
       serviceList
     }
   }
-}`
+}`)

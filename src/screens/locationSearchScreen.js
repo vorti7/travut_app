@@ -161,7 +161,7 @@ export default function LocationsearchScreen(props){
                     <View style={{flex:1}}>
                         <TouchableOpacity
                             style={{flex:1, justifyContent:'center', alignItems:'center'}}
-                            onPress={() => goTripRequestList()}
+                            onPress={() => goTripRequest()}
                         >
                             <View
                                 style={{
@@ -190,7 +190,7 @@ export default function LocationsearchScreen(props){
                         </TouchableOpacity>
                     </View>
                     <View style={{flex:1, justifyContent:'flex-end', alignItems:'center'}}>
-                        <TouchableOpacity onPress={() => goTripRequest()}>
+                        <TouchableOpacity onPress={() => goTripRequestList()}>
                             <View style={{
                                 justifyContent:'center',
                                 alignItems:'center',

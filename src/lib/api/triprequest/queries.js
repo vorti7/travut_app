@@ -1,4 +1,6 @@
-export const getTripRequest = `query getTripRequest($gettriprequestinput: GetInput!) {
+import gql from 'graphql-tag'
+
+export const getTripRequest = gql(`query getTripRequest($gettriprequestinput: GetInput!) {
     getTripRequest(input: $gettriprequestinput) {
       ID
       SORTKEY
@@ -16,8 +18,9 @@ export const getTripRequest = `query getTripRequest($gettriprequestinput: GetInp
       updateIP
       updateDate
     }
-  }`
-export const listTripRequests = `query getTripRequests {
+  }`)
+
+export const listTripRequests = gql(`query getTripRequests {
   listTripRequests {
     items {
       ID
@@ -36,8 +39,9 @@ export const listTripRequests = `query getTripRequests {
       updateDate
     }
   }
-}`
-export const listTripRequestsByTravelerID = `query getTripRequestsByTravelerID($travelerid: String!) {
+}`)
+
+export const listTripRequestsByTravelerID = gql(`query getTripRequestsByTravelerID($travelerid: String!) {
   listTripRequestsByTravelerID(travelerID: $travelerid) {
     items {
       ID
@@ -61,4 +65,4 @@ export const listTripRequestsByTravelerID = `query getTripRequestsByTravelerID($
       updateDate
     }
   }
-}`
+}`)

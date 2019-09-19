@@ -1,4 +1,6 @@
-export const createTripRequest = `mutation createTripRequest($input: CreateTripRequestInput!) {
+import gql from 'graphql-tag'
+
+export const createTripRequest = gql(`mutation createTripRequest($input: CreateTripRequestInput!) {
   createTripRequest(input: $input) {
     ID
     SORTKEY
@@ -14,4 +16,4 @@ export const createTripRequest = `mutation createTripRequest($input: CreateTripR
     regIP
     regDate
   }
-}`
+}`)

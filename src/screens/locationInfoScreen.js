@@ -21,14 +21,14 @@ export default function LocationinfoScreen(props){
     console.log('locationinfoScreen called')
     console.log('------------------------------------------------------------------------------------------------------------')
 
-    // useEffect(() => {
-    //     // setInterval( () => setCurrentTime(new Date()),10000)
-    // })
+    useEffect(() => {
+        setInterval( () => setCurrentTime(new Date()),10000)
+    })
 
     const [ overlayTrigger, setOverlayTrigger ] = useState(false)
-    // const [ currentTime , setCurrentTime ] = useState(new Date())
+    const [ currentTime , setCurrentTime ] = useState(props.currentTime || new Date())
 
-    // console.log(currentTime)
+    console.log(currentTime)
 
     locationArr = props.locationName.split('/')
     cityName = locationArr[locationArr.length-1]
@@ -76,22 +76,30 @@ export default function LocationinfoScreen(props){
         }
     }
 
+    goProviderList = () => {
+        passProps = {
+            locationID: props.locationID
+            // locationID: 'LO00701010'
+        }
+        Navigator.pushScreen(props.componentId, ScreenConst.SCREEN_LOCATION_PROVIDER_LIST, passProps)
+    }
+
     const goTripRequestList = () => {
-        // AuthClass.getTravelerInfo()
-        // .then(userInfo => {
-        //     passProps = {
-        //         travelerID:userInfo.username
-        //     }
-        //     Navigator.pushScreen(props.componentId, ScreenConst.SCREEN_MYTRIP_LIST, passProps)
-        // })
+        AuthClass.getTravelerInfo()
+        .then(userInfo => {
+            passProps = {
+                travelerID:userInfo.username
+            }
+            Navigator.pushScreen(props.componentId, ScreenConst.SCREEN_MYTRIP_LIST, passProps)
+        })
     }
 
     const goTripRequest = () => {
-        // passProps={
-        //     locationID:props.locationID,
-        //     // providerID:this.props.providerID
-        // }
-        // Navigator.pushScreen(props.componentId, ScreenConst.SCREEN_MAKETRIP_INTRO, passProps)
+        passProps={
+            locationID:props.locationID,
+            // providerID:this.props.providerID
+        }
+        Navigator.pushScreen(props.componentId, ScreenConst.SCREEN_MAKETRIP_INTRO, passProps)
     }
 
     return(
@@ -256,13 +264,25 @@ export default function LocationinfoScreen(props){
                 </View>
 
                 <View style={{flex:6, flexDirection:'row'}}>
-                    <View style={{flex:1}}>
-
+                    <View style={{flex:1, justifyContent:'flex-end', alignItems:'center'}}>
+                        <TouchableOpacity onPress={() => goProviderList()}>
+                            <View style={{
+                                justifyContent:'center',
+                                alignItems:'center',
+                                width: 60,
+                                height: 60,
+                                borderTopLeftRadius:30,
+                                borderTopRightRadius:30,
+                                backgroundColor:'#000000'
+                            }}>
+                                <Text>Count</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={{flex:1}}>
                         <TouchableOpacity
                             style={{flex:1, justifyContent:'center', alignItems:'center'}}
-                            onPress={() => goTripRequestList()}
+                            onPress={() => goTripRequest()}
                         >
                             <View
                                 style={{
@@ -291,7 +311,7 @@ export default function LocationinfoScreen(props){
                         </TouchableOpacity>
                     </View>
                     <View style={{flex:1, justifyContent:'flex-end', alignItems:'center'}}>
-                        <TouchableOpacity onPress={() => goTripRequest()}>
+                        <TouchableOpacity onPress={() => goTripRequestList()}>
                             <View style={{
                                 justifyContent:'center',
                                 alignItems:'center',

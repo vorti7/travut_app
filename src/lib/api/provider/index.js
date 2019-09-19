@@ -2,21 +2,52 @@ import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { graphqlMutation } from 'aws-appsync-react'
 // import { buildSubscription } from 'aws-appsync'
+import { useQuery, useMutation } from 'react-apollo-hooks'
 
 import * as Queries from './queries'
 // import * as Subscriptions from './subscriptions'
 // import * as Mutations from './mutations'
 
-const GetProvider = gql(Queries.getProvider)
-const GetProviderByScan = gql(Queries.getProviderByScan)
-const ListProviders = gql(Queries.listProviders);
-const ListProvidersByLocationID = gql(Queries.listProvidersByLocationID)
+const GetProvider = Queries.getProvider
+const GetProviderByScan = Queries.getProviderByScan
+const ListProviders = Queries.listProviders
+const ListProvidersByLocationID = Queries.listProvidersByLocationID
 // const CreateProvider = gql(Mutations.createProvider);
 // const DeleteProvider = gql(Mutations.deleteProvider);
 // const UpdateProvider = gql(Mutations.updateProvider);
 // const onCreateProvider = gql(Subscriptions.onCreateProvider);
 // const onDeleteProvider = gql(Subscriptions.onDeleteProvider);
 // const onUpdateProvider = gql(Subscriptions.onUpdateProvider);
+
+export const getProvider = (providerID, providerSORTKEY) => {
+    return useQuery(Queries.getProvider, {
+        variables: {
+            getproviderinput:{ ID: providerID, SORTKEY: providerSORTKEY },
+        },
+        fetchPolicy: 'cache-and-network'
+    })
+}
+
+export const getProviderByScan = () => {
+    
+}
+
+export const listProviders = () => {
+    return useQuery(Queries.listProviders, {
+        fetchPolicy: 'cache-and-network'
+    })
+}
+
+export const listProvidersByLocationID = (locationID) => {
+    return useQuery(Queries.listProvidersByLocationID, {
+        variables: {
+            locationid: locationID,
+        },
+        fetchPolicy: 'cache-and-network'
+    })
+}
+
+
 
 export const queries = {
     getProvider: () => {

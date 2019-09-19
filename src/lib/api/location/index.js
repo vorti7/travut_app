@@ -46,7 +46,7 @@ export const listLocations = () => {
 export const getLocation = (locationID) => {
     return useQuery(Queries.getLocation, {
         variables: {
-            variables: {getlocationinput:{ ID: locationID, SORTKEY: "location_LA0001" }},
+            getlocationinput:{ ID: locationID, SORTKEY: "location_LA0001" },
         },
         fetchPolicy: 'cache-and-network'
     })
