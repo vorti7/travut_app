@@ -1,4 +1,6 @@
-export const getTraveler = `query getTraveler($gettravelerinput: GetInput!) {
+import gql from 'graphql-tag'
+
+export const getTraveler = gql(`query getTraveler($gettravelerinput: GetInput!) {
     getTraveler(input: $gettravelerinput) {
       ID
       SORTKEY
@@ -26,9 +28,9 @@ export const getTraveler = `query getTraveler($gettravelerinput: GetInput!) {
       deactivateDate
     }
   }
-  `;
+  `);
 
-  export const listTravelers = `query getTravelers {
+  export const listTravelers = gql(`query getTravelers {
     listTravelers {
       items {
         ID
@@ -53,4 +55,4 @@ export const getTraveler = `query getTraveler($gettravelerinput: GetInput!) {
       }
     }
   }
-  `;
+  `);

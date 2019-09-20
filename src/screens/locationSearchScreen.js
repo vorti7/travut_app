@@ -13,15 +13,42 @@ import { Container } from '../components'
 import travutStyle from '../styles'
 
 export default function LocationsearchScreen(props){
+    // const [ renderCount, setRenderCount ] = useState(0)
     console.log('------------------------------------------------------------------------------------------------------------')
     console.log('------------------------------------------------------------------------------------------------------------')
     console.log('locationsearchScreen called')
     console.log('------------------------------------------------------------------------------------------------------------')
+    // setRenderCount(renderCount+1)
+    // console.log("Render Count : ", renderCount)
+
     const [ searchInput, setSearchInput ] = useState("")
     const locations = Api.Location.listLocations()
     let locationList = locations.data.listLocations ? locations.data.listLocations.items :[]
-    console.log(locationList)
+    // console.log(locationList)
 
+    // console.log(props.userID)
+    // console.log(props.userSORTKEY)
+    const loginedUser = Api.Traveler.getTraveler(props.userID, props.userSORTKEY)
+    // console.log(loginedUser)
+    if(!loginedUser.loading){
+        if(loginedUser.data.getTraveler){
+            console.log('User Data exist')
+        }else{
+            console.log('User Data needed to create')
+            const [createTraveler, { loading, error }] = Api.Traveler.createTraveler()
+            let data = {
+                "ID" : props.userID,
+                "SORTKEY" : props.userSORTKEY,
+                // "email" : ,
+                "nickName" : props.userNickName,
+                "photoURL" : "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+                "firstName" : props.userNickName,
+                "lastName" : props.userNickName,
+                "regIP" : "127.0.0.1"
+            };
+
+        }
+    }
 
     const goLocationInfo = (data) => {
         console.log(data)

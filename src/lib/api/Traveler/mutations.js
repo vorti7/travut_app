@@ -1,4 +1,6 @@
-export const createTraveler = `mutation createTraveler($input: CreateTravelerInput!) {
+import gql from 'graphql-tag'
+
+export const createTraveler = gql(`mutation createTraveler($input: CreateTravelerInput!) {
     createTraveler(input: $input) {
       ID
       SORTKEY
@@ -16,4 +18,4 @@ export const createTraveler = `mutation createTraveler($input: CreateTravelerInp
       regIP
     }
   }
-  `;
+  `);
