@@ -35,18 +35,18 @@ export default function LocationsearchScreen(props){
             console.log('User Data exist')
         }else{
             console.log('User Data needed to create')
-            const [createTraveler, { loading, error }] = Api.Traveler.createTraveler()
-            let data = {
-                "ID" : props.userID,
-                "SORTKEY" : props.userSORTKEY,
-                // "email" : ,
-                "nickName" : props.userNickName,
-                "photoURL" : "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-                "firstName" : props.userNickName,
-                "lastName" : props.userNickName,
-                "regIP" : "127.0.0.1"
-            };
-
+            // const [createTraveler, { data }] = Api.Traveler.createTraveler()
+            // let data = {
+            //     "ID" : props.userID,
+            //     "SORTKEY" : props.userSORTKEY,
+            //     // "email" : ,
+            //     "nickName" : props.userNickName,
+            //     "photoURL" : "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+            //     "firstName" : props.userNickName,
+            //     "lastName" : props.userNickName,
+            //     "regIP" : "127.0.0.1"
+            // };
+            // createTraveler({input:data})
         }
     }
 
