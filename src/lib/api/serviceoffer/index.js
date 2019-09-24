@@ -2,20 +2,49 @@ import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { graphqlMutation } from 'aws-appsync-react'
 // import { buildSubscription } from 'aws-appsync'
+import { useQuery, useMutation } from 'react-apollo-hooks'
 
 import * as Queries from './queries'
 // import * as Subscriptions from './subscriptions'
 import * as Mutations from './mutations'
 
-const GetServiceOffer = gql(Queries.getServiceOffer)
-const ListServiceOffers = gql(Queries.listServiceOffers);
-const ListServiceOffersByTripOfferID =gql(Queries.listServiceOffersByTripOfferID)
+const GetServiceOffer = Queries.getServiceOffer
+const ListServiceOffers = Queries.listServiceOffers;
+const ListServiceOffersByTripOfferID =Queries.listServiceOffersByTripOfferID
 // const CreateServiceOffer = gql(Mutations.createServiceOffer);
 // const DeleteServiceOffer = gql(Mutations.deleteServiceOffer);
-const UpdateServiceOffer = gql(Mutations.updateServiceOffer);
+const UpdateServiceOffer = Mutations.updateServiceOffer;
 // const onCreateServiceOffer = gql(Subscriptions.onCreateServiceOffer);
 // const onDeleteServiceOffer = gql(Subscriptions.onDeleteServiceOffer);
 // const onUpdateServiceOffer = gql(Subscriptions.onUpdateServiceOffer);
+
+// export const getServiceOffer = ( ID, SORTKEY ) => {
+//     return useQuery(Queries.getTripOffer, {
+//         variables: {
+//             getserviceofferinput:{ ID: ID, SORTKEY: SORTKEY }
+//         },
+//         fetchPolicy: 'cache-and-network'
+//     })
+// }
+
+// export const listServiceOffers = () => {
+//     return useQuery(Queries.listTripOffers, {
+//         fetchPolicy: 'cache-and-network'
+//     })
+// }
+
+// export const listServiceOffersByTripOfferID = ( tripOfferID ) => {
+//     return useQuery(Queries.listTripOffersByRequestID, {
+//         variables: {
+//             tripofferid: tripOfferID,
+//         },
+//         fetchPolicy: 'cache-and-network'
+//     })
+// }
+
+// export const updateServiceOffer = () => {
+    
+// }
 
 export const queries = {
     getServiceOffer: () => {

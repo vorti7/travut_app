@@ -32,8 +32,12 @@ export const listTravelers = () => {
     })
 }
 
-export const createTraveler = () => {
-    return useMutation(Mutations.createTraveler)
+export const createTraveler = (inputData) => {
+    // return useMutation(Mutations.createTraveler, {
+    //     variables: { input : inputData }
+    // })
+    // const [createTraveler, {data, loading, error}] = useMutation(Mutations.createTraveler)
+    // return useMutation(Mutations.createTraveler)
 }
 
 export const queries = {

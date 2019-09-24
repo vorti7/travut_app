@@ -1,4 +1,6 @@
-export const onCreateTripOffer = `subscription onCreateTripOffer{
+import gql from 'graphql-tag'
+
+export const onCreateTripOffer = gql(`subscription onCreateTripOffer{
     onCreateTripOffer{
       ID
       SORTKEY
@@ -6,4 +8,4 @@ export const onCreateTripOffer = `subscription onCreateTripOffer{
       chatID
       tripOfferInfo
     }
-  }`
+  }`)

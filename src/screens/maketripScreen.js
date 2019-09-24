@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, ScrollView, Picker, Alert, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, ScrollView, Picker, Alert, TouchableOpacity, FlatList } from 'react-native';
 import { Header, Text, Button, ButtonGroup, Input } from 'react-native-elements'
 import { Calendar, CalendarList, Agenda} from 'react-native-calendars'
 import { Api } from '../lib/api'
@@ -10,6 +10,9 @@ import { Icon } from 'react-native-eva-icons';
 import AuthClass from '../lib/auth'
 import {Navigator, ScreenConst} from '../navigation'
 
+import { Container } from '../components'
+import travutStyle from '../styles'
+
 
 export default function MaketripScreen(props){
 
@@ -17,12 +20,385 @@ export default function MaketripScreen(props){
     console.log('------------------------------------------------------------------------------------------------------------')
     console.log('MaketripScreen called')
     console.log('------------------------------------------------------------------------------------------------------------')
-    return(
-        <View>
-            <Text>MaketripScreen</Text>
-        </View>
-    )    
+    
+    //example questionList Data
+    // 0 - 주관식
+    // 1 - 객관식
+    // 2 - 
+    // 3 - calendar
 
+
+    let questionList = [
+        {
+            type: 1,
+            question: [
+                'Good morning Abigail! :)',
+                'Who are you going with in Seoul?'
+            ],
+            answerType:'companion',
+            answerList: [
+               'With lover',
+               'With friends',
+               'With family',
+               'alone',
+               'I dont know...'
+           ]
+        },
+        {
+            type: 2,
+            question: [
+                 'Wow, very nice!',
+                 'Please let me know about travel members.'
+             ],
+             answerType:'companionInfo',
+             answerList: [
+                ['male', 'people'],
+                ['female', 'people'],
+                ['age group', 'ageGroup']
+            ]
+        },
+        {
+            type: 3,
+            question: [
+                'When are you going to travel?',
+            ],
+            answerType:'timeInfo'
+        },
+         {
+            type: 1,
+            question: [
+                'What kind of travel do you want?'
+            ],
+            answerType:'travelType',
+            answerList: [
+                '다채로운 관광',
+                '조용한 휴식',
+                '친구들과 잊지못할 추억 만들기',
+                '미슐랭 맛집 탐험대',
+                '현지식 맛집 탐험대',
+                '신나는 액티비티'
+            ]
+        },
+        {
+            type: 0,
+            question: [
+                'Thank you for letting us know.',
+                'Do you have any additional requests?'
+            ],
+            answerType:'extra'
+        }
+    ]
+    const [listData, setListData] = useState([])
+    const [answerType, setAnswerType] = useState(-1)
+    // console.log(listData)
+    // console.log(listData.length)
+    if(listData.length%2==0){
+        let newData = JSON.parse(JSON.stringify(listData))
+        newData.push(questionList[listData.length/2].question)
+        // console.log(questionList[listData.length/2])
+        setAnswerType(questionList[listData.length/2].type)
+        setListData(newData)
+    }
+
+
+    const AnswerView = () => {
+        switch (answerType) {
+            case -1 :
+                return (
+                    <View></View>
+                )
+            case 0 :
+                return (
+                    <View style={{backgroundColor:'#FFF', flexDirection:'row'}}>
+                        {/* <Input containerStyle={{flex:1}} placeholder='' onChangeText={(textInput) => this.setState({textInput: textInput})}></Input>
+                        <View style={{height:'100%', justifyContent:'center'}}>
+                            <Button title='submit' buttonStyle={{backgroundColor:'#4535AA'}} onPress={this.addTextData.bind(this, this.state.textInput)}></Button>
+                        </View> */}
+                    </View>
+                )
+            case 1 :
+                return (
+                    <View style={{backgroundColor:'#FFF', width:'100%', height:'auto', flexDirection:'row', flexWrap: 'wrap'}}>
+                        {/* {this.questionList[count].answerList.map((contact, i) => {
+                            return (
+                                <TouchableOpacity onPress={this.addTextData.bind(this, contact)} key={i}>
+                                    <View style={{width: 'auto', height:'auto', borderWidth:1.5, borderRadius:20, borderColor:'#4535AA', padding:10, margin:5}}>
+                                        <Text style={{fontSize:20, fontWeight:'bold', color:'#4535AA'}}>{contact}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )
+                        })} */}
+                    </View>
+                )
+            case 2 :
+                return (
+                    <View style={{width:'100%', height:'auto', flexDirection:'column', alignItems:'center'}}>
+                        {/* <View style={{flexDirection:'row'}}>
+                            <View style={{flexDirection:'column'}}>
+                                <Text>Male</Text>
+                                <Picker
+                                    selectedValue={this.state.maleNum}
+                                    style={{height: 50, width: 100}}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({maleNum: itemValue})
+                                    }
+                                >
+                                    {peopleNum.map((contact, i) => {
+                                        return (
+                                            <Picker.Item key={i} label={contact} value={contact}/>
+                                        )
+                                    })}
+                                </Picker>
+                            </View>
+                            <View style={{flexDirection:'column'}}>
+                                <Text>Female</Text>
+                                <Picker
+                                    selectedValue={this.state.femaleNum}
+                                    style={{height: 50, width: 100}}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({femaleNum: itemValue})
+                                    }
+                                >
+                                    {peopleNum.map((contact, i) => {
+                                        return (
+                                            <Picker.Item key={i} label={contact} value={contact}/>
+                                        )
+                                    })}
+                                </Picker>
+                            </View>
+                            <View style={{flexDirection:'column'}}>
+                                <Text>Age Group</Text>
+                                <Picker
+                                    selectedValue={this.state.ageGroup}
+                                    style={{height: 50, width: 100}}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({ageGroup: itemValue})
+                                    }
+                                >
+                                    {ageNum.map((contact, i) => {
+                                        return (
+                                            <Picker.Item key={i} label={contact} value={contact}/>
+                                        )
+                                    })}
+                                </Picker>
+                            </View>
+                        </View>
+                        <View style={{width:'100%', flexDirection:'row'}}>
+                            <View style={{width:'50%', padding:10}}>
+                                <TouchableOpacity onPress={()=>{
+                                    this.setState({
+                                        aList: aList.concat({type:this.questionList[count].answerType, answer:["I don't know..."]})
+                                    })
+                                    this.setState({
+                                        count: count+1
+                                    })
+                                    this.addQuestion(count+1)
+                                }}>
+                                    <View style={{width: '100%', height:'auto', borderWidth:1.5, borderRadius:20, alignItems:'center', borderColor:'#4535AA'}}>
+                                        <Text h4 h4Style={{color:'#4535AA'}}>I don't know</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{width:'50%', padding:10}}>
+                                <TouchableOpacity onPress={()=>{
+                                    this.setState({
+                                        aList: aList.concat({type:this.questionList[count].answerType, answer:['Male : '+this.state.maleNum, 'Female : '+this.state.femaleNum, 'Age Group : '+this.state.ageGroup]})
+                                    })
+                                    this.setState({
+                                        count: count+1
+                                    })
+                                    this.addQuestion(count+1)
+                                }}>
+                                    <View style={{width: '100%', height:'auto', borderWidth:1.5, borderRadius:20, alignItems:'center', borderColor:'#4535AA'}}>
+                                        <Text h4 h4Style={{color:'#4535AA'}}>V</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </View> */}
+                    </View>
+                )
+            case 3 :
+                return (
+                    <View><Text>3</Text></View>
+                )
+        }
+        // let {qList, aList, count, buttonGroupselectedIndex } = this.state
+    
+        // const peopleNum = ['0','1','2','3','4','5','6','7','8','9']
+        // const ageNum = ['10~20', '20~30', '30~40', '40~50', '50~60'] 
+    
+        // if(qList.length!=aList.length)
+        //     if(this.questionList[count].type == 0)
+        //         return (
+        //             <View style={{backgroundColor:'#FFF', flexDirection:'row'}}>
+        //                 <Input containerStyle={{flex:1}} placeholder='' onChangeText={(textInput) => this.setState({textInput: textInput})}></Input>
+        //                 <View style={{height:'100%', justifyContent:'center'}}>
+        //                     <Button title='submit' buttonStyle={{backgroundColor:'#4535AA'}} onPress={this.addTextData.bind(this, this.state.textInput)}></Button>
+        //                 </View>
+        //             </View>
+        //         )
+        //     else if(this.questionList[count].type == 1)
+        //         return (
+        //             <View style={{backgroundColor:'#FFF', width:'100%', height:'auto', flexDirection:'row', flexWrap: 'wrap'}}>
+        //                 {this.questionList[count].answerList.map((contact, i) => {
+        //                     return (
+        //                         <TouchableOpacity onPress={this.addTextData.bind(this, contact)} key={i}>
+        //                             <View style={{width: 'auto', height:'auto', borderWidth:1.5, borderRadius:20, borderColor:'#4535AA', padding:10, margin:5}}>
+        //                                 <Text style={{fontSize:20, fontWeight:'bold', color:'#4535AA'}}>{contact}</Text>
+        //                             </View>
+        //                         </TouchableOpacity>
+        //                     )
+        //                 })}
+        //                 {/* <ButtonGroup
+        //                     onPress={this.updateIndex}
+        //                     selectedIndex={buttonGroupselectedIndex}
+        //                     buttons={this.questionList[count].answerList}
+        //                 /> */}
+        //             </View>
+        //         )
+        //     else if(this.questionList[count].type == 2)
+        //         return (
+        //             <View style={{width:'100%', height:'auto', flexDirection:'column', alignItems:'center'}}>
+        //                 <View style={{flexDirection:'row'}}>
+        //                     <View style={{flexDirection:'column'}}>
+        //                         <Text>Male</Text>
+        //                         <Picker
+        //                             selectedValue={this.state.maleNum}
+        //                             style={{height: 50, width: 100}}
+        //                             onValueChange={(itemValue, itemIndex) =>
+        //                                 this.setState({maleNum: itemValue})
+        //                             }
+        //                         >
+        //                             {peopleNum.map((contact, i) => {
+        //                                 return (
+        //                                     <Picker.Item key={i} label={contact} value={contact}/>
+        //                                 )
+        //                             })}
+        //                         </Picker>
+        //                     </View>
+        //                     <View style={{flexDirection:'column'}}>
+        //                         <Text>Female</Text>
+        //                         <Picker
+        //                             selectedValue={this.state.femaleNum}
+        //                             style={{height: 50, width: 100}}
+        //                             onValueChange={(itemValue, itemIndex) =>
+        //                                 this.setState({femaleNum: itemValue})
+        //                             }
+        //                         >
+        //                             {peopleNum.map((contact, i) => {
+        //                                 return (
+        //                                     <Picker.Item key={i} label={contact} value={contact}/>
+        //                                 )
+        //                             })}
+        //                         </Picker>
+        //                     </View>
+        //                     <View style={{flexDirection:'column'}}>
+        //                         <Text>Age Group</Text>
+        //                         <Picker
+        //                             selectedValue={this.state.ageGroup}
+        //                             style={{height: 50, width: 100}}
+        //                             onValueChange={(itemValue, itemIndex) =>
+        //                                 this.setState({ageGroup: itemValue})
+        //                             }
+        //                         >
+        //                             {ageNum.map((contact, i) => {
+        //                                 return (
+        //                                     <Picker.Item key={i} label={contact} value={contact}/>
+        //                                 )
+        //                             })}
+        //                         </Picker>
+        //                     </View>
+        //                 </View>
+        //                 <View style={{width:'100%', flexDirection:'row'}}>
+        //                     <View style={{width:'50%', padding:10}}>
+        //                         <TouchableOpacity onPress={()=>{
+        //                             this.setState({
+        //                                 aList: aList.concat({type:this.questionList[count].answerType, answer:["I don't know..."]})
+        //                             })
+        //                             this.setState({
+        //                                 count: count+1
+        //                             })
+        //                             this.addQuestion(count+1)
+        //                         }}>
+        //                             <View style={{width: '100%', height:'auto', borderWidth:1.5, borderRadius:20, alignItems:'center', borderColor:'#4535AA'}}>
+        //                                 <Text h4 h4Style={{color:'#4535AA'}}>I don't know</Text>
+        //                             </View>
+        //                         </TouchableOpacity>
+        //                     </View>
+        //                     <View style={{width:'50%', padding:10}}>
+        //                         <TouchableOpacity onPress={()=>{
+        //                             this.setState({
+        //                                 aList: aList.concat({type:this.questionList[count].answerType, answer:['Male : '+this.state.maleNum, 'Female : '+this.state.femaleNum, 'Age Group : '+this.state.ageGroup]})
+        //                             })
+        //                             this.setState({
+        //                                 count: count+1
+        //                             })
+        //                             this.addQuestion(count+1)
+        //                         }}>
+        //                             <View style={{width: '100%', height:'auto', borderWidth:1.5, borderRadius:20, alignItems:'center', borderColor:'#4535AA'}}>
+        //                                 <Text h4 h4Style={{color:'#4535AA'}}>V</Text>
+        //                             </View>
+        //                         </TouchableOpacity>
+        //                     </View>
+        //                 </View>
+        //             </View>
+        //         )
+        //     else if(this.questionList[count].type == 3)
+        //         return (
+        //             <View>
+        //                 <Calendar
+        //                     current={new Date()}
+        //                     minDate={new Date((new Date()).getTime() + (24 * 60 * 60 * 1000))}
+        //                     maxDate={new Date((new Date()).getTime() + (100 * 24 * 60 * 60 * 1000))}
+        //                     onDayPress={(day) => {this.setCalendar(day)}}
+        //                     markedDates={this.state.calendarDate}
+        //                 />
+        //                 <View>
+        //                     <Button
+        //                         type="clear"
+        //                         onPress={this.addCalendarData.bind(this)}
+        //                         title='submit'
+        //                         titleStyle={{color:'#4535AA'}}
+        //                     />
+        //                 </View>
+        //             </View>
+        //         )
+        // else
+        //     return<View></View>
+    }
+
+
+    return (
+        <View style={travutStyle.common.container.mainContainer}>
+            <Container.header/>
+            <View style={travutStyle.common.container.midBodyContainer}>
+                <FlatList
+                    data = {listData}
+                    renderItem = {({ item }) => <Bubble item={item}/>}
+                />
+                <View style={{position:'absolute', bottom:0, width:'100%'}}>
+                    {AnswerView()}
+                </View>
+            </View>
+        </View>
+    )
+}
+
+const Bubble = (props) =>{
+    console.log(props)
+    return (
+        <View style = {{width:'100%', minHeight:10, margin:2}}>
+            {
+                props.item.map((contact, i) => {
+                    return( 
+                        <View key={i} style = {{width:'auto', height:'auto', maxWidth:'70%', padding:10, margin:4, borderRadius: 10, backgroundColor: '#4535AA', borderWidth: 0.5, borderColor: '#000000'}}>
+                            <Text style={{color:'#FFFFFF'}}>{contact}</Text>
+                        </View>
+                    )
+                })
+            }
+        </View>
+    )
 }
 
 // class MaketripScreen extends React.Component{

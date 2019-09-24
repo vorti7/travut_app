@@ -1,11 +1,13 @@
-export const createServiceOffer = `mutation createServiceOffer($input: CreateServiceOfferInput!) {
+import gql from 'graphql-tag'
+
+export const createServiceOffer = gql(`mutation createServiceOffer($input: CreateServiceOfferInput!) {
     createServiceOffer(input: $input) {
         
     }
-  }`
-export const updateServiceOffer = `mutation updateServiceOffer($input: UpdateServiceOfferInput!) {
+  }`)
+export const updateServiceOffer = gql(`mutation updateServiceOffer($input: UpdateServiceOfferInput!) {
   updateServiceOffer(input: $input) {
     ID
     SORTKEY
   }
-}`
+}`)
