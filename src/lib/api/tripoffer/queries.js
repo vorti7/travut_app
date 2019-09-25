@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const getTripOffer = gql(`query getTripOffer($gettripofferinput: GetInput!) {
+export const getTripOffer = gql`query getTripOffer($gettripofferinput: GetInput!) {
   getTripOffer(input: $gettripofferinput) {
     ID
     SORTKEY
@@ -13,8 +13,8 @@ export const getTripOffer = gql(`query getTripOffer($gettripofferinput: GetInput
       tripReqInfo
     }
   }
-}`)
-export const listTripOffers = gql(`query getTripOffers {
+}`
+export const listTripOffers = gql`query getTripOffers {
   listTripOffers {
     items {
         ID
@@ -24,8 +24,8 @@ export const listTripOffers = gql(`query getTripOffers {
         status
     }
   }
-}`)
-export const listTripOffersByRequestID = gql(`query getTripOffersByRequestID($triprequestid: String!) {
+}`
+export const listTripOffersByRequestID = gql`query getTripOffersByRequestID($triprequestid: String!) {
   listTripOffersByRequestID(tripRequestID: $triprequestid) {
     items {
         ID
@@ -35,4 +35,4 @@ export const listTripOffersByRequestID = gql(`query getTripOffersByRequestID($tr
         status
     }
   }
-}`)
+}`

@@ -20,12 +20,171 @@ export default function TripofferScreen(props){
     console.log('------------------------------------------------------------------------------------------------------------')
 
     const [ totalPrice, setTotalPrice ] = useState(0)
+    let screenHeight = Dimensions.get('window').height
+    const getTripOffer = Api.TripOffer.getTripOffer(props.tripOfferID, props.tripOfferSORTKEY)
+    let tripOffer = getTripOffer.data.getTripOffer ? getTripOffer.data.getTripOffer :[]
+    const listServiceOffersByTripOfferID = Api.ServiceOffer.listServiceOffersByTripOfferID(props.tripOfferID+"#"+props.tripOfferSORTKEY)
+    let serviceOfferList = listServiceOffersByTripOfferID.data.listServiceOffersByTripOfferID ? listServiceOffersByTripOfferID.data.listServiceOffersByTripOfferID.items :[]
+    console.log(tripOffer)
+    console.log(serviceOfferList)
 
     return (
         <View style={travutStyle.common.container.mainContainer}>
             <Container.header/>
             <View style={travutStyle.common.container.midBodyContainer}>
-                {/* <FlatList/> */}
+                <ScrollView style={{width:'100%'}}>
+                    <View style={{width:'100%', height:screenHeight * 11/10, backgroundColor:'#EBE8FA'}}>
+                        <View style={{width:'100%', height:'20%', paddingLeft:'5%', paddingRight:'5%', paddingBottom:'2%', flexDirection:'row'}}>
+                            <View style={{flex:1}}>
+                                <Avatar
+                                    rounded
+                                    // source={{
+                                    //     uri: this.props.providerImage
+                                    // }}
+                                    source={require('../assets/images/test/profile_test00.png')}
+                                    style={{width:'100%', height:'100%'}}
+                                />
+                            </View>
+                            <View style={{flex:2, flexDirection:'column', paddingLeft:10}}>
+                                <View style={{flex:1, flexDirection:'row'}}>
+                                    <View style={{flex:3, flexDirection:'column'}}>
+                                        <Text style={{color:'#4535AA', fontSize:15}}>House Host</Text>
+                                        <Text style={{color:'#4535AA', fontSize:20, fontWeight:'bold'}}>{props.providerName}</Text>
+                                    </View>
+                                    <View style={{flex:1}}>
+                                        <Icon
+                                            name='home'
+                                            width={25}
+                                            height={25}
+                                            fill='#4535AA'
+                                        />
+                                    </View>
+                                </View>
+                                <View style={{flex:1, flexDirection:'column'}}>
+                                    <Text style={{color:'#4535AA', fontSize:15}}>- Englisth, Korean, Japanese</Text>
+                                    <Text style={{color:'#4535AA', fontSize:15}}>- Lives in Seoul (for 10 years)</Text>
+                                </View>
+                            </View>
+                        </View>
+
+                        <View style={{width:'100%', height:'15%', paddingLeft:'5%', paddingRight:'5%'}}>
+                            <View style={{flex:1, backgroundColor:'#FFF', justifyContent:'center', padding:'2%'}}>
+                                {/* <Text>{tripOfferData.offerMessage.content}</Text> */}
+                            </View>
+                        </View>
+                        <View style={{width:'100%', height:'15%', flexDirection:'column', paddingLeft:'7%', paddingRight:'7%', paddingTop:'3%', paddingBottom:'3%'}}>
+                            <View style={{flex:1, alignItems:'center', flexDirection: 'row'}}>
+                                <Icon
+                                    name='calendar-outline'
+                                    width={25}
+                                    height={25}
+                                    fill='#4535AA'
+                                />
+                                {/* <Text>  {this.dateShow(requestData.timeInfo)}</Text> */}
+                            </View>
+                            <View style={{flex:1, alignItems:'center', flexDirection:'row'}}>
+                                <Icon
+                                    name='people-outline'
+                                    width={25}
+                                    height={25}
+                                    fill='#4535AA'
+                                />
+                                {/* <Text>  {requestData.companion}</Text> */}
+                            </View>
+                        </View>
+                        <View style={{width:'100%', height:'25%', paddingLeft:'5%', paddingRight:'5%', flexDirection:'column'}}>
+                            <View style={{paddingBottom:3, borderBottomWidth:0.5}}>
+                                <Text style={{fontSize:20, fontWeight:'bold', color:'#4535AA'}}>Service Offer</Text>
+                            </View>
+                            <View style={{flex:2, justifyContent:'flex-start', paddingTop:3}}>
+                                <Text style={{color:'#4535AA'}}>●</Text>
+                                <Text style={{color:'#4535AA'}}>●</Text>
+                            </View>
+                            <View style={{flex:1, borderRadius:10, backgroundColor:'#4535AA', flexDirection:'row'}}>
+                                <View style={{flex:1, justifyContent:'center', alignItems:'flex-start', paddingLeft:'5%'}}>
+                                    <Text style={{fontSize:10, color:'#FFF'}}>● Tax included</Text>
+                                </View>
+                                <View style={{flex:1, justifyContent:'center', alignItems:'flex-end',paddingRight:'5%'}}>
+                                    {/* <Text style={{fontSize:20, color:'#FFF'}}>Total<Text h4 h4Style={{color:'#FFF'}}>${this.state.allPrice}</Text></Text> */}
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{width:'100%', height:'25%', paddingLeft:'5%', paddingRight:'5%', paddingTop:'3%', paddingBottom:'3%'}}>
+                            <View style={{paddingBottom:3, borderBottomWidth:0.5}}>
+                                <Text style={{fontSize:20, fontWeight:'bold', color:'#000'}}>Basic Support</Text>
+                            </View>
+                            <View style={{flex:2, justifyContent:'flex-start', paddingTop:3}}>
+                                <View style={{flexDirection:"row"}}>
+                                    <Icon
+                                        name='checkmark-outline'
+                                        width={15}
+                                        height={15}
+                                    />
+                                    {/* <Text style={{color:'#000'}}>{tripOfferData.basicSupport.content}</Text> */}
+                                </View>
+                            </View>
+                        </View>
+
+                    </View>
+                    {
+                        // serviceOfferList.map((contact, i) => {
+                        //     console.log(this.state.serviceState[i])
+                        //     return(
+                        //         <ServiceItemComponent serviceSwitch={this.serviceSwitch.bind(this, i)} switchState={this.state.serviceState[i]} parentID={contact.ID+"#"+contact.SORTKEY} service={contact.serviceOfferInfo} key={i}></ServiceItemComponent>
+                        //     )
+                        // })
+                    }
+                    <View style={{height:screenHeight/5}}></View>
+                </ScrollView>
+                {/* <FlatList
+                    data = {}
+                    renderItem = {({ item }) => }
+                /> */}
+            </View>
+        </View>
+    )
+}
+
+const ServiceComponent = (props) => {
+    let [ serviceSwitch, setServiceSwitch ] = useState(false)
+
+    return(
+        <View style={{height:'auto', alignItems:'center'}}>
+            <View style={{width:'90%', flexDirection:'column'}}>
+                <View style={{paddingTop:20, paddingBottom:5, flexDirection:'row'}}>
+                    <Text style={{fontSize:20, fontWeight:'bold', color:'#4535AA'}}>Service Name</Text>
+                    <View style={{flex:1}}></View>
+                    <Switch
+                        onValueChange= {() => setServiceSwitch(!serviceSwitch)}
+                        value={serviceSwitch}
+                    />
+                </View>
+                <View style={{minHeight:30, backgroundColor:'#EBE8FA', borderRadius:10}}>
+                    <View>
+                        <View style={{minHeight:30, padding:10}}>
+                            <View style={{padding:10}}>
+                                <Text>{props.serviceInfo.content}</Text>
+                            </View>
+                            <View style={{backgroundColor:'#FFF', padding:10, flexDirection:'row'}}>
+                                <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
+                                    <Text>{props.serviceInfo.priceDesc}</Text>
+                                </View>
+                                <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
+                                    <Text>${props.serviceInfo.priceAmount}</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{height:30, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                            <Icon
+                                name='message-square-outline'
+                                width={18}
+                                height={18}
+                                fill='#4535AA'
+                            />
+                            <Text style={{color:'#4535AA', fontSize:13, borderBottomWidth:0.5}}>추가요청이 있으시면 여기를 눌러 코멘트를 남겨주세요.</Text>
+                        </View>
+                    </View>
+                </View>
             </View>
         </View>
     )

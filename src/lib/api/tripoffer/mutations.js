@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const createTripOffer = gql(`mutation createTripOffer($input: CreateTripOfferInput!) {
+export const createTripOffer = gql`mutation createTripOffer($input: CreateTripOfferInput!) {
     createTripOffer(input: $input) {
       ID
       SORTKEY
@@ -12,12 +12,12 @@ export const createTripOffer = gql(`mutation createTripOffer($input: CreateTripO
       paymentInfo
       tripReqID
     }
-  }`)
-export const updateTripOffer = gql(`mutation updateTripOffer($input: UpdateTripOfferInput!) {
+  }`
+export const updateTripOffer = gql`mutation updateTripOffer($input: UpdateTripOfferInput!) {
   updateTripOffer(input: $input) {
     ID
     SORTKEY
     chatID
     status
   }
-}`)
+}`

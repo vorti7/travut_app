@@ -71,8 +71,8 @@ export const mutations = {
     }
 }
 
-export const subscriptions = {
-    onCreateTripRequest: () => {
-        return buildSubscription( onCreateTripRequest, ListTripRequests )
-    }
-}
+// export const subscriptions = {
+//     onCreateTripRequest: () => {
+//         return buildSubscription( onCreateTripRequest, ListTripRequests )
+//     }
+// }

@@ -9,42 +9,42 @@ import * as Subscriptions from './subscriptions'
 import * as Mutations from './mutations'
 
 const GetTripOffer = Queries.getTripOffer
-const ListTripOffers = Queries.listTripOffers;
-const ListTripOffersByRequestID =Queries.listTripOffersByRequestID
+const ListTripOffers = Queries.listTripOffers
+const ListTripOffersByRequestID = Queries.listTripOffersByRequestID
 // const CreateTripOffer = gql(Mutations.createTripOffer);
 // const DeleteTripOffer = gql(Mutations.deleteTripOffer);
-const UpdateTripOffer = Mutations.updateTripOffer;
-const OnCreateTripOffer = Subscriptions.onCreateTripOffer;
+const UpdateTripOffer = Mutations.updateTripOffer
+const OnCreateTripOffer = Subscriptions.onCreateTripOffer
 // const onDeleteTripOffer = gql(Subscriptions.onDeleteTripOffer);
 // const onUpdateTripOffer = gql(Subscriptions.onUpdateTripOffer);
 
-// export const getTripOffer = (ID, SORTKEY) =>{
-//     return useQuery(Queries.getTripOffer, {
-//         variables: {
-//             gettripofferinput:{ ID: ID, SORTKEY: SORTKEY }
-//         },
-//         fetchPolicy: 'cache-and-network'
-//     })
-// }
+export const getTripOffer = (ID, SORTKEY) =>{
+    return useQuery(Queries.getTripOffer, {
+        variables: {
+            gettripofferinput:{ ID: ID, SORTKEY: SORTKEY }
+        },
+        fetchPolicy: 'cache-and-network'
+    })
+}
 
-// export const listTripOffers = () =>{
-//     return useQuery(Queries.listTripOffers, {
-//         fetchPolicy: 'cache-and-network'
-//     })
-// }
+export const listTripOffers = () =>{
+    return useQuery(Queries.listTripOffers, {
+        fetchPolicy: 'cache-and-network'
+    })
+}
 
-// export const listTripOffersByRequestID = (tripRequestID) =>{
-//     return useQuery(Queries.listTripOffersByRequestID, {
-//         variables: {
-//             triprequestid: tripRequestID,
-//         },
-//         fetchPolicy: 'cache-and-network'
-//     })
-// }
+export const listTripOffersByRequestID = (tripRequestID) =>{
+    return useQuery(Queries.listTripOffersByRequestID, {
+        variables: {
+            triprequestid: tripRequestID,
+        },
+        fetchPolicy: 'cache-and-network'
+    })
+}
 
-// export const updateTripOffer = () =>{
+export const updateTripOffer = () =>{
     
-// }
+}
 
 export const queries = {
     getTripOffer: () => {

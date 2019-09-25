@@ -1,13 +1,13 @@
 import gql from 'graphql-tag'
 
-export const getServiceOffer = gql(`query getServiceOffer($getserviceofferinput: GetInput!) {
+export const getServiceOffer = gql`query getServiceOffer($getserviceofferinput: GetInput!) {
     getServiceOffer(input: $getserviceofferinput) {
       ID
       SORTKEY
       chatID
     }
-  }`)
-export const listServiceOffers = gql(`query getServiceOffers {
+  }`
+export const listServiceOffers = gql`query getServiceOffers {
   listServiceOffers {
     items {
         ID
@@ -15,8 +15,8 @@ export const listServiceOffers = gql(`query getServiceOffers {
         chatID
     }
   }
-}`)
-export const listServiceOffersByTripOfferID = gql(`query getServiceOffersByTripOfferID($tripofferid: String!) {
+}`
+export const listServiceOffersByTripOfferID = gql`query getServiceOffersByTripOfferID($tripofferid: String!) {
   listServiceOffersByTripOfferID(tripOfferID: $tripofferid) {
     items {
         ID
@@ -24,4 +24,4 @@ export const listServiceOffersByTripOfferID = gql(`query getServiceOffersByTripO
         serviceOfferInfo
     }
   }
-}`)
+}`
